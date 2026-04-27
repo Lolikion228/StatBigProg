@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="GenSampleButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>GenNewSample</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuQMenu">
+    <property name="title">
+     <string>HistMenu</string>
+    </property>
+    <addaction name="actionDrawHist"/>
+    <addaction name="actionSetHistGenParams"/>
+    <addaction name="actionResetHistParams"/>
+   </widget>
+   <widget class="QMenu" name="menuBigMenu">
+    <property name="title">
+     <string>BigMenu</string>
+    </property>
+    <addaction name="actionClearAll"/>
+   </widget>
+   <widget class="QMenu" name="menuPDistMenu">
+    <property name="title">
+     <string>PDistMenu</string>
+    </property>
+    <addaction name="actionDrawPDist"/>
+    <addaction name="actionSetPDistGenParams"/>
+    <addaction name="actionResetPDistParams"/>
+   </widget>
+   <addaction name="menuQMenu"/>
+   <addaction name="menuPDistMenu"/>
+   <addaction name="menuBigMenu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionDrawHist">
+   <property name="text">
+    <string>DrawHist</string>
+   </property>
+  </action>
+  <action name="actionResetHistParams">
+   <property name="text">
+    <string>ResetHistParams</string>
+   </property>
+  </action>
+  <action name="actionSetHistGenParams">
+   <property name="text">
+    <string>SetHistGenParams</string>
+   </property>
+  </action>
+  <action name="actionClearAll">
+   <property name="text">
+    <string>ClearAll</string>
+   </property>
+  </action>
+  <action name="actionSetPDistGenParams">
+   <property name="text">
+    <string>SetPDistGenParams</string>
+   </property>
+  </action>
+  <action name="actionResetPDistParams">
+   <property name="text">
+    <string>ResetPDistParams</string>
+   </property>
+  </action>
+  <action name="actionDrawPDist">
+   <property name="text">
+    <string>DrawPDist</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
