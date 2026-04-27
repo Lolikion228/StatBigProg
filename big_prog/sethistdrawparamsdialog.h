@@ -13,8 +13,9 @@ class SetHistDrawParamsDialog : public QDialog
 {
     Q_OBJECT
 protected:
-    HistDrawParams* _hist_draw_params;
+
 public:
+    HistDrawParams* _hist_draw_params;
     explicit SetHistDrawParamsDialog(QWidget *parent = nullptr, HistDrawParams* hist_draw_params=nullptr);
     int get_n_bins() const;
     void paintEvent(QPaintEvent *) override;

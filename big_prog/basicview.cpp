@@ -8,7 +8,8 @@
 
 
 BasicView::BasicView(QWidget *parent, Document* doc)
-    : QWidget{parent}, index(0),  _doc(doc), hist_params(new HistDrawParams)
+    : QWidget{parent}, index(0),  _doc(doc),
+      hist_params(new HistDrawParams), pdist_draw_params(new PDistDrawParams)
 {}
 
 void BasicView::set_index(int i){
@@ -173,13 +174,13 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
 
     QColor legend_bg_clr = Qt::white;
 
-    QColor h0_clr = Qt::red;
+    QColor h0_clr = pdist_draw_params->_h0_clr;
     int h0_lw = 4;
 
-    QColor h1_clr = Qt::blue;
+    QColor h1_clr = pdist_draw_params->_h1_clr;
     int h1_lw = 4;
 
-    QColor uni_clr = Qt::green;
+    QColor uni_clr = pdist_draw_params->_uni_clr;
     int uni_lw = 2;
 
     // legend params

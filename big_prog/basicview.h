@@ -14,6 +14,12 @@ struct HistDrawParams{
     QColor _border_clr = QColor(180, 140, 155, 255);
 };
 
+struct PDistDrawParams{
+    QColor _h0_clr = Qt::red;
+    QColor _h1_clr = Qt::blue;
+    QColor _uni_clr = Qt::green;
+};
+
 
 
 class BasicView : public QWidget
@@ -26,6 +32,7 @@ protected:
 
 public:
     HistDrawParams* hist_params;
+    PDistDrawParams* pdist_draw_params;
     explicit BasicView(QWidget *parent = nullptr, Document *doc=nullptr);
     void set_index(int ix);
     int get_index() const;
