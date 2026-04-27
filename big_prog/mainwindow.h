@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "sethistgenparamsdialog.h"
-#include "sethistgenparamsdialog.h"
+#include "SetHistGenParamsDialog.h"
+#include "SetHistGenParamsDialog.h"
 #include "SetPDistGenParamsDialog.h"
 #include "SetPDistDrawParamsDialog.h"
 #include <QDebug>

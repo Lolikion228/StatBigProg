@@ -1,4 +1,4 @@
-#include "sethistdrawparamsdialog.h"
+#include "SetHistDrawParamsDialog.h"
 #include "ui_sethistdrawparamsdialog.h"
 #include <QMessageBox>
 #include <QColorDialog>

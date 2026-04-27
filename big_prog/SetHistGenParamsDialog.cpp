@@ -1,4 +1,4 @@
-#include "sethistgenparamsdialog.h"
+#include "SetHistGenParamsDialog.h"
 #include "ui_setgenparamsdialog.h"
 #include <QMessageBox>
 

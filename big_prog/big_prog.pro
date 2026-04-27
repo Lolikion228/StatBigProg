@@ -11,6 +11,8 @@ CONFIG += c++11
 SOURCES += \
     HistGenParams.cpp \
     PDistGenParams.cpp \
+    SetHistDrawParamsDialog.cpp \
+    SetHistGenParamsDialog.cpp \
     SetPDistDrawParamsDialog.cpp \
     SetPDistGenParamsDialog.cpp \
     basicview.cpp \
@@ -24,13 +26,13 @@ SOURCES += \
     poisgen1.cpp \
     poisgen2.cpp \
     probdist.cpp \
-    sethistdrawparamsdialog.cpp \
-    sethistgenparamsdialog.cpp \
     utils.cpp
 
 HEADERS += \
     HistGenParams.h \
     PDistGenParams.h \
+    SetHistDrawParamsDialog.h \
+    SetHistGenParamsDialog.h \
     SetPDistDrawParamsDialog.h \
     SetPDistGenParamsDialog.h \
     basicview.h \
@@ -43,16 +45,14 @@ HEADERS += \
     poisgen1.h \
     poisgen2.h \
     probdist.h \
-    sethistdrawparamsdialog.h \
-    sethistgenparamsdialog.h \
     utils.h
 
 FORMS += \
+    SetHistDrawParamsDialog.ui \
+    SetHistGenParamsDialog.ui \
     SetPDistDrawParamsDialog.ui \
     SetPDistGenParamsDialog.ui \
-    mainwindow.ui \
-    sethistdrawparamsdialog.ui \
-    sethistgenparamsdialog.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

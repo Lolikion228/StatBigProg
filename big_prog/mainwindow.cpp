@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "sethistdrawparamsdialog.h"
+#include "SetHistDrawParamsDialog.h"
 
 #include "poisgen2.h"
 
@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
         basic_view->hide();
     });
 }
+
 
 void MainWindow::onSetPDistGenParamsDialog(){
     SetPDistGenParamsDialog dialog(doc, this);
@@ -113,7 +114,6 @@ void MainWindow::onResetHistParams(){
     basic_view->show();
 }
 
-
 void MainWindow::onSetHistGenParamsDialog(){
     SetHistGenParamsDialog dialog(doc, this);
     int res = dialog.exec();
@@ -142,6 +142,20 @@ void MainWindow::onSetHistGenParamsDialog(){
         basic_view->show();
     }
 
+}
+
+void MainWindow::onDrawHist(){
+    SetHistDrawParamsDialog dialog(this, basic_view->hist_params);
+    int res = dialog.exec();
+    if(res == QDialog::Accepted){
+        basic_view->hist_params->_n_bins = dialog._hist_draw_params->_n_bins;
+        basic_view->hist_params->_bg_clr = dialog._hist_draw_params->_bg_clr;
+        basic_view->hist_params->_bin_clr = dialog._hist_draw_params->_bin_clr;
+        basic_view->hist_params->_border_clr = dialog._hist_draw_params->_border_clr;
+        basic_view->set_index(1);
+        basic_view->update();
+        basic_view->show();
+    }
 }
 
 
@@ -178,20 +192,6 @@ void MainWindow::resizeEvent(QResizeEvent *event){
     int h = event->size().height();
     this->basic_view->setGeometry((int)(0.1*w), (int)(0.1*h), (int)(0.8*w), (int)(0.8*h));
     this->ui->GenSampleButton->setGeometry((int)(0.1*w) + (int)(0.8*w*(1.0/3)),1, (int)(0.8*w*(1.0/3)), (int)(0.05*h));
-}
-
-void MainWindow::onDrawHist(){
-    SetHistDrawParamsDialog dialog(this, basic_view->hist_params);
-    int res = dialog.exec();
-    if(res == QDialog::Accepted){
-        basic_view->hist_params->_n_bins = dialog._hist_draw_params->_n_bins;
-        basic_view->hist_params->_bg_clr = dialog._hist_draw_params->_bg_clr;
-        basic_view->hist_params->_bin_clr = dialog._hist_draw_params->_bin_clr;
-        basic_view->hist_params->_border_clr = dialog._hist_draw_params->_border_clr;
-        basic_view->set_index(1);
-        basic_view->update();
-        basic_view->show();
-    }
 }
 
 
