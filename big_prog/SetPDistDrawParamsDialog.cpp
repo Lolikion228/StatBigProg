@@ -1,15 +1,14 @@
 #include "SetPDistDrawParamsDialog.h"
 #include "ui_SetPDistDrawParamsDialog.h"
 
-SetPDistDrawParamsDialog::SetPDistDrawParamsDialog(QWidget *parent,
-                                                   PDistDrawParams* pdist_draw_params) :
+SetPDistDrawParamsDialog::SetPDistDrawParamsDialog(PDistDrawParams pdist_draw_params, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SetPDistDrawParamsDialog),
-    _pdist_draw_params(new PDistDrawParams)
+    _pdist_draw_params(PDistDrawParams{})
 {
-    _pdist_draw_params->_h0_clr = pdist_draw_params->_h0_clr;
-    _pdist_draw_params->_h1_clr = pdist_draw_params->_h1_clr;
-    _pdist_draw_params->_uni_clr = pdist_draw_params->_uni_clr;
+    _pdist_draw_params._h0_clr = pdist_draw_params._h0_clr;
+    _pdist_draw_params._h1_clr = pdist_draw_params._h1_clr;
+    _pdist_draw_params._uni_clr = pdist_draw_params._uni_clr;
 
     ui->setupUi(this);
 
@@ -22,25 +21,25 @@ SetPDistDrawParamsDialog::SetPDistDrawParamsDialog(QWidget *parent,
 }
 
 void SetPDistDrawParamsDialog::on_h0_clr(){
-    QColor selectedColor = QColorDialog::getColor(_pdist_draw_params->_h0_clr, this, "Выберите цвет");
+    QColor selectedColor = QColorDialog::getColor(_pdist_draw_params._h0_clr, this, "Выберите цвет");
     if(selectedColor.isValid()){
-        _pdist_draw_params->_h0_clr = selectedColor;
+        _pdist_draw_params._h0_clr = selectedColor;
         update();
     }
 }
 
 void SetPDistDrawParamsDialog::on_h1_clr(){
-    QColor selectedColor = QColorDialog::getColor(_pdist_draw_params->_h1_clr, this, "Выберите цвет");
+    QColor selectedColor = QColorDialog::getColor(_pdist_draw_params._h1_clr, this, "Выберите цвет");
     if(selectedColor.isValid()){
-        _pdist_draw_params->_h1_clr = selectedColor;
+        _pdist_draw_params._h1_clr = selectedColor;
         update();
     }
 }
 
 void SetPDistDrawParamsDialog::on_uni_clr(){
-    QColor selectedColor = QColorDialog::getColor(_pdist_draw_params->_uni_clr, this, "Выберите цвет");
+    QColor selectedColor = QColorDialog::getColor(_pdist_draw_params._uni_clr, this, "Выберите цвет");
     if(selectedColor.isValid()){
-        _pdist_draw_params->_uni_clr = selectedColor;
+        _pdist_draw_params._uni_clr = selectedColor;
         update();
     }
 }
@@ -53,15 +52,15 @@ void SetPDistDrawParamsDialog::paintEvent(QPaintEvent *){
     int w = ui->h0_pushButton->geometry().width();
     int h = ui->h0_pushButton->geometry().height();
 
-    painter.setBrush(_pdist_draw_params->_h0_clr);
+    painter.setBrush(_pdist_draw_params._h0_clr);
     painter.drawRect(x + w + 10, y, w, h);
 
     y = ui->h1_pushButton->geometry().y();
-    painter.setBrush(_pdist_draw_params->_h1_clr);
+    painter.setBrush(_pdist_draw_params._h1_clr);
     painter.drawRect(x + w + 10, y, w, h);
 
     y = ui->uni_pushButton->geometry().y();
-    painter.setBrush(_pdist_draw_params->_uni_clr);
+    painter.setBrush(_pdist_draw_params._uni_clr);
     painter.drawRect(x + w + 10, y, w, h);
 }
 

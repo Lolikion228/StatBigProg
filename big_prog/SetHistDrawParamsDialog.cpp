@@ -4,19 +4,19 @@
 #include <QColorDialog>
 #include <QPainter>
 
-SetHistDrawParamsDialog::SetHistDrawParamsDialog(QWidget *parent, HistDrawParams* hist_draw_params) :
+SetHistDrawParamsDialog::SetHistDrawParamsDialog(HistDrawParams hist_draw_params, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SetHistDrawParamsDialog),
-    _hist_draw_params(new HistDrawParams)
+    _hist_draw_params(HistDrawParams{})
 {
-    _hist_draw_params->_bg_clr = hist_draw_params->_bg_clr;
-    _hist_draw_params->_bin_clr = hist_draw_params->_bin_clr;
-    _hist_draw_params->_border_clr = hist_draw_params->_border_clr;
-    _hist_draw_params->_n_bins = hist_draw_params->_n_bins;
+    _hist_draw_params._bg_clr = hist_draw_params._bg_clr;
+    _hist_draw_params._bin_clr = hist_draw_params._bin_clr;
+    _hist_draw_params._border_clr = hist_draw_params._border_clr;
+    _hist_draw_params._n_bins = hist_draw_params._n_bins;
 
     ui->setupUi(this);
 
-    ui->n_bins_edit->setText(QString::number(_hist_draw_params->_n_bins));
+    ui->n_bins_edit->setText(QString::number(_hist_draw_params._n_bins));
 
     ui->buttonBox->disconnect();
     connect(ui->buttonBox, &QDialogButtonBox::accepted,
@@ -41,41 +41,41 @@ void SetHistDrawParamsDialog::paintEvent(QPaintEvent *){
     int w = ui->SetBgClrButton->geometry().width();
     int h = ui->SetBgClrButton->geometry().height();
 
-    painter.setBrush(_hist_draw_params->_bg_clr);
+    painter.setBrush(_hist_draw_params._bg_clr);
     painter.drawRect(x + w + 10, y, w, h);
 
 
     y = ui->SetRectClrButton->geometry().y();
-    painter.setBrush(_hist_draw_params->_bin_clr);
+    painter.setBrush(_hist_draw_params._bin_clr);
     painter.drawRect(x + w + 10, y, w, h);
 
     y = ui->SetBorderClrButton->geometry().y();
-    painter.setBrush(_hist_draw_params->_border_clr);
+    painter.setBrush(_hist_draw_params._border_clr);
     painter.drawRect(x + w + 10, y, w, h);
 
 
 }
 
 void SetHistDrawParamsDialog::on_bg_clr(){
-    QColor selectedColor = QColorDialog::getColor(_hist_draw_params->_bg_clr, this, "Выберите цвет");
+    QColor selectedColor = QColorDialog::getColor(_hist_draw_params._bg_clr, this, "Выберите цвет");
     if(selectedColor.isValid()){
-        _hist_draw_params->_bg_clr = selectedColor;
+        _hist_draw_params._bg_clr = selectedColor;
         update();
     }
 }
 
 void SetHistDrawParamsDialog::on_border_clr(){
-    QColor selectedColor = QColorDialog::getColor(_hist_draw_params->_border_clr, this, "Выберите цвет");
+    QColor selectedColor = QColorDialog::getColor(_hist_draw_params._border_clr, this, "Выберите цвет");
     if(selectedColor.isValid()){
-        _hist_draw_params->_border_clr = selectedColor;
+        _hist_draw_params._border_clr = selectedColor;
         update();
     }
 }
 
 void SetHistDrawParamsDialog::on_rect_clr(){
-    QColor selectedColor = QColorDialog::getColor(_hist_draw_params->_bin_clr, this, "Выберите цвет");
+    QColor selectedColor = QColorDialog::getColor(_hist_draw_params._bin_clr, this, "Выберите цвет");
     if(selectedColor.isValid()){
-        _hist_draw_params->_bin_clr = selectedColor;
+        _hist_draw_params._bin_clr = selectedColor;
         update();
     }
 }
@@ -107,7 +107,7 @@ void SetHistDrawParamsDialog::on_buttonBox_accepted()
         return;
     }
 
-    _hist_draw_params->_n_bins = ui->n_bins_edit->text().toInt();
+    _hist_draw_params._n_bins = ui->n_bins_edit->text().toInt();
     accept();
 }
 

@@ -8,9 +8,6 @@
 const int SUPER_SEED = 2027;
 
 
-/*
-dont make draw params as pointers
-*/
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -91,12 +88,12 @@ void MainWindow::onResetPDistParams(){
 }
 
 void MainWindow::onDrawPDist(){
-    SetPDistDrawParamsDialog dialog(this, this->basic_view->pdist_draw_params);
+    SetPDistDrawParamsDialog dialog(*(basic_view->pdist_draw_params), this);
     int res = dialog.exec();
     if(res == QDialog::Accepted){
-        basic_view->pdist_draw_params->_h0_clr = dialog._pdist_draw_params->_h0_clr;
-        basic_view->pdist_draw_params->_h1_clr = dialog._pdist_draw_params->_h1_clr;
-        basic_view->pdist_draw_params->_uni_clr = dialog._pdist_draw_params->_uni_clr;
+        basic_view->pdist_draw_params->_h0_clr = dialog._pdist_draw_params._h0_clr;
+        basic_view->pdist_draw_params->_h1_clr = dialog._pdist_draw_params._h1_clr;
+        basic_view->pdist_draw_params->_uni_clr = dialog._pdist_draw_params._uni_clr;
         basic_view->set_index(2);
         basic_view->update();
         basic_view->show();
@@ -147,14 +144,13 @@ void MainWindow::onSetHistGenParamsDialog(){
 }
 
 void MainWindow::onDrawHist(){
-    SetHistDrawParamsDialog dialog(this, basic_view->hist_params);
+    SetHistDrawParamsDialog dialog(*(basic_view->hist_params), this);
     int res = dialog.exec();
     if(res == QDialog::Accepted){
-        basic_view->hist_params->_n_bins = dialog._hist_draw_params->_n_bins;
-        qDebug() << basic_view->hist_params->_n_bins << " " << dialog._hist_draw_params->_n_bins;
-        basic_view->hist_params->_bg_clr = dialog._hist_draw_params->_bg_clr;
-        basic_view->hist_params->_bin_clr = dialog._hist_draw_params->_bin_clr;
-        basic_view->hist_params->_border_clr = dialog._hist_draw_params->_border_clr;
+        basic_view->hist_params->_n_bins = dialog._hist_draw_params._n_bins;
+        basic_view->hist_params->_bg_clr = dialog._hist_draw_params._bg_clr;
+        basic_view->hist_params->_bin_clr = dialog._hist_draw_params._bin_clr;
+        basic_view->hist_params->_border_clr = dialog._hist_draw_params._border_clr;
         basic_view->set_index(1);
         basic_view->update();
         basic_view->show();

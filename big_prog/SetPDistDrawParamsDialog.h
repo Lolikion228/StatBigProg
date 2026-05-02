@@ -16,9 +16,8 @@ class SetPDistDrawParamsDialog : public QDialog
 protected:
 
 public:
-    PDistDrawParams* _pdist_draw_params;
-    explicit SetPDistDrawParamsDialog(QWidget *parent = nullptr,
-                                      PDistDrawParams* pdist_draw_params=nullptr);
+    PDistDrawParams _pdist_draw_params;
+    explicit SetPDistDrawParamsDialog(PDistDrawParams pdist_draw_params, QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *) override;
     void on_h0_clr();
     void on_h1_clr();
