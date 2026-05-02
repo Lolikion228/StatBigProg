@@ -289,49 +289,153 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
 
 }
 
+
+
+
 void BasicView::draw_time_event(QPainter &painter){
-    int sample_size = _doc->draw_time_params->sample_size;
-    double cnt_steps = _doc->draw_time_params->cnt_steps;
-    double lambda_min = _doc->draw_time_params->lambda_min;
-    double lambda_max = _doc->draw_time_params->lambda_max;
-
-    int* sample_1 = new int[sample_size]{};
-    int* sample_2 = new int[sample_size]{};
-
-    std::chrono::time_point<std::chrono::high_resolution_clock> start;
-    std::chrono::time_point<std::chrono::high_resolution_clock> end;
-
-    std::chrono::milliseconds* dur1 = new std::chrono::milliseconds[int(cnt_steps) + 1]{};
-    std::chrono::milliseconds* dur2 = new std::chrono::milliseconds[int(cnt_steps) + 1]{};
-
-
-    for(int i=0; i<=cnt_steps; ++i){
-        double lambda = lambda_min + (i / cnt_steps) * (lambda_max - lambda_min);
-        PoisGen1 gen1 = PoisGen1(lambda, _doc->_stdgen);
-        PoisGen2 gen2 = PoisGen2(lambda, _doc->_stdgen);
-
-        start = std::chrono::high_resolution_clock::now();
-        get_sample(sample_size, sample_1, &gen1);
-        end = std::chrono::high_resolution_clock::now();
-        dur1[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-
-        start = std::chrono::high_resolution_clock::now();
-        get_sample(sample_size, sample_2, &gen2);
-        end = std::chrono::high_resolution_clock::now();
-        dur2[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-    }
+    int cnt_steps = _doc->draw_time_params->cnt_steps;
+    double lambda_min =  _doc->draw_time_params->lambda_min;
+    double lambda_max =  _doc->draw_time_params->lambda_max;
+    std::chrono::milliseconds* dur1 = _doc->draw_time_params->dur1;
+    std::chrono::milliseconds* dur2 = _doc->draw_time_params->dur2;
 
     for(int i=0; i<=cnt_steps; ++i){
         qDebug() << "lambda = " << lambda_min + (i / cnt_steps) * (lambda_max - lambda_min) << ""  << dur1[i].count() << " " << dur2[i].count() << "\n";
     }
-
     qDebug() << "\n\n";
 
+    int w = this->size().width();
+    int h = this->size().height();
 
-    delete[] dur1;
-    delete[] dur2;
-    delete[] sample_1;
-    delete[] sample_2;
+    int margin = h/10;
+    int plot_h = h - 2 * margin;
+    int N = cnt_steps + 1;
+    double* F0 = new double[N];
+    double* F1 = new double[N];
+    double mn=std::numeric_limits<double>::max();
+    double mx=-1;
+    for(int i=0; i<N; ++i){
+        F0[i] = _doc->draw_time_params->dur1[i].count();
+        F1[i] = _doc->draw_time_params->dur2[i].count();
+        mx = std::max(mx,F0[i]);
+        mx = std::max(mx,F1[i]);
+    }
+    for(int i=0; i<N; ++i){
+       F0[i] /= mx;
+       F1[i] /= mx;
+    }
+
+    double step = (w - 2 * margin) / N;
+
+    // draw frame
+    painter.setBrush(hist_params->_bg_clr);
+    painter.setPen(QPen(Qt::black, 2));
+    painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
+
+
+    // draw title
+    painter.setPen(Qt::black);
+    painter.setFont(QFont("Arial", margin/(3), QFont::Bold));
+    QString title = QString("Время моделирования (млсек) VS lambda [n=%1]").arg(_doc->draw_time_params->sample_size);
+    painter.drawText(4, 0, w, margin, Qt::AlignCenter, title);
+
+    // draw axes
+    painter.setPen(QPen(Qt::black, 3));
+    painter.drawLine(margin, h - margin, margin, 0);
+    painter.drawLine(margin, h - margin, w, h-margin);
+
+//    QColor legend_bg_clr = Qt::white;
+
+    QColor h0_clr = Qt::red;
+    int h0_lw = 4;
+
+    QColor h1_clr = Qt::blue;
+    int h1_lw = 4;
+
+    // legend params
+//    int p1 = 6;
+//    double p2 = 0.7;
+//    painter.setBrush(legend_bg_clr);
+//    int leg_x = margin + step * (N-p1);
+//    int leg_y = margin + plot_h * p2;
+//    int leg_w = step * p1;
+//    int leg_h = plot_h * (1-p2);
+//    int leg_mrg = leg_w/10;
+//    painter.drawRect(leg_x,leg_y,leg_w,leg_h);
+
+    painter.setFont(QFont("Arial", margin/6, QFont::Bold));
+
+
+    // draw h0_pval_dist
+    painter.setPen(QPen(h0_clr, h0_lw));
+
+    // legend
+//    painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/6,
+//                     leg_x + leg_w / 2.0 , leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/6);
+
+
+//    painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 0*(leg_h-2*leg_mrg)/3,
+//                     leg_w / 2.0, (leg_h-2*leg_mrg)/3,
+//                     Qt::AlignCenter,
+//                     QString("method_1"));
+
+    // plot
+    for(int i=0; i<N-1; ++i){
+        painter.drawLine(margin + step * (i), margin + plot_h - plot_h * F0[i] * 10.0/11,
+                         margin + step * (i+1), margin + plot_h - plot_h * F0[i+1] * 10.0/11);
+    }
+
+
+    // draw h1_pval_dist
+    painter.setPen(QPen(h1_clr, h1_lw));
+
+    // legend
+//    painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 3*(leg_h-2*leg_mrg)/6,
+//                     leg_x + leg_w / 2.0 , leg_y + leg_mrg + 3*(leg_h-2*leg_mrg)/6);
+
+//    painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/3,
+//                     leg_w / 2.0, (leg_h-2*leg_mrg)/3,
+//                     Qt::AlignCenter,
+//                     QString("method_2"));
+
+    // plot
+    for(int i=0; i<N-1; ++i){
+        painter.drawLine(margin + step * (i), margin + plot_h - plot_h * F1[i] * 10.0/11,
+                         margin + step * (i+1), margin + plot_h - plot_h * F1[i+1] * 10.0/11);
+    }
+
+
+    // draw X-ticks
+    painter.setFont(QFont("Arial", margin/6, QFont::Bold));
+    painter.setPen(QPen(Qt::black, 2));
+    for(int i=0; i<N; ++i){
+        painter.drawLine(margin + step * i, h - margin,
+                         margin + step * i, h - 3*(margin/4));
+
+        painter.save();
+        painter.translate(margin/2 + step * i, h-margin/5);
+        painter.rotate(-45);
+        painter.drawText(0,0,
+                         step, margin/2,
+                         Qt::AlignCenter,
+                         QString::number(lambda_min + ((double)i / cnt_steps) * (lambda_max - lambda_min), 'f', 2 ));
+        painter.restore();
+    }
+
+    // draw Y-ticks
+    for(int i=0; i<11; ++i){
+        painter.drawLine(3*(margin/4), margin + plot_h - i*plot_h/11,
+                         margin, margin + plot_h - i*plot_h/11);
+
+        painter.drawText(0, margin + plot_h - plot_h/22 - i*plot_h/11,
+                         margin/2, plot_h/11,
+                         Qt::AlignCenter,
+                         QString::number(i/10.0 * mx, 'f', 1 ));
+    }
+
+
+
+
 }
 
 int BasicView::get_index() const{

@@ -179,7 +179,7 @@ void MainWindow::onGenSampleButton(){
                                              doc->pdist_gen_params->h1_sample);
     }
     if(ix == 3){
-
+        doc->draw_time_params->update_dur();
     }
 
     basic_view->update();
@@ -205,6 +205,7 @@ void MainWindow::onDrawTime(){
         doc->draw_time_params->lambda_max = dialog.get_lambda_max();
         doc->draw_time_params->cnt_steps = dialog.get_cnt_steps();
         doc->draw_time_params->sample_size = dialog.get_sample_size();
+        doc->draw_time_params->update_dur();
 
         basic_view->set_index(3);
         basic_view->update();
