@@ -7,6 +7,10 @@
 
 const int SUPER_SEED = 2027;
 
+
+/*
+dont make draw params as pointers
+*/
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -147,6 +151,7 @@ void MainWindow::onDrawHist(){
     int res = dialog.exec();
     if(res == QDialog::Accepted){
         basic_view->hist_params->_n_bins = dialog._hist_draw_params->_n_bins;
+        qDebug() << basic_view->hist_params->_n_bins << " " << dialog._hist_draw_params->_n_bins;
         basic_view->hist_params->_bg_clr = dialog._hist_draw_params->_bg_clr;
         basic_view->hist_params->_bin_clr = dialog._hist_draw_params->_bin_clr;
         basic_view->hist_params->_border_clr = dialog._hist_draw_params->_border_clr;
@@ -171,6 +176,8 @@ void MainWindow::onGenSampleButton(){
         doc->hist_gen_params->sample->set_sample(sample,N);
     }
     if(ix == 2){
+        delete[] doc->pdist_gen_params->h0_sample;
+        delete[] doc->pdist_gen_params->h1_sample;
         doc->pdist_gen_params->N = get_pdist(doc->pdist_gen_params->h0_gen,
                                              doc->pdist_gen_params->h1_gen,
                                              doc->pdist_gen_params->psample_size,

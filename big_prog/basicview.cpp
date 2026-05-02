@@ -156,7 +156,7 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     double step = (w - 2 * margin) / N;
 
     // draw frame
-    painter.setBrush(hist_params->_bg_clr);
+    painter.setBrush(QColor(245, 235, 240, 140));
     painter.setPen(QPen(Qt::black, 2));
     painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
 
@@ -328,7 +328,7 @@ void BasicView::draw_time_event(QPainter &painter){
     double step = (w - 2 * margin) / N;
 
     // draw frame
-    painter.setBrush(hist_params->_bg_clr);
+    painter.setBrush(QColor(245, 235, 240, 140));
     painter.setPen(QPen(Qt::black, 2));
     painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
 
@@ -434,7 +434,8 @@ void BasicView::draw_time_event(QPainter &painter){
     }
 
 
-
+    delete[] F0;
+    delete[] F1;
 
 }
 

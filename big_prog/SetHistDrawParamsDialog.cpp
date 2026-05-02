@@ -107,6 +107,7 @@ void SetHistDrawParamsDialog::on_buttonBox_accepted()
         return;
     }
 
+    _hist_draw_params->_n_bins = ui->n_bins_edit->text().toInt();
     accept();
 }
 
