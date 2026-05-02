@@ -289,6 +289,51 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
 
 }
 
+void BasicView::draw_time_event(QPainter &painter){
+    int sample_size = _doc->draw_time_params->sample_size;
+    double cnt_steps = _doc->draw_time_params->cnt_steps;
+    double lambda_min = _doc->draw_time_params->lambda_min;
+    double lambda_max = _doc->draw_time_params->lambda_max;
+
+    int* sample_1 = new int[sample_size]{};
+    int* sample_2 = new int[sample_size]{};
+
+    std::chrono::time_point<std::chrono::high_resolution_clock> start;
+    std::chrono::time_point<std::chrono::high_resolution_clock> end;
+
+    std::chrono::milliseconds* dur1 = new std::chrono::milliseconds[int(cnt_steps) + 1]{};
+    std::chrono::milliseconds* dur2 = new std::chrono::milliseconds[int(cnt_steps) + 1]{};
+
+
+    for(int i=0; i<=cnt_steps; ++i){
+        double lambda = lambda_min + (i / cnt_steps) * (lambda_max - lambda_min);
+        PoisGen1 gen1 = PoisGen1(lambda, _doc->_stdgen);
+        PoisGen2 gen2 = PoisGen2(lambda, _doc->_stdgen);
+
+        start = std::chrono::high_resolution_clock::now();
+        get_sample(sample_size, sample_1, &gen1);
+        end = std::chrono::high_resolution_clock::now();
+        dur1[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+        start = std::chrono::high_resolution_clock::now();
+        get_sample(sample_size, sample_2, &gen2);
+        end = std::chrono::high_resolution_clock::now();
+        dur2[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    }
+
+    for(int i=0; i<=cnt_steps; ++i){
+        qDebug() << "lambda = " << lambda_min + (i / cnt_steps) * (lambda_max - lambda_min) << ""  << dur1[i].count() << " " << dur2[i].count() << "\n";
+    }
+
+    qDebug() << "\n\n";
+
+
+    delete[] dur1;
+    delete[] dur2;
+    delete[] sample_1;
+    delete[] sample_2;
+}
+
 int BasicView::get_index() const{
     return index;
 }
@@ -306,6 +351,10 @@ void BasicView::paintEvent(QPaintEvent *){
 
     if(index==2){
         draw_pval_dist_event(painter);
+    }
+
+    if(index==3){
+        draw_time_event(painter);
     }
 
 };

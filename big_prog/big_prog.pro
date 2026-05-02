@@ -9,6 +9,8 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    DrawTimeDialog.cpp \
+    DrawTimeParams.cpp \
     HistGenParams.cpp \
     PDistGenParams.cpp \
     SetHistDrawParamsDialog.cpp \
@@ -29,6 +31,8 @@ SOURCES += \
     utils.cpp
 
 HEADERS += \
+    DrawTimeDialog.h \
+    DrawTimeParams.h \
     HistGenParams.h \
     PDistGenParams.h \
     SetHistDrawParamsDialog.h \
@@ -48,6 +52,7 @@ HEADERS += \
     utils.h
 
 FORMS += \
+    DrawTimeDialog.ui \
     SetHistDrawParamsDialog.ui \
     SetHistGenParamsDialog.ui \
     SetPDistDrawParamsDialog.ui \

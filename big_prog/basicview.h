@@ -41,6 +41,7 @@ public:
     void paintEvent(QPaintEvent *) override;
     void draw_hist_event(QPainter& painter);
     void draw_pval_dist_event(QPainter& painter);
+    void draw_time_event(QPainter& painter);
     void showEvent(QShowEvent *) override;
 signals:
 

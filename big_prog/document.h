@@ -13,7 +13,7 @@
 #include <QDebug>
 #include "HistGenParams.h"
 #include "PDistGenParams.h"
-
+#include "DrawTimeParams.h"
 
 
 class Document
@@ -21,8 +21,10 @@ class Document
 protected:
 
 public:
+    std::mt19937_64* _stdgen;
     HistGenParams* hist_gen_params;
     PDistGenParams* pdist_gen_params;
+    DrawTimeParams* draw_time_params;
 
     Document(std::mt19937_64* stdgen);
     ~Document();

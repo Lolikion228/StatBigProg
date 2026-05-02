@@ -12,6 +12,8 @@
 #include <QMessageBox>
 #include "basicview.h"
 #include <QResizeEvent>
+#include "DrawTimeDialog.h"
+#include "DrawTimeParams.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

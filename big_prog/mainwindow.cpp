@@ -178,6 +178,9 @@ void MainWindow::onGenSampleButton(){
                                              doc->pdist_gen_params->h0_sample,
                                              doc->pdist_gen_params->h1_sample);
     }
+    if(ix == 3){
+
+    }
 
     basic_view->update();
     basic_view->show();
@@ -195,44 +198,19 @@ void MainWindow::resizeEvent(QResizeEvent *event){
 
 
 void MainWindow::onDrawTime(){
-    double lambda_min = 1.0;
-    double lambda_max = 40.0;
-    double cnt_steps = 13;
-    int sample_size = 100000;
-    int* sample_1 = new int[sample_size]{};
-    int* sample_2 = new int[sample_size]{};
+    DrawTimeDialog dialog(this, doc->draw_time_params);
+    int res = dialog.exec();
+    if(res==QDialog::Accepted){
+        doc->draw_time_params->lambda_min = dialog.get_lambda_min();
+        doc->draw_time_params->lambda_max = dialog.get_lambda_max();
+        doc->draw_time_params->cnt_steps = dialog.get_cnt_steps();
+        doc->draw_time_params->sample_size = dialog.get_sample_size();
 
-    std::chrono::time_point<std::chrono::high_resolution_clock> start;
-    std::chrono::time_point<std::chrono::high_resolution_clock> end;
-
-    std::chrono::milliseconds* dur1 = new std::chrono::milliseconds[int(cnt_steps) + 1]{};
-    std::chrono::milliseconds* dur2 = new std::chrono::milliseconds[int(cnt_steps) + 1]{};
-//    std::chrono::milliseconds dur2[cnt_steps];
-
-    for(int i=0; i<=cnt_steps; ++i){
-        double lambda = lambda_min + (i / cnt_steps) * (lambda_max - lambda_min);
-        PoisGen1 gen1 = PoisGen1(lambda, stdgen);
-        PoisGen2 gen2 = PoisGen2(lambda, stdgen);
-
-        start = std::chrono::high_resolution_clock::now();
-        get_sample(sample_size, sample_1, &gen1);
-        end = std::chrono::high_resolution_clock::now();
-        dur1[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-
-        start = std::chrono::high_resolution_clock::now();
-        get_sample(sample_size, sample_2, &gen2);
-        end = std::chrono::high_resolution_clock::now();
-        dur2[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+        basic_view->set_index(3);
+        basic_view->update();
+        basic_view->show();
     }
 
-    for(int i=0; i<=cnt_steps; ++i){
-        qDebug() << dur1[i].count() << " " << dur2[i].count() << "\n";
-    }
-
-    delete[] sample_1;
-    delete[] sample_2;
-    delete[] dur1;
-    delete[] dur2;
 }
 
 void MainWindow::onResetTimeParams(){
