@@ -316,3 +316,17 @@ void BasicView::showEvent(QShowEvent *)
     int h = this->parentWidget()->size().height();
     setGeometry((int)(0.1*w), (int)(0.1*h), (int)(0.8*w), (int)(0.8*h));
 }
+
+
+
+BasicView::~BasicView(){
+    delete hist_params;
+    delete pdist_draw_params;
+};
+
+
+
+
+
+
+

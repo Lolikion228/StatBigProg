@@ -11,7 +11,8 @@ Document::Document(std::mt19937_64* stdgen):
 
 
 Document::~Document(){
-//    delete hist_gen_params;
+    delete hist_gen_params;
+    delete pdist_gen_params;
 }
 
 

@@ -7,7 +7,9 @@ PDistGenParams::PDistGenParams(std::mt19937_64* stdgen):
     h0_lambda(20),
     h1_lambda(20.5),
     h0_gen(new PoisGen1(h0_lambda, stdgen)),
-    h1_gen(new PoisGen1(h1_lambda, stdgen))
+    h1_gen(new PoisGen1(h1_lambda, stdgen)),
+    h0_sample(nullptr),
+    h1_sample(nullptr)
 {
     N = get_pdist(h0_gen, h1_gen,
               psample_size, main_sample_size,
@@ -15,5 +17,8 @@ PDistGenParams::PDistGenParams(std::mt19937_64* stdgen):
 }
 
 PDistGenParams::~PDistGenParams(){
-//delete
+    delete h0_gen;
+    delete h1_gen;
+    delete[] h0_sample;
+    delete[] h1_sample;
 }

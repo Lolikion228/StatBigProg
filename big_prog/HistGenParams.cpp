@@ -16,4 +16,5 @@ HistGenParams::HistGenParams(std::mt19937_64* stdgen):
 
 HistGenParams::~HistGenParams(){
     delete sample;
+    delete curr_gen;
 }

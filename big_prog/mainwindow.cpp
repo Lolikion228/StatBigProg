@@ -7,10 +7,6 @@
 
 const int SUPER_SEED = 2027;
 
-/*
-прочекать фришки
-*/
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
