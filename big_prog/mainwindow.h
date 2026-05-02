@@ -35,11 +35,16 @@ public slots:
     void onSetHistGenParamsDialog();
     void onResetHistParams();
     void onDrawHist();
-    void onGenSampleButton();
 
     void onSetPDistGenParamsDialog();
     void onResetPDistParams();
     void onDrawPDist();
+
+    void onGenSampleButton();
+
+
+    void onDrawTime();
+    void onResetTimeParams();
 
     void resizeEvent(QResizeEvent *event) override;
 };

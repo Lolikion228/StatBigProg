@@ -59,8 +59,16 @@
     <addaction name="actionSetPDistGenParams"/>
     <addaction name="actionResetPDistParams"/>
    </widget>
+   <widget class="QMenu" name="menuTimeMenu">
+    <property name="title">
+     <string>TimeMenu</string>
+    </property>
+    <addaction name="actionDrawTime"/>
+    <addaction name="actionResetTimeParams"/>
+   </widget>
    <addaction name="menuQMenu"/>
    <addaction name="menuPDistMenu"/>
+   <addaction name="menuTimeMenu"/>
    <addaction name="menuBigMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -97,6 +105,16 @@
   <action name="actionDrawPDist">
    <property name="text">
     <string>DrawPDist</string>
+   </property>
+  </action>
+  <action name="actionDrawTime">
+   <property name="text">
+    <string>DrawTime</string>
+   </property>
+  </action>
+  <action name="actionResetTimeParams">
+   <property name="text">
+    <string>ResetTimeParams</string>
    </property>
   </action>
  </widget>
