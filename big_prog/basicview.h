@@ -45,6 +45,16 @@ public:
     void draw_pval_dist_event(QPainter& painter);
     void draw_time_event(QPainter& painter);
     void showEvent(QShowEvent *) override;
+    
+private:
+    void draw_plot_frame(QPainter& painter, int w, int h, const QString& title, 
+                         QColor bg_clr, bool draw_legend_box);
+    void draw_y_ticks(QPainter& painter, int h, double max_val, bool is_prob);
+    void draw_line_plot(QPainter& painter, int w, int h, int margin, 
+                        double* x_vals, double* y_vals, int n_points,
+                        QColor line_clr, int line_width,
+                        bool draw_xticks, bool draw_yticks,
+                        double y_max = 1.0, bool y_is_prob = false);
 signals:
 
 };

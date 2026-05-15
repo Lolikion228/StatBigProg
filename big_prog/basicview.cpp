@@ -21,6 +21,107 @@ void BasicView::set_doc(Document* doc){
 }
 
 
+void BasicView::draw_plot_frame(QPainter& painter, int w, int h, const QString& title, 
+                                 QColor bg_clr, bool draw_legend_box) {
+    int margin = h / 10;
+    int plot_h = h - 2 * margin;
+
+    // draw frame
+    painter.setBrush(bg_clr);
+    painter.setPen(QPen(Qt::black, 2));
+    painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
+
+    // draw title
+    painter.setPen(Qt::black);
+    painter.setFont(QFont("Arial", margin / 3, QFont::Bold));
+    painter.drawText(4, 0, w, margin, Qt::AlignCenter, title);
+
+    // draw axes
+    painter.setPen(QPen(Qt::black, 3));
+    painter.drawLine(margin, h - margin, margin, 0);
+    painter.drawLine(margin, h - margin, w, h - margin);
+
+    if (draw_legend_box) {
+        painter.setBrush(Qt::white);
+        double step = (w - 2 * margin) / _doc->pdist_gen_params->N;
+        int p1 = 6;
+        double p2 = 0.7;
+        int leg_x = margin + step * (_doc->pdist_gen_params->N - p1);
+        int leg_y = margin + plot_h * p2;
+        int leg_w = step * p1;
+        int leg_h = plot_h * (1 - p2);
+        painter.drawRect(leg_x, leg_y, leg_w, leg_h);
+    }
+}
+
+void BasicView::draw_y_ticks(QPainter& painter, int h, double max_val, bool is_prob) {
+    int margin = h / 10;
+    int plot_h = h - 2 * margin;
+
+    painter.setFont(QFont("Arial", margin / 6, QFont::Bold));
+    painter.setPen(QPen(Qt::black, 2));
+    for (int i = 0; i < 11; ++i) {
+        painter.drawLine(3 * (margin / 4), margin + plot_h - i * plot_h / 11,
+                         margin, margin + plot_h - i * plot_h / 11);
+
+        double label_val;
+        if (is_prob) {
+            label_val = max_val * (i / 10.0);
+        } else {
+            label_val = i / 10.0;
+        }
+
+        painter.drawText(0, margin + plot_h - plot_h / 22 - i * plot_h / 11,
+                         margin / 2, plot_h / 11,
+                         Qt::AlignCenter,
+                         QString::number(label_val, 'f', 2));
+    }
+}
+
+void BasicView::draw_line_plot(QPainter& painter, int w, int h, int margin,
+                                double* x_vals, double* y_vals, int n_points,
+                                QColor line_clr, int line_width,
+                                bool draw_xticks, bool draw_yticks,
+                                double y_max, bool y_is_prob) {
+    int plot_h = h - 2 * margin;
+    double step = (w - 2 * margin) / n_points;
+
+    painter.setPen(QPen(line_clr, line_width));
+
+    // Draw the line plot
+    if (n_points > 1) {
+        painter.drawLine(margin + step * 0, margin + plot_h,
+                         margin + step * 1, margin + plot_h - plot_h * y_vals[0] * 10.0/11);
+        for(int i = 0; i < n_points - 1; ++i) {
+            painter.drawLine(margin + step * (i+1), margin + plot_h - plot_h * y_vals[i] * 10.0/11,
+                             margin + step * (i+2), margin + plot_h - plot_h * y_vals[i+1] * 10.0/11);
+        }
+    }
+
+    // Draw X-ticks if requested
+    if (draw_xticks && x_vals != nullptr) {
+        painter.setFont(QFont("Arial", margin/6, QFont::Bold));
+        painter.setPen(QPen(Qt::black, 2));
+        for(int i = 0; i < n_points; ++i) {
+            painter.drawLine(margin + step * i, h - margin,
+                             margin + step * i, h - 3*(margin/4));
+
+            painter.save();
+            painter.translate(margin/2 + step * i, h - margin/5);
+            painter.rotate(-45);
+            painter.drawText(0, 0, step, margin/2,
+                             Qt::AlignCenter,
+                             QString::number(x_vals[i], 'f', 2));
+            painter.restore();
+        }
+    }
+
+    // Draw Y-ticks if requested
+    if (draw_yticks) {
+        draw_y_ticks(painter, h, y_max, y_is_prob);
+    }
+}
+
 void BasicView::draw_hist_event(QPainter& painter){
     int w = this->size().width();
     int h = this->size().height();
@@ -33,28 +134,12 @@ void BasicView::draw_hist_event(QPainter& painter){
 
     int margin = h/10;
 
-
-    // draw frame
-    painter.setBrush(hist_params->_bg_clr);
-    painter.setPen(QPen(Qt::black, 2));
-    painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
-
-
-    // draw title
-    painter.setPen(Qt::black);
-    painter.setFont(QFont("Arial", margin/(3), QFont::Bold));
     QString title = QString("Гистограмма (sample_size = %1, min = %2, max = %3)")
                     .arg(N)
                     .arg(min_val)
                     .arg(max_val);
-    painter.drawText(4, 0, w, margin, Qt::AlignCenter, title);
-
-
-    // draw axes
-    painter.setPen(QPen(Qt::black, 3));
-    painter.drawLine(margin, h - margin, margin, 0);
-    painter.drawLine(margin, h - margin, w, h-margin);
-
+    
+    draw_plot_frame(painter, w, h, title, hist_params->_bg_clr, false);
 
     // some calculations
     int n_bins = std::min(hist_params->_n_bins, range);
@@ -126,17 +211,7 @@ void BasicView::draw_hist_event(QPainter& painter){
 
 
     // draw Y-ticks
-    painter.setFont(QFont("Arial", margin/6, QFont::Bold));
-    painter.setPen(QPen(Qt::black, 2));
-    for(int i=0; i<11; ++i){
-        painter.drawLine(3*(margin/4), margin + plot_h - i*plot_h/11,
-                         margin, margin + plot_h - i*plot_h/11);
-
-        painter.drawText(0, margin + plot_h - plot_h/22 - i*plot_h/11,
-                         margin/2, plot_h/11,
-                         Qt::AlignCenter,
-                         QString::number(max_prob * (i/10.0), 'f', 2 ));
-    }
+    draw_y_ticks(painter, h, max_prob, true);
 
     delete[] lower_bounds;
     delete[] bin_probs;
@@ -151,26 +226,13 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     int w = this->size().width();
     int h = this->size().height();
 
+    QString title = QString("Распределение pval");
+    
+    draw_plot_frame(painter, w, h, title, QColor(245, 235, 240, 140), true);
+
     int margin = h/10;
     int plot_h = h - 2 * margin;
     double step = (w - 2 * margin) / N;
-
-    // draw frame
-    painter.setBrush(QColor(245, 235, 240, 140));
-    painter.setPen(QPen(Qt::black, 2));
-    painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
-
-
-    // draw title
-    painter.setPen(Qt::black);
-    painter.setFont(QFont("Arial", margin/(3), QFont::Bold));
-    QString title = QString("Распределение pval");
-    painter.drawText(4, 0, w, margin, Qt::AlignCenter, title);
-
-    // draw axes
-    painter.setPen(QPen(Qt::black, 3));
-    painter.drawLine(margin, h - margin, margin, 0);
-    painter.drawLine(margin, h - margin, w, h-margin);
 
     QColor legend_bg_clr = Qt::white;
 
@@ -186,24 +248,20 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     // legend params
     int p1 = 6;
     double p2 = 0.7;
-    painter.setBrush(legend_bg_clr);
     int leg_x = margin + step * (N-p1);
     int leg_y = margin + plot_h * p2;
     int leg_w = step * p1;
     int leg_h = plot_h * (1-p2);
     int leg_mrg = leg_w/10;
-    painter.drawRect(leg_x,leg_y,leg_w,leg_h);
 
     painter.setFont(QFont("Arial", margin/6, QFont::Bold));
 
 
     // draw h0_pval_dist
-    painter.setPen(QPen(h0_clr, h0_lw));
-
     // legend
+    painter.setPen(QPen(h0_clr, h0_lw));
     painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/6,
                      leg_x + leg_w / 2.0 , leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/6);
-
 
     painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 0*(leg_h-2*leg_mrg)/3,
                      leg_w / 2.0, (leg_h-2*leg_mrg)/3,
@@ -211,18 +269,12 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
                      QString("H0_pval_ECDF"));
 
     // plot
-    painter.drawLine(margin + step * 0, margin + plot_h,
-                     margin + step * 1, margin + plot_h - plot_h * F0[0] * 10.0/11);
-    for(int i=0; i<N-1; ++i){
-        painter.drawLine(margin + step * (i+1), margin + plot_h - plot_h * F0[i] * 10.0/11,
-                         margin + step * (i+2), margin + plot_h - plot_h * F0[i+1] * 10.0/11);
-    }
+    draw_line_plot(painter, w, h, margin, nullptr, F0, N, h0_clr, h0_lw, false, false);
 
 
     // draw h1_pval_dist
-    painter.setPen(QPen(h1_clr, h1_lw));
-
     // legend
+    painter.setPen(QPen(h1_clr, h1_lw));
     painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 3*(leg_h-2*leg_mrg)/6,
                      leg_x + leg_w / 2.0 , leg_y + leg_mrg + 3*(leg_h-2*leg_mrg)/6);
 
@@ -231,18 +283,11 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
                      Qt::AlignCenter,
                      QString("H1_pval_ECDF"));
     // plot
-
-    painter.drawLine(margin + step * 0, margin + plot_h,
-                     margin + step * 1, margin + plot_h - plot_h * F1[0] * 10.0/11);
-    for(int i=0; i<N-1; ++i){
-        painter.drawLine(margin + step * (i+1), margin + plot_h - plot_h * F1[i] * 10.0/11,
-                         margin + step * (i+2), margin + plot_h - plot_h * F1[i+1] * 10.0/11);
-    }
+    draw_line_plot(painter, w, h, margin, nullptr, F1, N, h1_clr, h1_lw, false, false);
 
     // draw uni_dist
-    painter.setPen(QPen(uni_clr, uni_lw));
-
     // legend
+    painter.setPen(QPen(uni_clr, uni_lw));
     painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 5*(leg_h-2*leg_mrg)/6,
                      leg_x + leg_w / 2.0 , leg_y + leg_mrg + 5*(leg_h-2*leg_mrg)/6);
     painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 2*(leg_h-2*leg_mrg)/3,
@@ -250,14 +295,13 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
                      Qt::AlignCenter,
                      QString("U[0,1]_CDF"));
 
-    // plot
-    for(int i=0; i<N; ++i){
-        painter.drawLine(margin + step * i,
-                         margin + plot_h - plot_h * i*1.0/N * 10.0/11,
-                         margin + step * (i+1),
-                         margin + plot_h - plot_h * (i+1)*1.0/N * 10.0/11);
+    // plot - generate uniform distribution values
+    double* uni_vals = new double[N];
+    for(int i = 0; i < N; ++i) {
+        uni_vals[i] = i * 1.0 / N;
     }
-
+    draw_line_plot(painter, w, h, margin, nullptr, uni_vals, N, uni_clr, uni_lw, false, false);
+    delete[] uni_vals;
 
     // draw X-ticks
     painter.setFont(QFont("Arial", margin/6, QFont::Bold));
@@ -277,15 +321,7 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     }
 
     // draw Y-ticks
-    for(int i=0; i<11; ++i){
-        painter.drawLine(3*(margin/4), margin + plot_h - i*plot_h/11,
-                         margin, margin + plot_h - i*plot_h/11);
-
-        painter.drawText(0, margin + plot_h - plot_h/22 - i*plot_h/11,
-                         margin/2, plot_h/11,
-                         Qt::AlignCenter,
-                         QString::number(i/10.0, 'f', 2 ));
-    }
+    draw_y_ticks(painter, h, 1.0, false);
 
 }
 
@@ -325,26 +361,15 @@ void BasicView::draw_time_event(QPainter &painter){
        F1[i] /= mx;
     }
 
-    double step = (w - 2 * margin) / N;
+    // Generate lambda values for x-axis
+    double* lambda_vals = new double[N];
+    for(int i = 0; i < N; ++i) {
+        lambda_vals[i] = lambda_min + ((double)i / cnt_steps) * (lambda_max - lambda_min);
+    }
 
-    // draw frame
-    painter.setBrush(QColor(245, 235, 240, 140));
-    painter.setPen(QPen(Qt::black, 2));
-    painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
-
-
-    // draw title
-    painter.setPen(Qt::black);
-    painter.setFont(QFont("Arial", margin/(3), QFont::Bold));
     QString title = QString("Время моделирования (млсек) VS lambda [n=%1]").arg(_doc->draw_time_params->sample_size);
-    painter.drawText(4, 0, w, margin, Qt::AlignCenter, title);
-
-    // draw axes
-    painter.setPen(QPen(Qt::black, 3));
-    painter.drawLine(margin, h - margin, margin, 0);
-    painter.drawLine(margin, h - margin, w, h-margin);
-
-//    QColor legend_bg_clr = Qt::white;
+    
+    draw_plot_frame(painter, w, h, title, QColor(245, 235, 240, 140), false);
 
     QColor h0_clr = Qt::red;
     int h0_lw = 4;
@@ -352,88 +377,15 @@ void BasicView::draw_time_event(QPainter &painter){
     QColor h1_clr = Qt::blue;
     int h1_lw = 4;
 
-    // legend params
-//    int p1 = 6;
-//    double p2 = 0.7;
-//    painter.setBrush(legend_bg_clr);
-//    int leg_x = margin + step * (N-p1);
-//    int leg_y = margin + plot_h * p2;
-//    int leg_w = step * p1;
-//    int leg_h = plot_h * (1-p2);
-//    int leg_mrg = leg_w/10;
-//    painter.drawRect(leg_x,leg_y,leg_w,leg_h);
-
     painter.setFont(QFont("Arial", margin/6, QFont::Bold));
 
+    // draw h0 (method_1)
+    draw_line_plot(painter, w, h, margin, lambda_vals, F0, N, h0_clr, h0_lw, true, false, mx, false);
 
-    // draw h0_pval_dist
-    painter.setPen(QPen(h0_clr, h0_lw));
+    // draw h1 (method_2)
+    draw_line_plot(painter, w, h, margin, nullptr, F1, N, h1_clr, h1_lw, false, false);
 
-    // legend
-//    painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/6,
-//                     leg_x + leg_w / 2.0 , leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/6);
-
-
-//    painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 0*(leg_h-2*leg_mrg)/3,
-//                     leg_w / 2.0, (leg_h-2*leg_mrg)/3,
-//                     Qt::AlignCenter,
-//                     QString("method_1"));
-
-    // plot
-    for(int i=0; i<N-1; ++i){
-        painter.drawLine(margin + step * (i), margin + plot_h - plot_h * F0[i] * 10.0/11,
-                         margin + step * (i+1), margin + plot_h - plot_h * F0[i+1] * 10.0/11);
-    }
-
-
-    // draw h1_pval_dist
-    painter.setPen(QPen(h1_clr, h1_lw));
-
-    // legend
-//    painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 3*(leg_h-2*leg_mrg)/6,
-//                     leg_x + leg_w / 2.0 , leg_y + leg_mrg + 3*(leg_h-2*leg_mrg)/6);
-
-//    painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/3,
-//                     leg_w / 2.0, (leg_h-2*leg_mrg)/3,
-//                     Qt::AlignCenter,
-//                     QString("method_2"));
-
-    // plot
-    for(int i=0; i<N-1; ++i){
-        painter.drawLine(margin + step * (i), margin + plot_h - plot_h * F1[i] * 10.0/11,
-                         margin + step * (i+1), margin + plot_h - plot_h * F1[i+1] * 10.0/11);
-    }
-
-
-    // draw X-ticks
-    painter.setFont(QFont("Arial", margin/6, QFont::Bold));
-    painter.setPen(QPen(Qt::black, 2));
-    for(int i=0; i<N; ++i){
-        painter.drawLine(margin + step * i, h - margin,
-                         margin + step * i, h - 3*(margin/4));
-
-        painter.save();
-        painter.translate(margin/2 + step * i, h-margin/5);
-        painter.rotate(-45);
-        painter.drawText(0,0,
-                         step, margin/2,
-                         Qt::AlignCenter,
-                         QString::number(lambda_min + ((double)i / cnt_steps) * (lambda_max - lambda_min), 'f', 2 ));
-        painter.restore();
-    }
-
-    // draw Y-ticks
-    for(int i=0; i<11; ++i){
-        painter.drawLine(3*(margin/4), margin + plot_h - i*plot_h/11,
-                         margin, margin + plot_h - i*plot_h/11);
-
-        painter.drawText(0, margin + plot_h - plot_h/22 - i*plot_h/11,
-                         margin/2, plot_h/11,
-                         Qt::AlignCenter,
-                         QString::number(i/10.0 * mx, 'f', 1 ));
-    }
-
-
+    delete[] lambda_vals;
     delete[] F0;
     delete[] F1;
 
