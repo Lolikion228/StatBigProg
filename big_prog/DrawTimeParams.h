@@ -18,6 +18,8 @@ public:
     int sample_size;
     std::chrono::milliseconds* dur1;
     std::chrono::milliseconds* dur2;
+
+
     void update_dur();
     DrawTimeParams(std::mt19937_64* stdgen);
     ~DrawTimeParams();

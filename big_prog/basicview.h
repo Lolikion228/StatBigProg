@@ -33,11 +33,13 @@ protected:
 public:
     HistDrawParams* hist_params;
     PDistDrawParams* pdist_draw_params;
+
     explicit BasicView(QWidget *parent = nullptr, Document *doc=nullptr);
     ~BasicView();
     void set_index(int ix);
     int get_index() const;
     void set_doc(Document* doc);
+
     void paintEvent(QPaintEvent *) override;
     void draw_hist_event(QPainter& painter);
     void draw_pval_dist_event(QPainter& painter);
