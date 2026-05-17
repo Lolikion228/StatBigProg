@@ -21,6 +21,25 @@ void BasicView::set_doc(Document* doc){
 }
 
 
+
+void draw_frame_and_axes(QPainter& painter, const QString& title, int w, int h, int margin,
+                         QColor bg_color, QPen pen) {
+    // draw frame
+    painter.setBrush(bg_color);
+    painter.setPen(pen);
+    painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
+
+    // draw title
+    painter.setPen(Qt::black);
+    painter.setFont(QFont("Arial", margin / 3, QFont::Bold));
+    painter.drawText(4, 0, w, margin, Qt::AlignCenter, title);
+
+    // draw axes
+    painter.setPen(QPen(Qt::black, 3));
+    painter.drawLine(margin, h - margin, margin, 0);
+    painter.drawLine(margin, h - margin, w, h - margin);
+}
+
 void BasicView::draw_hist_event(QPainter& painter){
     int w = this->size().width();
     int h = this->size().height();
@@ -33,28 +52,11 @@ void BasicView::draw_hist_event(QPainter& painter){
 
     int margin = h/10;
 
-
-    // draw frame
-    painter.setBrush(hist_params->_bg_clr);
-    painter.setPen(QPen(Qt::black, 2));
-    painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
-
-
-    // draw title
-    painter.setPen(Qt::black);
-    painter.setFont(QFont("Arial", margin/(3), QFont::Bold));
     QString title = QString("Гистограмма (sample_size = %1, min = %2, max = %3)")
                     .arg(N)
                     .arg(min_val)
                     .arg(max_val);
-    painter.drawText(4, 0, w, margin, Qt::AlignCenter, title);
-
-
-    // draw axes
-    painter.setPen(QPen(Qt::black, 3));
-    painter.drawLine(margin, h - margin, margin, 0);
-    painter.drawLine(margin, h - margin, w, h-margin);
-
+    draw_frame_and_axes(painter, title, w, h, margin, hist_params->_bg_clr, QPen(Qt::black, 2));
 
     // some calculations
     int n_bins = std::min(hist_params->_n_bins, range);
@@ -155,22 +157,9 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     int plot_h = h - 2 * margin;
     double step = (w - 2 * margin) / N;
 
-    // draw frame
-    painter.setBrush(QColor(245, 235, 240, 140));
-    painter.setPen(QPen(Qt::black, 2));
-    painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
 
-
-    // draw title
-    painter.setPen(Qt::black);
-    painter.setFont(QFont("Arial", margin/(3), QFont::Bold));
     QString title = QString("Распределение pval");
-    painter.drawText(4, 0, w, margin, Qt::AlignCenter, title);
-
-    // draw axes
-    painter.setPen(QPen(Qt::black, 3));
-    painter.drawLine(margin, h - margin, margin, 0);
-    painter.drawLine(margin, h - margin, w, h-margin);
+    draw_frame_and_axes(painter, title, w, h, margin, QColor(245, 235, 240, 140), QPen(Qt::black, 2));
 
     QColor legend_bg_clr = Qt::white;
 
@@ -327,22 +316,8 @@ void BasicView::draw_time_event(QPainter &painter){
 
     double step = (w - 2 * margin) / N;
 
-    // draw frame
-    painter.setBrush(QColor(245, 235, 240, 140));
-    painter.setPen(QPen(Qt::black, 2));
-    painter.drawRect(margin, margin, w - 2 * margin, h - 2 * margin);
-
-
-    // draw title
-    painter.setPen(Qt::black);
-    painter.setFont(QFont("Arial", margin/(3), QFont::Bold));
     QString title = QString("Время моделирования (млсек) VS lambda [n=%1]").arg(_doc->draw_time_params->sample_size);
-    painter.drawText(4, 0, w, margin, Qt::AlignCenter, title);
-
-    // draw axes
-    painter.setPen(QPen(Qt::black, 3));
-    painter.drawLine(margin, h - margin, margin, 0);
-    painter.drawLine(margin, h - margin, w, h-margin);
+    draw_frame_and_axes(painter, title, w, h, margin, QColor(245, 235, 240, 140), QPen(Qt::black, 2));
 
 //    QColor legend_bg_clr = Qt::white;
 
