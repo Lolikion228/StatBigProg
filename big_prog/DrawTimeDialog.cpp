@@ -49,7 +49,7 @@ void DrawTimeDialog::on_buttonBox_accepted(){
     res += check_dbl_field(0.5, 50, QString("lambda_min"), ui->lambda_min_lineEdit->text());
     res += check_dbl_field(0.5, 50, QString("lambda_max"), ui->lambda_max_lineEdit_2->text());
     res += check_int_field(1000, 200000, QString("sample_size"), ui->sample_size_lineEdit_3->text());
-    res += check_int_field(3, 20, QString("cnt_steps"), ui->cnt_steps_lineEdit_4->text());
+    res += check_int_field(10, 20, QString("cnt_steps"), ui->cnt_steps_lineEdit_4->text());
 
     if(res != 0){
         return;

@@ -20,9 +20,6 @@ const int SUPER_SEED = 2027;
  в зависимости от того различны ли параметры распр
  выдавать либо ур зн-ти либо мощность
 
- 3) memmanagment after "upgrades"
-
- 4) xticks are fucking around in y coord at draw_time when cnt_steps is small
 */
 
 MainWindow::MainWindow(QWidget *parent)
@@ -67,6 +64,9 @@ void MainWindow::onSetPDistGenParamsDialog(){
         doc->pdist_gen_params->psample_size = dialog.get_psample_size();
         int ix = dialog.get_method_ix();
         doc->pdist_gen_params->method_ix = ix;
+        delete doc->pdist_gen_params->h0_gen;
+        delete doc->pdist_gen_params->h1_gen;
+
         if(ix == 1){
             doc->pdist_gen_params->h0_gen = new PoisGen1(doc->pdist_gen_params->h0_lambda, stdgen);
             doc->pdist_gen_params->h1_gen = new PoisGen1(doc->pdist_gen_params->h1_lambda, stdgen);

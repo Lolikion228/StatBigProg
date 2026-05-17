@@ -146,15 +146,13 @@ void draw_legend(int N, QPainter& painter, const QList<LegendItem>& items, int h
 }
 
 
-void compute_hist(Document *_doc, HistDrawParams* hist_params, double*& bin_probs, double*& lower_bounds){
+void compute_hist(Document *_doc, HistDrawParams* hist_params, double* bin_probs, double* lower_bounds){
     int range = _doc -> hist_gen_params -> sample -> get_range();
     int min_val = _doc -> hist_gen_params -> sample -> get_min_val();
     double* freq = _doc -> hist_gen_params -> sample -> get_freq();
 
     // some calculations
     int n_bins = std::min(hist_params->_n_bins, range);
-//    int plot_h = h - 2 * margin;
-//    int bin_width = (w - 2.0 * margin) / n_bins;
     /*
     range = cnt_adj_bins * (bin_range + 1) + cnt_norm_bins * (bin_range)
     */
@@ -163,8 +161,6 @@ void compute_hist(Document *_doc, HistDrawParams* hist_params, double*& bin_prob
     int cnt_adj_bins = range % n_bins;
 
     // compute total_prob for each bin
-    bin_probs = new double[n_bins]{};
-    lower_bounds = new double[n_bins]{};
     int lower_b;
     int upper_b;
     int offset = cnt_adj_bins * (bin_range + 1);
@@ -233,12 +229,12 @@ void BasicView::draw_hist_event(QPainter& painter){
     int plot_h = h - 2 * margin;
     int bin_width = (w - 2.0 * margin) / n_bins;
 
-    double* bin_probs = nullptr;
-    double* lower_bounds = nullptr;
+    double* bin_probs = new double[n_bins]{};
+    double* lower_bounds = new double[n_bins]{};
     compute_hist(_doc, hist_params, bin_probs, lower_bounds);
 
-    double* bin_probs2 = nullptr;
-    double* lower_bounds2 = nullptr;
+    double* bin_probs2 = new double[n_bins]{};
+    double* lower_bounds2 = new double[n_bins]{};
     compute_hist(_doc, hist_params, bin_probs2, lower_bounds);
     for(int i=0; i<n_bins; ++i){
         if(i < n_bins/2){bin_probs2[i] *= 0.5;}
@@ -280,9 +276,11 @@ void BasicView::draw_hist_event(QPainter& painter){
     }
     draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals, h, margin, 2);
 
-
+    delete[] vals;
     delete[] lower_bounds;
     delete[] bin_probs;
+    delete[] lower_bounds2;
+    delete[] bin_probs2;
 }
 
 
@@ -320,7 +318,6 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
 
 
     //draw H1_dist
-    vals = new double[N+1]{};
     for(int i=1; i<N+1; ++i){
         vals[i] = F1[i-1];
     }
@@ -328,7 +325,6 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
 
 
     // draw uni_dist
-    vals = new double[N+1]{};
     for(int i=1; i<N+1; ++i){
         vals[i] = i*1.0/N;
     }
@@ -342,19 +338,20 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     draw_legend(N, painter, lisp, h, margin, step);
 
     // X-ticks
-    vals = new double[N+1];
-    for(int i=0; i<=N; ++i){
+    for(int i=0; i<N+1; ++i){
         vals[i] = i*1.0/N;
     }
     draw_xticks(painter, h - margin, step, vals, N+1, margin);
 
 
     // Y-ticks
-    double *vals2 = new double[11]{};
+    double vals2[11]{};
     for(int i=0; i<11; ++i){
         vals2[i] = i/10.0;
     }
     draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals2, h, margin, 2);
+
+    delete[] vals;
 }
 
 
@@ -392,7 +389,7 @@ void BasicView::draw_time_event(QPainter &painter){
     draw_line_plot(painter, F1, N, Qt::blue, 4, w, h, margin, step);
 
     // X-ticks
-    double *vals = new double[N];
+    double *vals = new double[N]{};
     for(int i=0; i<N; ++i){
         vals[i] = lambda_min + ((double)i / cnt_steps) * (lambda_max - lambda_min);
     }
@@ -400,12 +397,13 @@ void BasicView::draw_time_event(QPainter &painter){
 
 
     // Y-ticks
-    double *vals2 = new double[11];
+    double vals2[11]{};
     for(int i=0; i<11; ++i){
         vals2[i] = i/10.0 * mx;
     }
     draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals2, h, margin, 1);
 
+    delete[] vals;
     delete[] F0;
     delete[] F1;
 
