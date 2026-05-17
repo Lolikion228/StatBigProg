@@ -101,6 +101,51 @@ void draw_line_plot(QPainter& painter, const double* data, int N, const QColor& 
     }
 }
 
+
+void draw_legend(int N, QPainter& painter, const QList<LegendItem>& items, int h, int margin, double step) {
+    if (items.isEmpty()) return;
+
+    int plot_h = h - 2 * margin;
+
+    // legend parameters
+    int p1 = 6;
+    double p2 = 0.7;
+    int leg_x = margin + step * (N - p1);
+    int leg_y = margin + plot_h * p2;
+    int leg_w = step * p1;
+    int leg_h = plot_h * (1 - p2);
+    int leg_mrg = leg_w / 10;
+
+    painter.setBrush(Qt::white);
+    painter.setPen(QPen(Qt::black,2));
+    painter.drawRect(leg_x, leg_y, leg_w, leg_h);
+
+    painter.setFont(QFont("Arial", margin / 6, QFont::Bold));
+
+    int item_height = (leg_h - 2 * leg_mrg) / items.size();
+    int y_offset = leg_mrg;
+
+    for (int i = 0; i < items.size(); ++i) {
+        const LegendItem& item = items[i];
+        int y_center = leg_y + y_offset + item_height / 2;
+
+        // draw line
+        painter.setPen(QPen(item.color, item.line_width));
+        painter.drawLine(leg_x + leg_mrg, y_center,
+                         leg_x + leg_w / 2.0, y_center);
+
+        // draw text
+        painter.setPen(QPen(Qt::black, 1));
+        painter.drawText(leg_x + leg_w / 2.0, leg_y + y_offset,
+                         leg_w / 2.0, item_height,
+                         Qt::AlignLeft | Qt::AlignVCenter,
+                         item.label);
+
+        y_offset += item_height;
+    }
+}
+
+
 void BasicView::draw_hist_event(QPainter& painter){
     int w = this->size().width();
     int h = this->size().height();
@@ -213,11 +258,8 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     int plot_h = h - 2 * margin;
     double step = (w - 2 * margin) / N;
 
-
     QString title = QString("Распределение pval");
     draw_frame_and_axes(painter, title, w, h, margin, QColor(245, 235, 240, 140), QPen(Qt::black, 2));
-
-    QColor legend_bg_clr = Qt::white;
 
     QColor h0_clr = pdist_draw_params->_h0_clr;
     int h0_lw = 4;
@@ -228,36 +270,7 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     QColor uni_clr = pdist_draw_params->_uni_clr;
     int uni_lw = 2;
 
-    // legend params
-    int p1 = 6;
-    double p2 = 0.7;
-    painter.setBrush(legend_bg_clr);
-    int leg_x = margin + step * (N-p1);
-    int leg_y = margin + plot_h * p2;
-    int leg_w = step * p1;
-    int leg_h = plot_h * (1-p2);
-    int leg_mrg = leg_w/10;
-    painter.drawRect(leg_x,leg_y,leg_w,leg_h);
-
-    painter.setFont(QFont("Arial", margin/6, QFont::Bold));
-
-
-
-
-    // draw h0_pval_dist
-    painter.setPen(QPen(h0_clr, h0_lw));
-
-    // legend
-    painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/6,
-                     leg_x + leg_w / 2.0 , leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/6);
-
-
-    painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 0*(leg_h-2*leg_mrg)/3,
-                     leg_w / 2.0, (leg_h-2*leg_mrg)/3,
-                     Qt::AlignCenter,
-                     QString("H0_pval_ECDF"));
-
-    // plot
+    // draw H0_dist
     double *vals = new double[N+1]{};
     for(int i=1; i<N+1; ++i){
         vals[i] = F0[i-1];
@@ -265,20 +278,7 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     draw_line_plot(painter, vals, N+1, h0_clr, h0_lw, w, h, margin, step);
 
 
-
-    // draw h1_pval_dist
-    painter.setPen(QPen(h1_clr, h1_lw));
-
-    // legend
-    painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 3*(leg_h-2*leg_mrg)/6,
-                     leg_x + leg_w / 2.0 , leg_y + leg_mrg + 3*(leg_h-2*leg_mrg)/6);
-
-    painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/3,
-                     leg_w / 2.0, (leg_h-2*leg_mrg)/3,
-                     Qt::AlignCenter,
-                     QString("H1_pval_ECDF"));
-
-    //plot
+    //draw H1_dist
     vals = new double[N+1]{};
     for(int i=1; i<N+1; ++i){
         vals[i] = F1[i-1];
@@ -288,16 +288,6 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
 
     // draw uni_dist
     painter.setPen(QPen(uni_clr, uni_lw));
-
-    // legend
-    painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 5*(leg_h-2*leg_mrg)/6,
-                     leg_x + leg_w / 2.0 , leg_y + leg_mrg + 5*(leg_h-2*leg_mrg)/6);
-    painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 2*(leg_h-2*leg_mrg)/3,
-                     leg_w / 2.0, (leg_h-2*leg_mrg)/3,
-                     Qt::AlignCenter,
-                     QString("U[0,1]_CDF"));
-
-    // plot
     for(int i=0; i<N; ++i){
         painter.drawLine(margin + step * i,
                          margin + plot_h - plot_h * i*1.0/N * 10.0/11,
@@ -306,6 +296,10 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     }
 
 
+    QList<LegendItem> lisp = {LegendItem{h0_clr, h0_lw, QString("H0_pval_ECDF"), 0},
+                             LegendItem{h1_clr, h1_lw, QString("H1_pval_ECDF"), 1},
+                             LegendItem{uni_clr, uni_lw, QString("H0_pval_ECDF"), 2}};
+    draw_legend(N, painter, lisp, h, margin, step);
 
 
     vals = new double[N+1];
@@ -319,7 +313,6 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
         vals[i] = i/10.0;
     }
     draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals, h, margin, 2);
-
 }
 
 
