@@ -40,6 +40,53 @@ void draw_frame_and_axes(QPainter& painter, const QString& title, int w, int h, 
     painter.drawLine(margin, h - margin, w, h - margin);
 }
 
+void draw_xticks(QPainter& painter, int y, double step, const double* values, int n_values, int margin) {
+    if (n_values <= 0) return;
+
+    painter.setFont(QFont("Arial", margin / 6, QFont::Bold));
+    painter.setPen(QPen(Qt::black, 2));
+
+    for (int i = 0; i < n_values; ++i) {
+        double x_pos = margin + step * i;
+
+        // draw tick line
+        painter.drawLine(x_pos, y, x_pos, y + (margin / 4));
+
+        // draw tick label
+        painter.save();
+        painter.translate(x_pos - margin / 2, y + 2 * margin / 3);
+        painter.rotate(-45);
+        painter.drawText(0, 0, step, margin / 2, Qt::AlignCenter,
+                         QString::number(values[i], 'f', 2));
+        painter.restore();
+    }
+}
+
+
+void draw_yticks(QPainter& painter, int x, double ymin, double ymax, int n_ticks, int w, int h, int margin) {
+    if (n_ticks <= 0) return;
+
+    int plot_h = h - 2 * margin;
+    double step = plot_h / (n_ticks - 1);
+
+    painter.setFont(QFont("Arial", margin / 6, QFont::Bold));
+    painter.setPen(QPen(Qt::black, 2));
+
+    for (int i = 0; i < n_ticks; ++i) {
+        double y_pos = margin + step * i;
+        double value = ymin + (ymax - ymin) * (i / (double)(n_ticks - 1));
+
+        // draw tick line
+        painter.drawLine(x, y_pos, x - 3 * (margin / 4), y_pos);
+
+        // draw tick label
+        painter.drawText(0, y_pos - margin / 22, margin / 2, step,
+                         Qt::AlignCenter, QString::number(value, 'f', 2));
+    }
+}
+
+
+
 void BasicView::draw_hist_event(QPainter& painter){
     int w = this->size().width();
     int h = this->size().height();
@@ -143,6 +190,7 @@ void BasicView::draw_hist_event(QPainter& painter){
     delete[] lower_bounds;
     delete[] bin_probs;
 }
+
 
 void BasicView::draw_pval_dist_event(QPainter& painter){
     int N = _doc->pdist_gen_params->N;
@@ -248,22 +296,28 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     }
 
 
-    // draw X-ticks
-    painter.setFont(QFont("Arial", margin/6, QFont::Bold));
-    painter.setPen(QPen(Qt::black, 2));
-    for(int i=0; i<=N; ++i){
-        painter.drawLine(margin + step * i, h - margin,
-                         margin + step * i, h - 3*(margin/4));
+//    // draw X-ticks
+//    painter.setFont(QFont("Arial", margin/6, QFont::Bold));
+//    painter.setPen(QPen(Qt::black, 2));
+//    for(int i=0; i<=N; ++i){
+//        painter.drawLine(margin + step * i, h - margin,
+//                         margin + step * i, h - 3*(margin/4));
 
-        painter.save();
-        painter.translate(margin/2 + step * i, h-margin/3);
-        painter.rotate(-45);
-        painter.drawText(0,0,
-                         step, margin/2,
-                         Qt::AlignCenter,
-                         QString::number(i*1.0/N, 'f', 2 ));
-        painter.restore();
+//        painter.save();
+//        painter.translate(margin/2 + step * i, h-margin/3);
+//        painter.rotate(-45);
+//        painter.drawText(0,0,
+//                         step, margin/2,
+//                         Qt::AlignCenter,
+//                         QString::number(i*1.0/N, 'f', 2 ));
+//        painter.restore();
+//    }
+
+    double *vals = new double[N+1];
+    for(int i=0; i<=N; ++i){
+        vals[i] = i*1.0/N;
     }
+    draw_xticks(painter, h - margin, step, vals, N+1, margin);
 
     // draw Y-ticks
     for(int i=0; i<11; ++i){
@@ -277,8 +331,6 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     }
 
 }
-
-
 
 
 void BasicView::draw_time_event(QPainter &painter){
@@ -380,22 +432,28 @@ void BasicView::draw_time_event(QPainter &painter){
     }
 
 
-    // draw X-ticks
-    painter.setFont(QFont("Arial", margin/6, QFont::Bold));
-    painter.setPen(QPen(Qt::black, 2));
-    for(int i=0; i<N; ++i){
-        painter.drawLine(margin + step * i, h - margin,
-                         margin + step * i, h - 3*(margin/4));
+//     draw X-ticks
+//    painter.setFont(QFont("Arial", margin/6, QFont::Bold));
+//    painter.setPen(QPen(Qt::black, 2));
+//    for(int i=0; i<N; ++i){
+//        painter.drawLine(margin + step * i, h - margin,
+//                         margin + step * i, h - 3*(margin/4));
 
-        painter.save();
-        painter.translate(margin/2 + step * i, h-margin/5);
-        painter.rotate(-45);
-        painter.drawText(0,0,
-                         step, margin/2,
-                         Qt::AlignCenter,
-                         QString::number(lambda_min + ((double)i / cnt_steps) * (lambda_max - lambda_min), 'f', 2 ));
-        painter.restore();
+//        painter.save();
+//        painter.translate(margin/2 + step * i, h-margin/5);
+//        painter.rotate(-45);
+//        painter.drawText(0,0,
+//                         step, margin/2,
+//                         Qt::AlignCenter,
+//                         QString::number(lambda_min + ((double)i / cnt_steps) * (lambda_max - lambda_min), 'f', 2 ));
+//        painter.restore();
+//    }
+
+    double *vals = new double[N];
+    for(int i=0; i<N; ++i){
+        vals[i] = lambda_min + ((double)i / cnt_steps) * (lambda_max - lambda_min);
     }
+    draw_xticks(painter, h - margin, step, vals, N, margin);
 
     // draw Y-ticks
     for(int i=0; i<11; ++i){
@@ -413,6 +471,11 @@ void BasicView::draw_time_event(QPainter &painter){
     delete[] F1;
 
 }
+
+
+
+
+
 
 int BasicView::get_index() const{
     return index;
