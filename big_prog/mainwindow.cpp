@@ -9,13 +9,20 @@ const int SUPER_SEED = 2027;
 
 
 /*
-1) две гистограммы на одном рисунке (узкие и широкие столбцы)
+
+ 0) классы классы классы
+
+ 1) две гистограммы на одном рисунке (узкие и широкие столбцы)
  теоретич и эмпирич частоты из хи2
  писать chi2_val df p_val
 
  2) в pval_dist
  в зависимости от того различны ли параметры распр
  выдавать либо ур зн-ти либо мощность
+
+ 3) memmanagment after "upgrades"
+
+ 4) xticks are fucking around in y coord at draw_time when cnt_steps is small
 */
 
 MainWindow::MainWindow(QWidget *parent)

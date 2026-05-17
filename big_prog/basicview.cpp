@@ -4,17 +4,16 @@
 #include <limits>
 
 
-
-
-
 BasicView::BasicView(QWidget *parent, Document* doc)
     : QWidget{parent}, index(0),  _doc(doc),
       hist_params(new HistDrawParams), pdist_draw_params(new PDistDrawParams)
 {}
 
+
 void BasicView::set_index(int i){
     index = i;
 }
+
 
 void BasicView::set_doc(Document* doc){
     _doc = doc;
@@ -188,6 +187,7 @@ void compute_hist(Document *_doc, HistDrawParams* hist_params, double*& bin_prob
 
 }
 
+
 void draw_histogram(QPainter& painter, const double* bin_probs, int n_bins, double max_prob,
                     int plot_h, int margin, int bin_width, const QColor& bin_color,
                     const QColor& border_color, double width_factor) {
@@ -208,6 +208,8 @@ void draw_histogram(QPainter& painter, const double* bin_probs, int n_bins, doub
                          bin_h);
     }
 }
+
+
 
 void BasicView::draw_hist_event(QPainter& painter){
     int w = this->size().width();
@@ -348,10 +350,11 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
 
 
     // Y-ticks
+    double *vals2 = new double[11]{};
     for(int i=0; i<11; ++i){
-        vals[i] = i/10.0;
+        vals2[i] = i/10.0;
     }
-    draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals, h, margin, 2);
+    draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals2, h, margin, 2);
 }
 
 
@@ -397,10 +400,11 @@ void BasicView::draw_time_event(QPainter &painter){
 
 
     // Y-ticks
+    double *vals2 = new double[11];
     for(int i=0; i<11; ++i){
-        vals[i] = i/10.0 * mx;
+        vals2[i] = i/10.0 * mx;
     }
-    draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals, h, margin, 1);
+    draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals2, h, margin, 1);
 
     delete[] F0;
     delete[] F1;
@@ -412,6 +416,7 @@ void BasicView::draw_time_event(QPainter &painter){
 int BasicView::get_index() const{
     return index;
 }
+
 
 void BasicView::paintEvent(QPaintEvent *){
     QPainter painter(this);
@@ -434,13 +439,13 @@ void BasicView::paintEvent(QPaintEvent *){
 
 };
 
+
 void BasicView::showEvent(QShowEvent *)
 {
     int w = this->parentWidget()->size().width();
     int h = this->parentWidget()->size().height();
     setGeometry((int)(0.1*w), (int)(0.1*h), (int)(0.8*w), (int)(0.8*h));
 }
-
 
 
 BasicView::~BasicView(){
