@@ -6,6 +6,14 @@
 #include "document.h"
 #include <cmath>
 
+struct LegendItem {
+    QColor color;
+    int line_width;
+    QString label;
+    int N;
+    LegendItem(const QColor& c, int lw, const QString& lbl, int n = 0)
+        : color(c), line_width(lw), label(lbl), N(n) {}
+};
 
 struct HistDrawParams{
     int _n_bins = 18;
