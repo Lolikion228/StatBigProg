@@ -83,7 +83,23 @@ void draw_yticks(QPainter& painter, int x, double y0, int n_ticks, double *vals,
     }
 }
 
+void draw_line_plot(QPainter& painter, const double* data, int N, const QColor& color, int line_width, int w, int h, int margin, double step) {
+    if (N <= 1 || !data) return;
 
+    int plot_h = h - 2 * margin;
+
+    painter.setPen(QPen(color, line_width));
+
+
+    // draw line segments
+    for (int i = 0; i < N - 1; ++i) {
+        double x1 = margin + step * i;
+        double y1 = margin + plot_h - plot_h * (data[i]) * 10.0 / 11;
+        double x2 = margin + step * (i + 1);
+        double y2 = margin + plot_h - plot_h * (data[i + 1]) * 10.0 / 11;
+        painter.drawLine(x1, y1, x2, y2);
+    }
+}
 
 void BasicView::draw_hist_event(QPainter& painter){
     int w = this->size().width();
@@ -226,6 +242,8 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     painter.setFont(QFont("Arial", margin/6, QFont::Bold));
 
 
+
+
     // draw h0_pval_dist
     painter.setPen(QPen(h0_clr, h0_lw));
 
@@ -240,12 +258,12 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
                      QString("H0_pval_ECDF"));
 
     // plot
-    painter.drawLine(margin + step * 0, margin + plot_h,
-                     margin + step * 1, margin + plot_h - plot_h * F0[0] * 10.0/11);
-    for(int i=0; i<N-1; ++i){
-        painter.drawLine(margin + step * (i+1), margin + plot_h - plot_h * F0[i] * 10.0/11,
-                         margin + step * (i+2), margin + plot_h - plot_h * F0[i+1] * 10.0/11);
+    double *vals = new double[N+1]{};
+    for(int i=1; i<N+1; ++i){
+        vals[i] = F0[i-1];
     }
+    draw_line_plot(painter, vals, N+1, h0_clr, h0_lw, w, h, margin, step);
+
 
 
     // draw h1_pval_dist
@@ -259,14 +277,14 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
                      leg_w / 2.0, (leg_h-2*leg_mrg)/3,
                      Qt::AlignCenter,
                      QString("H1_pval_ECDF"));
-    // plot
 
-    painter.drawLine(margin + step * 0, margin + plot_h,
-                     margin + step * 1, margin + plot_h - plot_h * F1[0] * 10.0/11);
-    for(int i=0; i<N-1; ++i){
-        painter.drawLine(margin + step * (i+1), margin + plot_h - plot_h * F1[i] * 10.0/11,
-                         margin + step * (i+2), margin + plot_h - plot_h * F1[i+1] * 10.0/11);
+    //plot
+    vals = new double[N+1]{};
+    for(int i=1; i<N+1; ++i){
+        vals[i] = F1[i-1];
     }
+    draw_line_plot(painter, vals, N+1, h1_clr, h1_lw, w, h, margin, step);
+
 
     // draw uni_dist
     painter.setPen(QPen(uni_clr, uni_lw));
@@ -288,7 +306,9 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     }
 
 
-    double *vals = new double[N+1];
+
+
+    vals = new double[N+1];
     for(int i=0; i<=N; ++i){
         vals[i] = i*1.0/N;
     }
@@ -307,23 +327,16 @@ void BasicView::draw_time_event(QPainter &painter){
     int cnt_steps = _doc->draw_time_params->cnt_steps;
     double lambda_min =  _doc->draw_time_params->lambda_min;
     double lambda_max =  _doc->draw_time_params->lambda_max;
-    std::chrono::milliseconds* dur1 = _doc->draw_time_params->dur1;
-    std::chrono::milliseconds* dur2 = _doc->draw_time_params->dur2;
-
-    for(int i=0; i<=cnt_steps; ++i){
-        qDebug() << "lambda = " << lambda_min + (i / cnt_steps) * (lambda_max - lambda_min) << ""  << dur1[i].count() << " " << dur2[i].count() << "\n";
-    }
-    qDebug() << "\n\n";
 
     int w = this->size().width();
     int h = this->size().height();
-
     int margin = h/10;
     int plot_h = h - 2 * margin;
     int N = cnt_steps + 1;
+    double step = (w - 2 * margin) / N;
+
     double* F0 = new double[N];
     double* F1 = new double[N];
-    double mn=std::numeric_limits<double>::max();
     double mx=-1;
     for(int i=0; i<N; ++i){
         F0[i] = _doc->draw_time_params->dur1[i].count();
@@ -336,70 +349,13 @@ void BasicView::draw_time_event(QPainter &painter){
        F1[i] /= mx;
     }
 
-    double step = (w - 2 * margin) / N;
 
     QString title = QString("Время моделирования (млсек) VS lambda [n=%1]").arg(_doc->draw_time_params->sample_size);
     draw_frame_and_axes(painter, title, w, h, margin, QColor(245, 235, 240, 140), QPen(Qt::black, 2));
 
-//    QColor legend_bg_clr = Qt::white;
 
-    QColor h0_clr = Qt::red;
-    int h0_lw = 4;
-
-    QColor h1_clr = Qt::blue;
-    int h1_lw = 4;
-
-    // legend params
-//    int p1 = 6;
-//    double p2 = 0.7;
-//    painter.setBrush(legend_bg_clr);
-//    int leg_x = margin + step * (N-p1);
-//    int leg_y = margin + plot_h * p2;
-//    int leg_w = step * p1;
-//    int leg_h = plot_h * (1-p2);
-//    int leg_mrg = leg_w/10;
-//    painter.drawRect(leg_x,leg_y,leg_w,leg_h);
-
-    painter.setFont(QFont("Arial", margin/6, QFont::Bold));
-
-
-    // draw h0_pval_dist
-    painter.setPen(QPen(h0_clr, h0_lw));
-
-    // legend
-//    painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/6,
-//                     leg_x + leg_w / 2.0 , leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/6);
-
-
-//    painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 0*(leg_h-2*leg_mrg)/3,
-//                     leg_w / 2.0, (leg_h-2*leg_mrg)/3,
-//                     Qt::AlignCenter,
-//                     QString("method_1"));
-
-    // plot
-    for(int i=0; i<N-1; ++i){
-        painter.drawLine(margin + step * (i), margin + plot_h - plot_h * F0[i] * 10.0/11,
-                         margin + step * (i+1), margin + plot_h - plot_h * F0[i+1] * 10.0/11);
-    }
-
-
-    // draw h1_pval_dist
-    painter.setPen(QPen(h1_clr, h1_lw));
-
-    // legend
-//    painter.drawLine(leg_x + leg_mrg, leg_y + leg_mrg + 3*(leg_h-2*leg_mrg)/6,
-//                     leg_x + leg_w / 2.0 , leg_y + leg_mrg + 3*(leg_h-2*leg_mrg)/6);
-
-//    painter.drawText(leg_x + leg_w / 2.0, leg_y + leg_mrg + 1*(leg_h-2*leg_mrg)/3,
-//                     leg_w / 2.0, (leg_h-2*leg_mrg)/3,
-//                     Qt::AlignCenter,
-//                     QString("method_2"));
-
-    // plot
-    for(int i=0; i<N-1; ++i){
-        painter.drawLine(margin + step * (i), margin + plot_h - plot_h * F1[i] * 10.0/11,
-                         margin + step * (i+1), margin + plot_h - plot_h * F1[i+1] * 10.0/11);
-    }
+    draw_line_plot(painter, F0, N, Qt::red, 4, w, h, margin, step);
+    draw_line_plot(painter, F1, N, Qt::blue, 4, w, h, margin, step);
 
 
     double *vals = new double[N];
@@ -413,7 +369,6 @@ void BasicView::draw_time_event(QPainter &painter){
         vals[i] = i/10.0 * mx;
     }
     draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals, h, margin, 1);
-
 
     delete[] F0;
     delete[] F1;
