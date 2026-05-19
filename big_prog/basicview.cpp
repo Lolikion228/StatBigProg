@@ -211,17 +211,12 @@ void BasicView::draw_hist_event(QPainter& painter){
     int h = this->size().height();
 
     int N = _doc -> hist_gen_params -> sample -> get_sample_size();
-    //int range = _doc -> hist_gen_params -> sample -> get_range();
     int min_val = _doc -> hist_gen_params -> sample -> get_min_val();
     int max_val = _doc -> hist_gen_params -> sample -> get_max_val();
 
     int margin = h/10;
 
-    QString title = QString("Гистограмма (sample_size = %1, min = %2, max = %3)")
-                    .arg(N)
-                    .arg(min_val)
-                    .arg(max_val);
-    draw_frame_and_axes(painter, title, w, h, margin, hist_params->_bg_clr, QPen(Qt::black, 2));
+
 
 
     ChiSq test = ChiSq(_doc -> hist_gen_params -> sample,
@@ -251,12 +246,21 @@ void BasicView::draw_hist_event(QPainter& painter){
     qDebug() << "]";
     qDebug() << "\n";
 
-
     qDebug() << "df = " << test._df;
     qDebug() << "n_states = " << test._n_states;
     qDebug() << "pval = " << test._pval;
     qDebug() << "statistic = " << test._stat;
     qDebug() << "\n";
+
+
+    QString title = QString("Гистограмма (sample_size = %1, min = %2, max = %3)\n df=%4,  pval=%5,  statistic=%6")
+                    .arg(N)
+                    .arg(min_val)
+                    .arg(max_val)
+                    .arg(test._df)
+                    .arg(QString::number(test._pval, 'f', 2))
+                    .arg(QString::number(test._stat, 'f', 2));
+    draw_frame_and_axes(painter, title, w, h, margin, hist_params->_bg_clr, QPen(Qt::black, 2));
 
 
     // some calculations
@@ -302,7 +306,6 @@ void BasicView::draw_hist_event(QPainter& painter){
     draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals, h, margin, 2);
 
     delete[] vals;
-    //delete[] lower_bounds;
 }
 
 //void BasicView::draw_hist_event(QPainter& painter){
