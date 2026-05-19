@@ -1,4 +1,5 @@
 #include "funcs.h"
+#include <QDebug>
 
 void sep(char c, int n, int m){
     for(int i=0; i<n; ++i){
@@ -217,8 +218,9 @@ double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thre
 }
 
 
+
 double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thresh,
-                 double h0_param, int &k, double *obs_freq, double *exp_freq, int &N){
+                 double h0_param, int &dfs, double *&obs_freq, double *&exp_freq, int &N){
     double res = 0;
     N = get_lim(sample_size, cum_exp_freq_thresh, h0_param);
     double* p = new double[N]{};
@@ -226,6 +228,7 @@ double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thre
 
     obs_freq = new double[N]{};
     exp_freq = new double[N]{};
+
     double cum_exp_freq = 0;
     double cum_obs_freq = 0;
     double cum_exp_freq_all = 0;
@@ -240,6 +243,7 @@ double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thre
     int cnt_groups = 0;
 
     get_freqs(obs_freq, exp_freq, p, X, N, sample_size);
+
 
     for(int i=0; i<N; ++i){
         cum_obs_freq += obs_freq[i];
@@ -274,18 +278,16 @@ double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thre
     }
 
 
-    k = cnt_groups;
+    dfs = cnt_groups - 1;
 
     delete[] p;
-    delete[] obs_freq;
-    delete[] exp_freq;
+    //delete[] obs_freq;
+    //delete[] exp_freq;
     delete[] cum_exp_freq_hist;
     delete[] cum_exp_freq_all_hist;
     delete[] diff_hist;
     delete[] summand_hist;
 
-
     return res;
 }
-
 

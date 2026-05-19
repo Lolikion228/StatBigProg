@@ -5,6 +5,7 @@
 #include <QPainter>
 #include "document.h"
 #include <cmath>
+#include "chisq.h"
 
 struct LegendItem {
     QColor color;

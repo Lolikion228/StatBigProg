@@ -9,13 +9,16 @@
 class ChiSq
 {
 private:
-    int _n_states;
+
+public:
     double _pval;
     double _stat;
     int _df;
+    int _n_states;
     double *_exp_freqs;
     double *_obs_freqs;
-public:
+
+
     ChiSq(MySample *sample, double h0_param);
     void operator() (MySample *sample, double h0_param);
     ~ChiSq();

@@ -1,10 +1,10 @@
 #include "HistGenParams.h"
 
 
-const int INIT_SAMPLE_SIZE = 1000;
+const int INIT_SAMPLE_SIZE = 50;
 
 HistGenParams::HistGenParams(std::mt19937_64* stdgen):
-    h1_lambda(25),
+    h1_lambda(10),
     method_ix(1)
 {
     curr_gen = new PoisGen1(h1_lambda, stdgen);

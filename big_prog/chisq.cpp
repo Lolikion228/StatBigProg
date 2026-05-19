@@ -23,11 +23,16 @@ void ChiSq::operator() (MySample *sample, double h0_param){
                5.0,
                h0_param,
                _df,
-               _exp_freqs,
                _obs_freqs,
+               _exp_freqs,
                _n_states);
 
     double pval = 1 - pChi(_stat, _df - 1);
     _pval = std::min(pval, 1 - 1e-6);
+}
+
+ChiSq::~ChiSq(){
+    //delete[] _obs_freqs;
+    //delete[] _exp_freqs;
 }
 
