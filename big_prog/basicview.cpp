@@ -395,7 +395,11 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     int plot_h = h - 2 * margin;
     double step = (w - 2 * margin) / N;
 
-    QString title = QString("Распределение pval");
+    QString title = QString("Распределение pval\n at alpha=%1  obs_sgnfc_lvl=%2  obs_pwr=%3")
+            .arg(QString::number(_doc->pdist_gen_params->sgnf_level, 'f', 3))
+            .arg(QString::number(_doc->pdist_gen_params->obs_sgnf_level, 'f', 3))
+            .arg(QString::number(_doc->pdist_gen_params->obs_power, 'f', 3));
+
     draw_frame_and_axes(painter, title, w, h, margin, QColor(245, 235, 240, 140), QPen(Qt::black, 2));
 
     QColor h0_clr = pdist_draw_params->_h0_clr;

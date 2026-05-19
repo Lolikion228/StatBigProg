@@ -23,6 +23,7 @@ public:
     int get_psample_size() const;
     int get_main_sample_size() const;
     int get_method_ix() const;
+    double get_sgnfc_level() const;
 
 private:
     Ui::SetPDistGenParamsDialog *ui;

@@ -13,6 +13,11 @@ public:
     int main_sample_size;
     double h0_lambda;
     double h1_lambda;
+
+    double sgnf_level;
+    double obs_sgnf_level;
+    double obs_power;
+
     PoisGen* h0_gen;
     PoisGen* h1_gen;
     int N;

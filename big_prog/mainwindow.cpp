@@ -18,7 +18,7 @@ const int SUPER_SEED = 2027;
 
  2) в pval_dist
  в зависимости от того различны ли параметры распр
- выдавать либо ур зн-ти либо мощность
+ выдавать либо ур зн-ти либо мощность (добавить ресеты)
 
 */
 
@@ -62,6 +62,7 @@ void MainWindow::onSetPDistGenParamsDialog(){
         doc->pdist_gen_params->h1_lambda = dialog.get_h1_lambda();
         doc->pdist_gen_params->main_sample_size = dialog.get_main_sample_size();
         doc->pdist_gen_params->psample_size = dialog.get_psample_size();
+        doc->pdist_gen_params->sgnf_level = dialog.get_sgnfc_level();
         int ix = dialog.get_method_ix();
         doc->pdist_gen_params->method_ix = ix;
         delete doc->pdist_gen_params->h0_gen;
@@ -84,7 +85,10 @@ void MainWindow::onSetPDistGenParamsDialog(){
                                                  doc->pdist_gen_params -> psample_size,
                                                  doc->pdist_gen_params -> main_sample_size,
                                                  doc->pdist_gen_params -> h0_sample,
-                                                 doc->pdist_gen_params -> h1_sample);
+                                                 doc->pdist_gen_params -> h1_sample,
+                                                 doc->pdist_gen_params -> sgnf_level,
+                                                 doc->pdist_gen_params -> obs_sgnf_level,
+                                                 doc->pdist_gen_params -> obs_power);
 
         basic_view->set_index(2);
         basic_view->update();
@@ -196,7 +200,10 @@ void MainWindow::onGenSampleButton(){
                                              doc->pdist_gen_params->psample_size,
                                              doc->pdist_gen_params->main_sample_size,
                                              doc->pdist_gen_params->h0_sample,
-                                             doc->pdist_gen_params->h1_sample);
+                                             doc->pdist_gen_params->h1_sample,
+                                             doc->pdist_gen_params->sgnf_level,
+                                             doc->pdist_gen_params->obs_sgnf_level,
+                                             doc->pdist_gen_params->obs_power);
     }
     if(ix == 3){
         doc->draw_time_params->update_dur();

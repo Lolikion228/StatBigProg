@@ -6,6 +6,9 @@ PDistGenParams::PDistGenParams(std::mt19937_64* stdgen):
     main_sample_size(100),
     h0_lambda(20),
     h1_lambda(20.5),
+    sgnf_level(0.15),
+    obs_sgnf_level(0),
+    obs_power(0),
 
     h0_sample(nullptr),
     h1_sample(nullptr)

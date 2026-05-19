@@ -15,6 +15,8 @@ SetPDistGenParamsDialog::SetPDistGenParamsDialog(Document* doc, QWidget *parent)
                 QString::number(doc->pdist_gen_params->h0_lambda));
     ui->h1_lambda_lineEdit->setText(
                 QString::number(doc->pdist_gen_params->h1_lambda));
+    ui->alpha_lineEdit->setText(
+                QString::number(doc->pdist_gen_params->sgnf_level));
     int m_ix = doc->pdist_gen_params->method_ix;
     ui->method_1_button->setChecked(m_ix == 1);
     ui->method_2_button->setChecked(m_ix == 2);
@@ -26,6 +28,7 @@ SetPDistGenParamsDialog::SetPDistGenParamsDialog(Document* doc, QWidget *parent)
             this, &SetPDistGenParamsDialog::on_buttonBox_rejected);
 
 }
+
 
 int SetPDistGenParamsDialog::get_psample_size() const{
     return ui->psample_size_lineEdit->text().toInt();
@@ -41,6 +44,10 @@ double SetPDistGenParamsDialog::get_h0_lambda() const{
 
 double SetPDistGenParamsDialog::get_h1_lambda() const{
     return ui->h1_lambda_lineEdit->text().toDouble();
+}
+
+double SetPDistGenParamsDialog::get_sgnfc_level() const{
+    return ui->alpha_lineEdit->text().toDouble();
 }
 
 int SetPDistGenParamsDialog::get_method_ix() const{
@@ -68,6 +75,9 @@ void SetPDistGenParamsDialog::on_buttonBox_accepted()
 
     res += check_dbl_field(0.1, 100, QString("H1 lambda"),
                     ui->h1_lambda_lineEdit->text());
+
+    res += check_dbl_field(0.001, 0.99, QString("sgnfc level"),
+                    ui->alpha_lineEdit->text());
 
     if(res != 0){
         return;

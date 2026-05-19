@@ -17,7 +17,7 @@ SetHistDrawParamsDialog::SetHistDrawParamsDialog(HistDrawParams hist_draw_params
     ui->setupUi(this);
 
     //ui->n_bins_edit->setText(QString::number(_hist_draw_params._n_bins));
-    ui->n_bins_edit->setText(QString::number(67));
+    ui->n_bins_edit->setText(QString::number(29));
 
     ui->buttonBox->disconnect();
     connect(ui->buttonBox, &QDialogButtonBox::accepted,

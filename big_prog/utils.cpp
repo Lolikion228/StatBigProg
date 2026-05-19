@@ -9,7 +9,7 @@ int check_dbl_field(double lb, double ub, QString desc, QString str){
     }
 
     bool dbl_ok;
-    int number = str.toDouble(&dbl_ok);
+    double number = str.toDouble(&dbl_ok);
 
     if ( (!dbl_ok) || (number < lb || number > ub) ) {
         QMessageBox::warning(nullptr, "Ошибка",

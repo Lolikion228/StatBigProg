@@ -22,5 +22,9 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
               int psample_size, int main_sample_size,
               double* &F0, double* &F1);
 
+int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
+              int psample_size, int main_sample_size,
+              double* &F0, double* &F1, double alpha, double &obs_sgnf_lvl, double &obs_pwr);
+
 
 #endif // MOD_H
