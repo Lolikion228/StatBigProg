@@ -18,7 +18,6 @@ public:
     double *_exp_freqs;
     double *_obs_freqs;
 
-
     ChiSq(MySample *sample, double h0_param);
     void operator() (MySample *sample, double h0_param);
     ~ChiSq();

@@ -32,7 +32,7 @@ void ChiSq::operator() (MySample *sample, double h0_param){
 }
 
 ChiSq::~ChiSq(){
-    //delete[] _obs_freqs;
-    //delete[] _exp_freqs;
+    delete[] _obs_freqs;
+    delete[] _exp_freqs;
 }
 

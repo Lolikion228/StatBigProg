@@ -14,7 +14,7 @@ const int SUPER_SEED = 2027;
 
  1) две гистограммы на одном рисунке (узкие и широкие столбцы)
  теоретич и эмпирич частоты из хи2
- писать chi2_val df p_val
+ писать chi2_val df p_val (done?)
 
  2) в pval_dist
  в зависимости от того различны ли параметры распр
@@ -164,7 +164,7 @@ void MainWindow::onDrawHist(){
     SetHistDrawParamsDialog dialog(*(basic_view->hist_params), this);
     int res = dialog.exec();
     if(res == QDialog::Accepted){
-        basic_view->hist_params->_n_bins = dialog._hist_draw_params._n_bins;
+        //basic_view->hist_params->_n_bins = dialog._hist_draw_params._n_bins;
         basic_view->hist_params->_bg_clr = dialog._hist_draw_params._bg_clr;
         basic_view->hist_params->_bin_clr = dialog._hist_draw_params._bin_clr;
         basic_view->hist_params->_border_clr = dialog._hist_draw_params._border_clr;

@@ -1,5 +1,5 @@
 #include "SetHistDrawParamsDialog.h"
-#include "ui_sethistdrawparamsdialog.h"
+#include "ui_SetHistDrawParamsDialog.h"
 #include <QMessageBox>
 #include <QColorDialog>
 #include <QPainter>
@@ -12,11 +12,12 @@ SetHistDrawParamsDialog::SetHistDrawParamsDialog(HistDrawParams hist_draw_params
     _hist_draw_params._bg_clr = hist_draw_params._bg_clr;
     _hist_draw_params._bin_clr = hist_draw_params._bin_clr;
     _hist_draw_params._border_clr = hist_draw_params._border_clr;
-    _hist_draw_params._n_bins = hist_draw_params._n_bins;
+    //_hist_draw_params._n_bins = hist_draw_params._n_bins;
 
     ui->setupUi(this);
 
-    ui->n_bins_edit->setText(QString::number(_hist_draw_params._n_bins));
+    //ui->n_bins_edit->setText(QString::number(_hist_draw_params._n_bins));
+    ui->n_bins_edit->setText(QString::number(67));
 
     ui->buttonBox->disconnect();
     connect(ui->buttonBox, &QDialogButtonBox::accepted,
@@ -82,9 +83,9 @@ void SetHistDrawParamsDialog::on_rect_clr(){
 
 
 
-int SetHistDrawParamsDialog::get_n_bins() const{
-    return this->ui->n_bins_edit->text().toInt();
-};
+//int SetHistDrawParamsDialog::get_n_bins() const{
+//    return this->ui->n_bins_edit->text().toInt();
+//};
 
 void SetHistDrawParamsDialog::on_buttonBox_accepted()
 {
@@ -107,7 +108,7 @@ void SetHistDrawParamsDialog::on_buttonBox_accepted()
         return;
     }
 
-    _hist_draw_params._n_bins = ui->n_bins_edit->text().toInt();
+   // _hist_draw_params._n_bins = ui->n_bins_edit->text().toInt();
     accept();
 }
 

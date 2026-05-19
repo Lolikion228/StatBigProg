@@ -17,7 +17,7 @@ struct LegendItem {
 };
 
 struct HistDrawParams{
-    int _n_bins = 18;
+//    int _n_bins = 18;
     QColor _bg_clr = QColor(245, 235, 240, 140);
     QColor _bin_clr = QColor(210, 170, 185, 200);
     QColor _border_clr = QColor(180, 140, 155, 255);

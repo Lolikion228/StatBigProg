@@ -17,7 +17,7 @@ protected:
 public:
     HistDrawParams _hist_draw_params;
     explicit SetHistDrawParamsDialog(HistDrawParams hist_draw_params, QWidget *parent = nullptr);
-    int get_n_bins() const;
+    //int get_n_bins() const;
     void paintEvent(QPaintEvent *) override;
     void on_buttonBox_accepted();
     void on_buttonBox_rejected();

@@ -146,42 +146,42 @@ void draw_legend(int N, QPainter& painter, const QList<LegendItem>& items, int h
 }
 
 
-void compute_hist(Document *_doc, HistDrawParams* hist_params, double* bin_probs, double* lower_bounds){
-    int range = _doc -> hist_gen_params -> sample -> get_range();
-    int min_val = _doc -> hist_gen_params -> sample -> get_min_val();
-    double* freq = _doc -> hist_gen_params -> sample -> get_freq();
+//void compute_hist(Document *_doc, HistDrawParams* hist_params, double* bin_probs, double* lower_bounds){
+//    int range = _doc -> hist_gen_params -> sample -> get_range();
+//    int min_val = _doc -> hist_gen_params -> sample -> get_min_val();
+//    double* freq = _doc -> hist_gen_params -> sample -> get_freq();
 
-    // some calculations
-    int n_bins = std::min(hist_params->_n_bins, range);
-    /*
-    range = cnt_adj_bins * (bin_range + 1) + cnt_norm_bins * (bin_range)
-    */
-    int bin_range = range / n_bins;
-    // int cnt_norm_bins = n_bins - range % n_bins;
-    int cnt_adj_bins = range % n_bins;
+//    // some calculations
+//    int n_bins = std::min(hist_params->_n_bins, range);
+//    /*
+//    range = cnt_adj_bins * (bin_range + 1) + cnt_norm_bins * (bin_range)
+//    */
+//    int bin_range = range / n_bins;
+//    // int cnt_norm_bins = n_bins - range % n_bins;
+//    int cnt_adj_bins = range % n_bins;
 
-    // compute total_prob for each bin
-    int lower_b;
-    int upper_b;
-    int offset = cnt_adj_bins * (bin_range + 1);
-    for(int i = 0; i < n_bins; ++i){
+//    // compute total_prob for each bin
+//    int lower_b;
+//    int upper_b;
+//    int offset = cnt_adj_bins * (bin_range + 1);
+//    for(int i = 0; i < n_bins; ++i){
 
-        if(i < cnt_adj_bins){
-            lower_b = i * (bin_range + 1);
-            upper_b = (i + 1) * (bin_range + 1);
-            for(int j=lower_b; j<upper_b; ++j)
-                bin_probs[i] += freq[j];
-        }
-        else{
-            lower_b = offset + (i - cnt_adj_bins    ) * bin_range;
-            upper_b = offset + (i - cnt_adj_bins + 1) * bin_range;
-            for(int j=lower_b; j<upper_b; ++j)
-                bin_probs[i] += freq[j];
-        }
-        lower_bounds[i] = lower_b + min_val;
-    }
+//        if(i < cnt_adj_bins){
+//            lower_b = i * (bin_range + 1);
+//            upper_b = (i + 1) * (bin_range + 1);
+//            for(int j=lower_b; j<upper_b; ++j)
+//                bin_probs[i] += freq[j];
+//        }
+//        else{
+//            lower_b = offset + (i - cnt_adj_bins    ) * bin_range;
+//            upper_b = offset + (i - cnt_adj_bins + 1) * bin_range;
+//            for(int j=lower_b; j<upper_b; ++j)
+//                bin_probs[i] += freq[j];
+//        }
+//        lower_bounds[i] = lower_b + min_val;
+//    }
 
-}
+//}
 
 
 void draw_histogram(QPainter& painter, const double* bin_probs, int n_bins, double max_prob,
@@ -215,8 +215,6 @@ void BasicView::draw_hist_event(QPainter& painter){
     int max_val = _doc -> hist_gen_params -> sample -> get_max_val();
 
     int margin = h/10;
-
-
 
 
     ChiSq test = ChiSq(_doc -> hist_gen_params -> sample,
@@ -261,7 +259,6 @@ void BasicView::draw_hist_event(QPainter& painter){
                     .arg(QString::number(test._pval, 'f', 2))
                     .arg(QString::number(test._stat, 'f', 2));
     draw_frame_and_axes(painter, title, w, h, margin, hist_params->_bg_clr, QPen(Qt::black, 2));
-
 
     // some calculations
     int n_bins = test._n_states;

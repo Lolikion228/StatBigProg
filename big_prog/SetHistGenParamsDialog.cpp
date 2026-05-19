@@ -1,5 +1,5 @@
 #include "SetHistGenParamsDialog.h"
-#include "ui_setgenparamsdialog.h"
+#include "ui_SetHistGenParamsDialog.h"
 #include <QMessageBox>
 
 SetHistGenParamsDialog::SetHistGenParamsDialog(Document *doc, QWidget *parent) :

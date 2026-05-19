@@ -85,7 +85,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>h1_lambda:</string>
+    <string>h1_lambda</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
