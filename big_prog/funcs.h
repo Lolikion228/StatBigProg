@@ -18,6 +18,10 @@ double chisq_stat(int *X, int sample_size, double *p, int N, int verbose);
 double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thresh,
                  double h0_param, int &k);
 
+
+double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thresh,
+                 double h0_param, int &k, double *obs_freq, double *exp_freq, int &N);
+
 template <typename T>
 void print_arr(T x, int n){
     std::cout << "[" ;
