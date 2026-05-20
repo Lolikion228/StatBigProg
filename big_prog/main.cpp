@@ -19,8 +19,11 @@
 #include "poisgen2.h"
 #include "mysample.h"
 #include "distribution.h"
+#include "mod.h"
 #include <algorithm>
 
+const double GOOD_STEP_SIZE = 0.05;
+const double EPS = 1e-6;
 auto stdgen = new std::mt19937_64(2007);
 
 template <typename T>
@@ -41,7 +44,9 @@ int compareInts(const void* a, const void* b) {
     return 0;
 }
 
-void test_chisq(int N=50, double lambda=10.3){
+void test_chisq(){
+    int N=50;
+    double lambda=10.3;
     PoisGen *curr_gen = new PoisGen1(lambda, stdgen);
 
     int *X = new int[N];
@@ -68,11 +73,64 @@ void test_chisq(int N=50, double lambda=10.3){
 }
 
 
+void test_pecdf(){
+    int main_sample_size = 100;
+    int psample_size = 10000;
+    double lambda_h0 = 10;
+    double lambda_h1 = 10.5;
+    double alpha = 0.15;
+
+    PoisGen *h0_gen = new PoisGen1(lambda_h0, stdgen);
+    PoisGen *h1_gen = new PoisGen1(lambda_h1, stdgen);
+
+    double *F0;
+    double *F1;
+    double obs_sgnf_lvl;
+    double obs_pwr;
+    get_pdist(h0_gen, h1_gen, psample_size, main_sample_size, F0, F1, alpha, obs_sgnf_lvl, obs_pwr);
+
+    int N = 1 / GOOD_STEP_SIZE;
+    std::cout << "val     F0     F1\n";
+    for(int i=0; i<N; ++i){
+        printf("%3.2f  %5.3f  %5.3f\n", GOOD_STEP_SIZE*(i+1), F0[i], F1[i]);
+    }
+
+    std::cout << "\n";
+    printf("at alpha = %.3f\n", alpha);
+    int ix = 0;
+    if(alpha >= GOOD_STEP_SIZE){
+        ix = alpha / GOOD_STEP_SIZE - 1 + EPS;
+    }
+    printf("ERR_1 = %.3f   POW = %.3f\n", F0[ix], F1[ix]);
+
+}
+
+
+void test_time(){
+
+}
 
 
 int main(int argc, char *argv[])
 {
+
     test_chisq();
+
+    std::cout << "\n";
+    for(int i=0; i<40; ++i){
+        std::cout << "#";
+    }
+    std::cout << "\n\n";
+
+    test_pecdf();
+
+    std::cout << "\n";
+    for(int i=0; i<40; ++i){
+        std::cout << "#";
+    }
+    std::cout << "\n\n";
+
+    test_time();
 }
 
 

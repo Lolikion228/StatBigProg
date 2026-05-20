@@ -9,7 +9,6 @@ const double ALMOST_ONE = 1.0 - EPS;
 double pval(Distribution d0, PoisGen* h1_gen, int sample_size, int verbose){
     double h0_param = d0.get_lambda();
     int X[sample_size];
-    //sample(sample_size, X, h1_param, gen, 1);
     get_sample(sample_size, X, h1_gen);
 
     int right_lim = h0_param + 3 * sqrt(h0_param);
@@ -69,12 +68,12 @@ void pecdf(PoisGen* h0_gen, PoisGen* h1_gen, double alpha,
     Distribution d0 = Distribution(h0_gen->_lambda);
 
     double* p0 = new double[psample_size];
-    psample(h0_gen->_lambda, h0_gen, psample_size, p0, main_sample_size);
+    psample(d0, h0_gen, psample_size, p0, main_sample_size);
     double* F0 = new double[N]{};
     ecdf(p0, psample_size, GOOD_STEP_SIZE, F0);
 
     double* p1 = new double[psample_size];
-    psample(h0_gen->_lambda, h1_gen, psample_size, p1, main_sample_size);
+    psample(d0, h1_gen, psample_size, p1, main_sample_size);
     double* F1 = new double[N]{};
     ecdf(p1, psample_size, GOOD_STEP_SIZE, F1);
 
@@ -107,17 +106,17 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
     Distribution d0 = Distribution(h0_gen->_lambda);
 
     double* p0 = new double[psample_size];
-    psample(h0_gen->_lambda, h0_gen, psample_size, p0, main_sample_size);//bad
+    psample(d0, h0_gen, psample_size, p0, main_sample_size);//bad
     F0 = new double[N]{};
     ecdf(p0, psample_size, GOOD_STEP_SIZE, F0);
 
     double* p1 = new double[psample_size];
-    psample(h0_gen->_lambda, h1_gen, psample_size, p1, main_sample_size);
+    psample(d0, h1_gen, psample_size, p1, main_sample_size);
     F1 = new double[N]{};
     ecdf(p1, psample_size, GOOD_STEP_SIZE, F1);
 
 //    double alpha=0.15;
-    qDebug() << "on alpha = " << alpha;
+    qDebug() << "at alpha = " << alpha;
     int ix = 0;
     if(alpha >= GOOD_STEP_SIZE){
         ix = alpha / GOOD_STEP_SIZE - 1 + EPS;

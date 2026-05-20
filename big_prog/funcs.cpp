@@ -148,8 +148,6 @@ double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thre
     dfs = cnt_groups - 1;
 
     delete[] p;
-    //delete[] obs_freq;
-    //delete[] exp_freq;
     delete[] cum_exp_freq_hist;
     delete[] cum_exp_freq_all_hist;
     delete[] diff_hist;
