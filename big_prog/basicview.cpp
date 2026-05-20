@@ -146,44 +146,6 @@ void draw_legend(int N, QPainter& painter, const QList<LegendItem>& items, int h
 }
 
 
-//void compute_hist(Document *_doc, HistDrawParams* hist_params, double* bin_probs, double* lower_bounds){
-//    int range = _doc -> hist_gen_params -> sample -> get_range();
-//    int min_val = _doc -> hist_gen_params -> sample -> get_min_val();
-//    double* freq = _doc -> hist_gen_params -> sample -> get_freq();
-
-//    // some calculations
-//    int n_bins = std::min(hist_params->_n_bins, range);
-//    /*
-//    range = cnt_adj_bins * (bin_range + 1) + cnt_norm_bins * (bin_range)
-//    */
-//    int bin_range = range / n_bins;
-//    // int cnt_norm_bins = n_bins - range % n_bins;
-//    int cnt_adj_bins = range % n_bins;
-
-//    // compute total_prob for each bin
-//    int lower_b;
-//    int upper_b;
-//    int offset = cnt_adj_bins * (bin_range + 1);
-//    for(int i = 0; i < n_bins; ++i){
-
-//        if(i < cnt_adj_bins){
-//            lower_b = i * (bin_range + 1);
-//            upper_b = (i + 1) * (bin_range + 1);
-//            for(int j=lower_b; j<upper_b; ++j)
-//                bin_probs[i] += freq[j];
-//        }
-//        else{
-//            lower_b = offset + (i - cnt_adj_bins    ) * bin_range;
-//            upper_b = offset + (i - cnt_adj_bins + 1) * bin_range;
-//            for(int j=lower_b; j<upper_b; ++j)
-//                bin_probs[i] += freq[j];
-//        }
-//        lower_bounds[i] = lower_b + min_val;
-//    }
-
-//}
-
-
 void draw_histogram(QPainter& painter, const double* bin_probs, int n_bins, double max_prob,
                     int plot_h, int margin, int bin_width, const QColor& bin_color,
                     const QColor& border_color, double width_factor) {
@@ -304,82 +266,6 @@ void BasicView::draw_hist_event(QPainter& painter){
 
     delete[] vals;
 }
-
-//void BasicView::draw_hist_event(QPainter& painter){
-//    int w = this->size().width();
-//    int h = this->size().height();
-
-//    int N = _doc -> hist_gen_params -> sample -> get_sample_size();
-//    int range = _doc -> hist_gen_params -> sample -> get_range();
-//    int min_val = _doc -> hist_gen_params -> sample -> get_min_val();
-//    int max_val = _doc -> hist_gen_params -> sample -> get_max_val();
-
-//    int margin = h/10;
-
-//    QString title = QString("Гистограмма (sample_size = %1, min = %2, max = %3)")
-//                    .arg(N)
-//                    .arg(min_val)
-//                    .arg(max_val);
-//    draw_frame_and_axes(painter, title, w, h, margin, hist_params->_bg_clr, QPen(Qt::black, 2));
-
-//    // some calculations
-//    int n_bins = std::min(hist_params->_n_bins, range);
-//    int plot_h = h - 2 * margin;
-//    int bin_width = (w - 2.0 * margin) / n_bins;
-
-//    double* bin_probs = new double[n_bins]{};
-//    double* lower_bounds = new double[n_bins]{};
-//    compute_hist(_doc, hist_params, bin_probs, lower_bounds);
-
-//    double* bin_probs2 = new double[n_bins]{};
-//    double* lower_bounds2 = new double[n_bins]{};
-//    compute_hist(_doc, hist_params, bin_probs2, lower_bounds);
-//    for(int i=0; i<n_bins; ++i){
-//        if(i < n_bins/2){bin_probs2[i] *= 0.5;}
-//        else{bin_probs2[i] *= 2;}
-//    }
-
-//    // compute max_prob
-//    double max_prob = -1;
-//    for(int i=0; i<n_bins; ++i){
-//        if(bin_probs[i]>=max_prob) max_prob = bin_probs[i];
-//        if(bin_probs2[i]>=max_prob) max_prob = bin_probs2[i];
-//    }
-
-//    double width_factor = 1.0;
-//    draw_histogram(painter, bin_probs, n_bins, max_prob, plot_h, margin, bin_width,
-//                   hist_params->_bin_clr, hist_params->_border_clr, width_factor);
-
-
-//    width_factor = 0.5;
-//    draw_histogram(painter, bin_probs2, n_bins, max_prob, plot_h, margin, bin_width,
-//                   QColor(180, 170, 215, 200), QColor(150, 140, 185, 255), width_factor);
-
-
-//    // X-ticks
-//    painter.setBrush(hist_params->_bin_clr);
-//    painter.setPen(QPen(hist_params->_border_clr, 3));
-//    painter.setFont(QFont("Arial", margin/3, QFont::Bold));
-//    for(int i = 0; i < n_bins; ++i){
-//        painter.drawText(3 + margin + i * bin_width, h-margin,
-//                         bin_width, margin,
-//                         Qt::AlignCenter,
-//                         QString::number(lower_bounds[i]));
-//    }
-
-//    // Y-ticks
-//    double *vals = new double[11];
-//    for(int i=0; i<11; ++i){
-//        vals[i] = max_prob * (i/10.0);
-//    }
-//    draw_yticks(painter, 3*(margin/4),  margin + plot_h, 11, vals, h, margin, 2);
-
-//    delete[] vals;
-//    delete[] lower_bounds;
-//    delete[] bin_probs;
-//    delete[] lower_bounds2;
-//    delete[] bin_probs2;
-//}
 
 
 void BasicView::draw_pval_dist_event(QPainter& painter){
