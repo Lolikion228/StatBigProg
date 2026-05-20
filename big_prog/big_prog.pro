@@ -19,6 +19,7 @@ SOURCES += \
     SetPDistGenParamsDialog.cpp \
     basicview.cpp \
     chisq.cpp \
+    distribution.cpp \
     document.cpp \
     funcs.cpp \
     main.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     SetPDistGenParamsDialog.h \
     basicview.h \
     chisq.h \
+    distribution.h \
     document.h \
     funcs.h \
     mainwindow.h \
