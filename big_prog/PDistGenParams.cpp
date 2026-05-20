@@ -17,7 +17,7 @@ PDistGenParams::PDistGenParams(std::mt19937_64* stdgen):
     h1_gen = new PoisGen1(h1_lambda, stdgen);
     N = get_pdist(h0_gen, h1_gen,
               psample_size, main_sample_size,
-              (h0_sample), (h1_sample));
+              h0_sample, h1_sample, sgnf_level, obs_sgnf_level, obs_power);
 }
 
 PDistGenParams::~PDistGenParams(){

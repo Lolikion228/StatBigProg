@@ -9,17 +9,7 @@ const int SUPER_SEED = 2027;
 
 
 /*
-
  0) классы классы классы
-
- 1) две гистограммы на одном рисунке (узкие и широкие столбцы)
- теоретич и эмпирич частоты из хи2
- писать chi2_val df p_val (done?)
-
- 2) в pval_dist
- в зависимости от того различны ли параметры распр
- выдавать либо ур зн-ти либо мощность (добавить ресеты)
-
 */
 
 MainWindow::MainWindow(QWidget *parent)
@@ -46,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionDrawPDist, &QAction::triggered, this, &MainWindow::onDrawPDist);
 
     connect(ui->actionDrawTime, &QAction::triggered, this, &MainWindow::onDrawTime);
+    connect(ui->actionResetTimeParams, &QAction::triggered, this, &MainWindow::onResetTimeParams);
 
     connect(ui->actionClearAll, &QAction::triggered, this,  [this](){
         basic_view->set_index(0);
@@ -242,7 +233,12 @@ void MainWindow::onDrawTime(){
 }
 
 void MainWindow::onResetTimeParams(){
+    delete doc->draw_time_params;
+    doc->draw_time_params = new DrawTimeParams(stdgen);
 
+    basic_view->set_index(3);
+    basic_view->update();
+    basic_view->show();
 }
 
 MainWindow::~MainWindow()
