@@ -93,7 +93,6 @@ void pecdf(PoisGen* h0_gen, PoisGen* h1_gen, double alpha,
 }
 
 
-
 int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
               int psample_size, int main_sample_size,
               double* &F0, double* &F1, double alpha, double &obs_sgnf_lvl, double &obs_pwr){
@@ -129,34 +128,3 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
 }
 
 
-int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
-              int psample_size, int main_sample_size,
-              double* &F0, double* &F1){
-
-    int N = 1 / GOOD_STEP_SIZE;
-
-    double* p0 = new double[psample_size];
-    psample(h0_gen->_lambda, h0_gen, psample_size, p0, main_sample_size);
-    F0 = new double[N]{};
-    ecdf(p0, psample_size, GOOD_STEP_SIZE, F0);
-
-    double* p1 = new double[psample_size];
-    psample(h0_gen->_lambda, h1_gen, psample_size, p1, main_sample_size);
-    F1 = new double[N]{};
-    ecdf(p1, psample_size, GOOD_STEP_SIZE, F1);
-
-    double alpha=0.15;
-    qDebug() << "on alpha = " << alpha;
-    int ix = 0;
-    if(alpha >= GOOD_STEP_SIZE){
-        ix = alpha / GOOD_STEP_SIZE - 1 + EPS;
-    }
-    qDebug() << "err_1 = " << F0[ix];
-    qDebug() << "pow = " << F1[ix];
-    qDebug() << "\n";
-
-
-    delete[] p0;
-    delete[] p1;
-    return N;
-}

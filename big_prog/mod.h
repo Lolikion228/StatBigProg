@@ -18,9 +18,6 @@ void pecdf(PoisGen* h0_gen, PoisGen* h1_gen, double alpha,
 
 void ecdf(double *X, int N, double step_size, double *F);
 
-int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
-              int psample_size, int main_sample_size,
-              double* &F0, double* &F1);
 
 int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
               int psample_size, int main_sample_size,

@@ -436,7 +436,7 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     // legend
     QList<LegendItem> lisp = {LegendItem{h0_clr, h0_lw, QString("H0_pval_ECDF"), 0},
                              LegendItem{h1_clr, h1_lw, QString("H1_pval_ECDF"), 1},
-                             LegendItem{uni_clr, uni_lw, QString("H0_pval_ECDF"), 2}};
+                             LegendItem{uni_clr, uni_lw, QString("Uni_ECDF"), 2}};
     draw_legend(N, painter, lisp, h, margin, step);
 
     // X-ticks

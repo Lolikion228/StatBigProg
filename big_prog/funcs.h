@@ -17,7 +17,7 @@ double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thre
 
 
 double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thresh,
-                 double h0_param, int &dfs, double *&obs_freq, double *&exp_freq, int &N);
+                 Distribution d0, int &dfs, double *&obs_freq, double *&exp_freq, int &N);
 
 template <typename T>
 void print_arr(T x, int n){

@@ -1,7 +1,7 @@
 #include "chisq.h"
 
 
-ChiSq::ChiSq(MySample *sample, double h0_param):
+ChiSq::ChiSq(MySample *sample, Distribution d0):
 _df(0),
 _pval(0),
 _stat(0),
@@ -9,11 +9,11 @@ _n_states(0),
 _exp_freqs(nullptr),
 _obs_freqs(nullptr)
 {
-    operator()(sample, h0_param);
+    operator()(sample, d0);
 }
 
 
-void ChiSq::operator() (MySample *sample, double h0_param){
+void ChiSq::operator() (MySample *sample, Distribution d0){
     delete[] _exp_freqs;
     delete[] _obs_freqs;
 
@@ -21,7 +21,7 @@ void ChiSq::operator() (MySample *sample, double h0_param){
                sample->get_sample_size(),
                0,
                5.0,
-               h0_param,
+               d0,
                _df,
                _obs_freqs,
                _exp_freqs,
