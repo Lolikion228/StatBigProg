@@ -16,6 +16,7 @@
 #include "utils.h"
 #include "poisgen.h"
 #include "poisgen1.h"
+#include "DrawTimeParams.h"
 #include "poisgen2.h"
 #include "mysample.h"
 #include "distribution.h"
@@ -106,10 +107,6 @@ void test_pecdf(){
 }
 
 
-void test_time(){
-
-}
-
 
 int main(int argc, char *argv[])
 {
@@ -123,14 +120,6 @@ int main(int argc, char *argv[])
     std::cout << "\n\n";
 
     test_pecdf();
-
-    std::cout << "\n";
-    for(int i=0; i<40; ++i){
-        std::cout << "#";
-    }
-    std::cout << "\n\n";
-
-    test_time();
 }
 
 
