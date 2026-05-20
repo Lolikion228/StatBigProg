@@ -6,6 +6,9 @@ _lambda(lambda)
 
 }
 
+double Distribution::get_lambda() const{
+    return _lambda;
+}
 
 int Distribution::get_lim(int sample_size, double cum_exp_freq_thresh){
     double cum_exp_freq = 0;

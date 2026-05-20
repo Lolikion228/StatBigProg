@@ -6,12 +6,13 @@
 #include "probdist.h"
 #include "utils.h"
 
-double pval(double h0_param, PoisGen* h1_gen, int sample_size, int verbose);
+double pval(Distribution d0, PoisGen* h1_gen, int sample_size, int verbose);
+//double pval(double h0_param, PoisGen* h1_gen, int sample_size, int verbose);
 
-
-void psample(double h0_param, PoisGen* h1_gen, int psample_size,
+void psample(Distribution d0, PoisGen* h1_gen, int psample_size,
              double *X, int main_sample_size);
-
+//void psample(double h0_param, PoisGen* h1_gen, int psample_size,
+//             double *X, int main_sample_size);
 
 void pecdf(PoisGen* h0_gen, PoisGen* h1_gen, double alpha,
            int psample_size, int main_sample_size);

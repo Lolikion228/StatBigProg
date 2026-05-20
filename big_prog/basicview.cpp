@@ -220,35 +220,35 @@ void BasicView::draw_hist_event(QPainter& painter){
     ChiSq test = ChiSq(_doc -> hist_gen_params -> sample,
                        _doc -> hist_gen_params -> h1_lambda);
 
-    qDebug() << "sample:";
-    qDebug() << "[";
-    for(int i=0; i < _doc -> hist_gen_params -> sample ->get_sample_size(); ++i){
-        qDebug() << _doc->hist_gen_params->sample->get_sample()[i];
-    }
-    qDebug() << "]";
-    qDebug() << "\n";
+//    qDebug() << "sample:";
+//    qDebug() << "[";
+//    for(int i=0; i < _doc -> hist_gen_params -> sample ->get_sample_size(); ++i){
+//        qDebug() << _doc->hist_gen_params->sample->get_sample()[i];
+//    }
+//    qDebug() << "]";
+//    qDebug() << "\n";
 
-    qDebug() << "exp_freqs";
-    qDebug() << "[";
-    for(int i=0; i < test._n_states; ++i){
-        qDebug() << test._exp_freqs[i];
-    }
-    qDebug() << "]";
-    qDebug() << "\n";
+//    qDebug() << "exp_freqs";
+//    qDebug() << "[";
+//    for(int i=0; i < test._n_states; ++i){
+//        qDebug() << test._exp_freqs[i];
+//    }
+//    qDebug() << "]";
+//    qDebug() << "\n";
 
-    qDebug() << "obs_freqs";
-    qDebug() << "[";
-    for(int i=0; i < test._n_states; ++i){
-        qDebug() << test._obs_freqs[i];
-    }
-    qDebug() << "]";
-    qDebug() << "\n";
+//    qDebug() << "obs_freqs";
+//    qDebug() << "[";
+//    for(int i=0; i < test._n_states; ++i){
+//        qDebug() << test._obs_freqs[i];
+//    }
+//    qDebug() << "]";
+//    qDebug() << "\n";
 
-    qDebug() << "df = " << test._df;
-    qDebug() << "n_states = " << test._n_states;
-    qDebug() << "pval = " << test._pval;
-    qDebug() << "statistic = " << test._stat;
-    qDebug() << "\n";
+//    qDebug() << "df = " << test._df;
+//    qDebug() << "n_states = " << test._n_states;
+//    qDebug() << "pval = " << test._pval;
+//    qDebug() << "statistic = " << test._stat;
+//    qDebug() << "\n";
 
 
     QString title = QString("Гистограмма (sample_size = %1, min = %2, max = %3)\n df=%4,  pval=%5,  statistic=%6")

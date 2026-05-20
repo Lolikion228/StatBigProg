@@ -27,7 +27,7 @@ void ChiSq::operator() (MySample *sample, Distribution d0){
                _exp_freqs,
                _n_states);
 
-    double pval = 1 - pChi(_stat, _df - 1);
+    double pval = 1 - pChi(_stat, _df);
     _pval = std::min(pval, 1 - 1e-6);
 }
 
