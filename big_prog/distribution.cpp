@@ -36,7 +36,9 @@ void Distribution::get_probs(int right_lim, double *p){
 }
 
 
-void whoami(){};
+const char* Distribution::whoami(){
+    return "Poisson distribution";
+};
 
 
 Distribution::~Distribution(){
