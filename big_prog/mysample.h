@@ -10,12 +10,10 @@ protected:
     int _range;
     int _sample_size;
     int* _sample;
-    double *_freq;
 
 public:
     void set_sample(int* sample, int sample_size);
     int* get_sample() const;
-    double* get_freq() const;
     int get_min_val() const;
     int get_max_val() const;
     int get_range() const;

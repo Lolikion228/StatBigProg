@@ -3,8 +3,8 @@
 #include <iostream>
 
 MySample::MySample():
-    _sample(nullptr),
-    _freq(nullptr)
+    _sample_size(0),
+    _sample(nullptr)
 {}
 
 void MySample::set_sample(int* sample, int n){
@@ -21,19 +21,6 @@ void MySample::set_sample(int* sample, int n){
         if(_sample[i]<=_min_val) _min_val = _sample[i];
     }
 
-    delete[] _freq;
-
-    _range = _max_val - _min_val + 1;
-    _freq = new double[_range]{};
-
-    // change to += 1/n ???
-    for(int i=0; i<n; ++i){
-        _freq[_sample[i] - _min_val]++;
-    }
-
-    for(int i=0; i<_range; ++i){
-        _freq[i] /= n;
-    }
 }
 
 int* MySample::get_sample() const{
@@ -56,11 +43,7 @@ int MySample::get_range() const{
     return _range;
 }
 
-double* MySample::get_freq() const{
-    return _freq;
-}
 
 MySample::~MySample(){
     delete[] _sample;
-    delete[] _freq;
 }
