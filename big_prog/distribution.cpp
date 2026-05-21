@@ -8,6 +8,8 @@ double Distribution::get_lambda() const{
     return _lambda;
 }
 
+// внести в chisq_stat
+// типа динамич массива в dist
 int Distribution::get_lim(int sample_size, double cum_exp_freq_thresh) const{
     double cum_exp_freq = 0;
     double p = exp(-_lambda);

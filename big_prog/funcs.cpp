@@ -85,7 +85,7 @@ void big_print(double *obs_freq, double *exp_freq, double *diff_hist, double *su
     std::cout << "\n";
 }
 
-
+// change int* to sample
 double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thresh,
                  const Distribution &d0, int &dfs, double *&obs_freq, double *&exp_freq, int &N){
     double res = 0;
@@ -109,9 +109,10 @@ double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thre
 
     int cnt_groups = 0;
 
+    //можно убрать (в момент создания chisq)
     get_freqs(obs_freq, exp_freq, p, X, N, sample_size);
 
-
+    // переименовать N
     for(int i=0; i<N; ++i){
         cum_obs_freq += obs_freq[i];
         cum_exp_freq += exp_freq[i];
