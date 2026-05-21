@@ -87,7 +87,7 @@ void big_print(double *obs_freq, double *exp_freq, double *diff_hist, double *su
 
 
 double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thresh,
-                 Distribution d0, int &dfs, double *&obs_freq, double *&exp_freq, int &N){
+                 const Distribution &d0, int &dfs, double *&obs_freq, double *&exp_freq, int &N){
     double res = 0;
     N = d0.get_lim(sample_size, cum_exp_freq_thresh);
     double* p = new double[N]{};

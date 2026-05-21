@@ -2,15 +2,13 @@
 
 Distribution::Distribution(double lambda):
 _lambda(lambda)
-{
-
-}
+{}
 
 double Distribution::get_lambda() const{
     return _lambda;
 }
 
-int Distribution::get_lim(int sample_size, double cum_exp_freq_thresh){
+int Distribution::get_lim(int sample_size, double cum_exp_freq_thresh) const{
     double cum_exp_freq = 0;
     double p = exp(-_lambda);
     int i=0;
@@ -23,7 +21,7 @@ int Distribution::get_lim(int sample_size, double cum_exp_freq_thresh){
 }
 
 
-void Distribution::get_probs(int right_lim, double *p){
+void Distribution::get_probs(int right_lim, double *p) const{
     double t = exp(-_lambda);
     double sum = t;
     p[0] = t;
@@ -36,7 +34,7 @@ void Distribution::get_probs(int right_lim, double *p){
 }
 
 
-const char* Distribution::whoami(){
+const char* Distribution::whoami() const{
     return "Poisson distribution";
 };
 
