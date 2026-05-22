@@ -19,7 +19,7 @@ public:
     double *_obs_freqs;
 
     ChiSq(MySample *sample, Distribution d0);
-    void operator() (MySample *sample, Distribution d0);
+    void set_sample(MySample *sample, Distribution d0);
     ~ChiSq();
 };
 

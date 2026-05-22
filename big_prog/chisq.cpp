@@ -9,17 +9,16 @@ _n_states(0),
 _exp_freqs(nullptr),
 _obs_freqs(nullptr)
 {
-    operator()(sample, d0);
+    set_sample(sample, d0);
 }
 
 
-void ChiSq::operator() (MySample *sample, Distribution d0){
+void ChiSq::set_sample(MySample *sample, Distribution d0){
     delete[] _exp_freqs;
     delete[] _obs_freqs;
 
     _stat = chisq_stat(sample->get_sample(),
                sample->get_sample_size(),
-               0,
                5.0,
                d0,
                _df,

@@ -85,48 +85,39 @@ void big_print(double *obs_freq, double *exp_freq, double *diff_hist, double *su
     std::cout << "\n";
 }
 
+// move 2 chisq class
 // change int* to sample
-double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thresh,
-                 const Distribution &d0, int &dfs, double *&obs_freq, double *&exp_freq, int &N){
-    double res = 0;
-    N = d0.get_lim(sample_size, cum_exp_freq_thresh);
-    double* p = new double[N]{};
-    d0.get_probs(N, p);
+double chisq_stat(int *X, int sample_size, double cum_exp_freq_thresh,
+                  const Distribution &d0, int &dfs, double *&obs_freq,
+                  double *&exp_freq, int &cnt_states){
 
-    obs_freq = new double[N]{};
-    exp_freq = new double[N]{};
+    double res = 0;
+    cnt_states = d0.get_lim(sample_size, cum_exp_freq_thresh);
+    double* p = new double[cnt_states]{};
+    d0.get_probs(cnt_states, p);
+
+    obs_freq = new double[cnt_states]{};
+    exp_freq = new double[cnt_states]{};
 
     double cum_exp_freq = 0;
     double cum_obs_freq = 0;
-    double cum_exp_freq_all = 0;
-
-    double* cum_exp_freq_hist = new double[N]{};
-    double* cum_exp_freq_all_hist = new double[N]{};
-    double* diff_hist = new double[N]{};
-    double* summand_hist = new double[N]{};
     double diff;
     double summand;
-
     int cnt_groups = 0;
 
     //можно убрать (в момент создания chisq)
-    get_freqs(obs_freq, exp_freq, p, X, N, sample_size);
+    get_freqs(obs_freq, exp_freq, p, X, cnt_states, sample_size);
 
     // переименовать N
-    for(int i=0; i<N; ++i){
+    for(int i=0; i<cnt_states; ++i){
         cum_obs_freq += obs_freq[i];
         cum_exp_freq += exp_freq[i];
-        cum_exp_freq_all += exp_freq[i];
-        cum_exp_freq_hist[i] = cum_exp_freq;
-        cum_exp_freq_all_hist[i] = cum_exp_freq_all;
         if(cum_exp_freq >= cum_exp_freq_thresh){
             diff = cum_obs_freq - cum_exp_freq;
             summand = diff * diff / cum_exp_freq;
             res += summand;
             cum_exp_freq = 0;
             cum_obs_freq = 0;
-            diff_hist[i] = diff;
-            summand_hist[i] = summand;
             ++cnt_groups;
         }
     }
@@ -135,24 +126,12 @@ double chisq_stat(int *X, int sample_size, int verbose, double cum_exp_freq_thre
         diff = cum_obs_freq - cum_exp_freq;
         summand = diff * diff / cum_exp_freq;
         res += summand;
-        diff_hist[N-1] = diff;
-        summand_hist[N-1] = summand;
         ++cnt_groups;
     }
-
-    if(verbose >= 2){
-        big_print(obs_freq, exp_freq, diff_hist, summand_hist, cum_exp_freq_hist,
-             cum_exp_freq_all_hist, N, sample_size, true);
-    }
-
 
     dfs = cnt_groups - 1;
 
     delete[] p;
-    delete[] cum_exp_freq_hist;
-    delete[] cum_exp_freq_all_hist;
-    delete[] diff_hist;
-    delete[] summand_hist;
 
     return res;
 }

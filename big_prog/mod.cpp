@@ -28,8 +28,7 @@ double pval(Distribution d0, PoisGen* h1_gen, int sample_size, int verbose){
     double* tmp11;
     double* tmp12;
     int tmp13;
-    double t1 = chisq_stat(X, sample_size, verbose, GOOD_CUM_EXP_FREQ_THRESH, d0, k1, tmp11, tmp12, tmp13);
-
+    double t1 = chisq_stat(X, sample_size, GOOD_CUM_EXP_FREQ_THRESH, d0, k1, tmp11, tmp12, tmp13);
 
     if(verbose >= 1){
         std::cout << "d.f. = " << k1 << "\n";
