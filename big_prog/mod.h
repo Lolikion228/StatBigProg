@@ -5,6 +5,7 @@
 #include "poisgen.h"
 #include "probdist.h"
 #include "utils.h"
+#include "chisq.h"
 
 double pval(Distribution d0, PoisGen* h1_gen, int sample_size, int verbose);
 

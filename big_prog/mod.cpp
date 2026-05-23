@@ -23,19 +23,11 @@ double pval(Distribution d0, PoisGen* h1_gen, int sample_size, int verbose){
     }
     p[right_lim - 1] += (1 - sum);
 
+    MySample *sample = new MySample;
+    sample->set_sample(X, sample_size);
+    ChiSq test(sample, &d0);
 
-    int k1;
-    double* tmp11;
-    double* tmp12;
-    int tmp13;
-    double t1 = chisq_stat(X, sample_size, GOOD_CUM_EXP_FREQ_THRESH, d0, k1, tmp11, tmp12, tmp13);
-
-    if(verbose >= 1){
-        std::cout << "d.f. = " << k1 << "\n";
-        std::cout << "chi2 = " << t1 << "\n";
-    }
-
-    double res1 = 1 - pChi(t1, k1);
+    double res1 = 1 - pChi(test._stat, test._df);
 
     return std::min(res1, ALMOST_ONE);
 }

@@ -6,11 +6,16 @@
 #include "funcs.h"
 #include "probdist.h"
 
+const double CUM_EXP_FREQ_THRESH = 5.0;
+
 class ChiSq
 {
 private:
-
+    double compute_chisq_stat();
+    int get_lim(int sample_size) const;
+    void compute_freqs(double *p, MySample *sample);
 public:
+    Distribution *_dist;
     double _pval;
     double _stat;
     int _df;
@@ -18,8 +23,9 @@ public:
     double *_exp_freqs;
     double *_obs_freqs;
 
-    ChiSq(MySample *sample, Distribution d0);
-    void set_sample(MySample *sample, Distribution d0);
+    ChiSq(MySample *sample, Distribution *d0);
+    void set_sample(MySample *sample, Distribution *d0);
+
     ~ChiSq();
 };
 

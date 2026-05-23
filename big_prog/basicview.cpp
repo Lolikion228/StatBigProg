@@ -178,9 +178,10 @@ void BasicView::draw_hist_event(QPainter& painter){
 
     int margin = h/10;
 
-
+    Distribution *dist = new Distribution( _doc -> hist_gen_params ->h1_lambda);
     ChiSq test = ChiSq(_doc -> hist_gen_params -> sample,
-                       _doc -> hist_gen_params -> h1_lambda);
+                       dist);
+    delete dist;
 
 //    qDebug() << "sample:";
 //    qDebug() << "[";

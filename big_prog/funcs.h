@@ -13,9 +13,6 @@ p: vector of probs
 N: size of p
 */
 
-double chisq_stat(int *X, int sample_size, double cum_exp_freq_thresh,
-                  const Distribution &d0, int &dfs, double *&obs_freq,
-                  double *&exp_freq, int &cnt_states);
 
 template <typename T>
 void print_arr(T x, int n){
