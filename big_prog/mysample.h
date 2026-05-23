@@ -18,7 +18,7 @@ public:
     int get_max_val() const;
     int get_range() const;
     int get_sample_size() const;
-    MySample();
+    MySample(int* sample, int sample_size);
     ~MySample();
 };
 

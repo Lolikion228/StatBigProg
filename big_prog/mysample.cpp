@@ -2,10 +2,12 @@
 #include <limits>
 #include <iostream>
 
-MySample::MySample():
+MySample::MySample(int* sample, int sample_size):
     _sample_size(0),
     _sample(nullptr)
-{}
+{
+    set_sample(sample, sample_size);
+}
 
 void MySample::set_sample(int* sample, int n){
     delete[] _sample;

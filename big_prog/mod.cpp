@@ -23,8 +23,7 @@ double pval(Distribution d0, PoisGen* h1_gen, int sample_size, int verbose){
     }
     p[right_lim - 1] += (1 - sum);
 
-    MySample *sample = new MySample;
-    sample->set_sample(X, sample_size);
+    MySample *sample = new MySample(X, sample_size);
     ChiSq test(sample, &d0);
 
     double res1 = 1 - pChi(test._stat, test._df);
