@@ -27,8 +27,10 @@ void DrawTimeParams::update_dur(){
 
     for(int i=0; i<=cnt_steps; ++i){
         double lambda = lambda_min + (i / cnt_steps) * (lambda_max - lambda_min);
-        PoisGen1 gen1 = PoisGen1(lambda, _stdgen);
-        PoisGen2 gen2 = PoisGen2(lambda, _stdgen);
+
+        Distribution *d = new Distribution(lambda);
+        PoisGen1 gen1 = PoisGen1(d, _stdgen);
+        PoisGen2 gen2 = PoisGen2(d, _stdgen);
 
         start = std::chrono::high_resolution_clock::now();
         get_sample(sample_size, sample_1, &gen1);
@@ -39,6 +41,7 @@ void DrawTimeParams::update_dur(){
         get_sample(sample_size, sample_2, &gen2);
         end = std::chrono::high_resolution_clock::now();
         dur2[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+        delete d;
     }
 
     delete[] sample_1;

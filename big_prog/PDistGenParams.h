@@ -3,21 +3,26 @@
 
 #include "poisgen.h"
 #include "poisgen1.h"
+#include "poisgen2.h"
+#include "distribution.h"
 #include "mod.h"
 
 class PDistGenParams
 {
 public:
-    int method_ix;
+    std::mt19937_64* _stdgen;
+    int _method_ix;
     int psample_size;
     int main_sample_size;
-    double h0_lambda;
-    double h1_lambda;
+    double _h0_lambda;
+    double _h1_lambda;
 
     double sgnf_level;
     double obs_sgnf_level;
     double obs_power;
 
+    Distribution *d0;
+    Distribution *d1;
     PoisGen* h0_gen;
     PoisGen* h1_gen;
     int N;
@@ -25,6 +30,9 @@ public:
     double* h1_sample;
 
     PDistGenParams(std::mt19937_64* stdgen);
+    void set_params(int method_ix,
+                    double h0_lambda,
+                    double h1_lambda);
     ~PDistGenParams();
 };
 

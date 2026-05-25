@@ -49,24 +49,15 @@ void MainWindow::onSetPDistGenParamsDialog(){
     SetPDistGenParamsDialog dialog(doc, this);
     int res = dialog.exec();
     if(res == QDialog::Accepted){
-        doc->pdist_gen_params->h0_lambda = dialog.get_h0_lambda();
-        doc->pdist_gen_params->h1_lambda = dialog.get_h1_lambda();
         doc->pdist_gen_params->main_sample_size = dialog.get_main_sample_size();
         doc->pdist_gen_params->psample_size = dialog.get_psample_size();
         doc->pdist_gen_params->sgnf_level = dialog.get_sgnfc_level();
-        int ix = dialog.get_method_ix();
-        doc->pdist_gen_params->method_ix = ix;
-        delete doc->pdist_gen_params->h0_gen;
-        delete doc->pdist_gen_params->h1_gen;
 
-        if(ix == 1){
-            doc->pdist_gen_params->h0_gen = new PoisGen1(doc->pdist_gen_params->h0_lambda, stdgen);
-            doc->pdist_gen_params->h1_gen = new PoisGen1(doc->pdist_gen_params->h1_lambda, stdgen);
-        }
-        if(ix == 2){
-            doc->pdist_gen_params->h0_gen = new PoisGen2(doc->pdist_gen_params->h0_lambda, stdgen);
-            doc->pdist_gen_params->h1_gen = new PoisGen2(doc->pdist_gen_params->h1_lambda, stdgen);
-        }
+        doc->
+        pdist_gen_params->
+        set_params(dialog.get_method_ix(),
+                   dialog.get_h0_lambda(),
+                   dialog.get_h1_lambda());
 
         delete[] doc->pdist_gen_params->h0_sample;
         delete[] doc->pdist_gen_params->h1_sample;
@@ -130,19 +121,12 @@ void MainWindow::onSetHistGenParamsDialog(){
     int res = dialog.exec();
 
     if(res == QDialog::Accepted){
-        doc->hist_gen_params->h1_lambda = dialog.get_h1_lambda();
-        doc->hist_gen_params->method_ix = dialog.get_method_ix();
+        doc->
+        hist_gen_params->
+        set_params(dialog.get_h1_lambda(),
+                    dialog.get_method_ix());
 
         int N = dialog.get_sample_size();
-
-        if(dialog.get_method_ix()==1){
-            delete doc->hist_gen_params->curr_gen;
-            doc->hist_gen_params->curr_gen = new PoisGen1(doc->hist_gen_params->h1_lambda, stdgen);
-        }
-        if(dialog.get_method_ix()==2){
-            delete doc->hist_gen_params->curr_gen;
-            doc->hist_gen_params->curr_gen = new PoisGen2(doc->hist_gen_params->h1_lambda, stdgen);
-        }
 
         int* sample = new int[N];
         get_sample(N, sample, doc->hist_gen_params->curr_gen);

@@ -12,12 +12,12 @@ SetPDistGenParamsDialog::SetPDistGenParamsDialog(Document* doc, QWidget *parent)
     ui->psample_size_lineEdit->setText(
                 QString::number(doc->pdist_gen_params->psample_size));
     ui->h0_lambda_lineEdit->setText(
-                QString::number(doc->pdist_gen_params->h0_lambda));
+                QString::number(doc->pdist_gen_params->_h0_lambda));
     ui->h1_lambda_lineEdit->setText(
-                QString::number(doc->pdist_gen_params->h1_lambda));
+                QString::number(doc->pdist_gen_params->_h1_lambda));
     ui->alpha_lineEdit->setText(
                 QString::number(doc->pdist_gen_params->sgnf_level));
-    int m_ix = doc->pdist_gen_params->method_ix;
+    int m_ix = doc->pdist_gen_params->_method_ix;
     ui->method_1_button->setChecked(m_ix == 1);
     ui->method_2_button->setChecked(m_ix == 2);
 

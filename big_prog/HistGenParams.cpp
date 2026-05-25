@@ -1,20 +1,41 @@
 #include "HistGenParams.h"
-
+#include <QDebug>;
 
 const int INIT_SAMPLE_SIZE = 50;
+const double INIT_LAMBDA = 10.0;
 
 HistGenParams::HistGenParams(std::mt19937_64* stdgen):
-    h1_lambda(10),
-    method_ix(1)
+    _method_ix(1),
+    _dist(nullptr),
+    curr_gen(nullptr),
+    _stdgen(stdgen)
 {
-    curr_gen = new PoisGen1(h1_lambda, stdgen);
+    set_params(INIT_LAMBDA, _method_ix);
 
     int* _sample = new int[INIT_SAMPLE_SIZE];
     get_sample(INIT_SAMPLE_SIZE, _sample, curr_gen);
     sample = new MySample(_sample, INIT_SAMPLE_SIZE);
+
+}
+
+void HistGenParams::set_params(double lambda, int method_ix){
+    delete curr_gen;
+    delete _dist;
+
+    _method_ix = method_ix;
+    h1_lambda = lambda;
+    _dist = new Distribution(h1_lambda);
+
+    if (_method_ix==1){
+        curr_gen = new PoisGen1(_dist, _stdgen);
+    }
+    if (_method_ix==2){
+        curr_gen = new PoisGen2(_dist, _stdgen);
+    }
 }
 
 HistGenParams::~HistGenParams(){
     delete sample;
     delete curr_gen;
+    delete _dist;
 }

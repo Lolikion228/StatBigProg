@@ -7,6 +7,7 @@
 #include "poisgen2.h"
 #include "utils.h"
 #include <QDebug>
+#include "distribution.h"
 
 class DrawTimeParams
 {

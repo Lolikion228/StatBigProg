@@ -6,9 +6,10 @@
 class PoisGen2 : public PoisGen
 {
 public:
-    PoisGen2(double lambda, std::mt19937_64* stdgen): PoisGen(lambda, stdgen){};
+    PoisGen2(Distribution *dist, std::mt19937_64* stdgen):
+        PoisGen(dist, stdgen){}
     int gen();
-    ~PoisGen2(){};
+    ~PoisGen2(){}
 };
 
 #endif // POISGEN2_H
