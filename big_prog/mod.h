@@ -7,10 +7,10 @@
 #include "utils.h"
 #include "chisq.h"
 
-double pval(Distribution d0, PoisGen* h1_gen, int sample_size, int verbose);
+double pval(Distribution *d0, PoisGen* h1_gen, int sample_size, int verbose);
 
 
-void psample(Distribution d0, PoisGen* h1_gen, int psample_size,
+void psample(Distribution *d0, PoisGen* h1_gen, int psample_size,
              double *X, int main_sample_size);
 
 

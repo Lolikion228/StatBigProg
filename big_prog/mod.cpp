@@ -6,32 +6,19 @@ const double EPS = 1e-6;
 const double ALMOST_ONE = 1.0 - EPS;
 
 
-double pval(Distribution d0, PoisGen* h1_gen, int sample_size, int verbose){
-    double h0_param = d0.get_lambda();
+double pval(Distribution *d0, PoisGen* h1_gen, int sample_size, int verbose){
     int X[sample_size];
     get_sample(sample_size, X, h1_gen);
 
-    int right_lim = h0_param + 3 * sqrt(h0_param);
-    double p[right_lim];
-    double t = exp(-h0_param);
-    double sum = t;
-    p[0] = t;
-    for(int i=1; i<right_lim; ++i){
-        t *= h0_param / i;
-        p[i] = t;
-        sum += p[i];
-    }
-    p[right_lim - 1] += (1 - sum);
-
     MySample *sample = new MySample(X, sample_size);
-    ChiSq test(sample, &d0);
+    ChiSq test(sample, d0);
 
     double res1 = 1 - pChi(test._stat, test._df);
 
     return std::min(res1, ALMOST_ONE);
 }
 
-void psample(Distribution d0, PoisGen* h1_gen, int psample_size,
+void psample(Distribution *d0, PoisGen* h1_gen, int psample_size,
              double *X, int main_sample_size){
     for(int i=0; i<psample_size; ++i)
         X[i] = pval(d0, h1_gen, main_sample_size, 0);
@@ -55,7 +42,7 @@ void pecdf(PoisGen* h0_gen, PoisGen* h1_gen, double alpha,
            int psample_size, int main_sample_size){
 
     int N = 1 / GOOD_STEP_SIZE;
-    Distribution d0 = Distribution(h0_gen->_lambda);
+    Distribution* d0 = new Distribution(h0_gen->_lambda);
 
     double* p0 = new double[psample_size];
     psample(d0, h0_gen, psample_size, p0, main_sample_size);
@@ -80,7 +67,7 @@ void pecdf(PoisGen* h0_gen, PoisGen* h1_gen, double alpha,
     }
     printf("ERR_1 = %.3f   POW = %.3f\n", F0[ix], F1[ix]);
 
-
+    delete d0;
     delete[] p0;
     delete[] p1;
     delete[] F0;
@@ -93,7 +80,7 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
               double* &F0, double* &F1, double alpha, double &obs_sgnf_lvl, double &obs_pwr){
 
     int N = 1 / GOOD_STEP_SIZE;
-    Distribution d0 = Distribution(h0_gen->_lambda);
+    Distribution *d0 = new Distribution(h0_gen->_lambda);
 
     double* p0 = new double[psample_size];
     psample(d0, h0_gen, psample_size, p0, main_sample_size);//bad
@@ -118,6 +105,7 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
     obs_sgnf_lvl = F0[ix];
     obs_pwr = F1[ix];
 
+    delete d0;
     delete[] p0;
     delete[] p1;
     return N;
