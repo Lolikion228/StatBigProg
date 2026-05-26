@@ -35,12 +35,14 @@ void DrawTimeParams::update_dur(){
         PoisGen2 *gen2 = new PoisGen2(d, _stdgen);
 
         start = std::chrono::high_resolution_clock::now();
-        get_sample(sample_size, sample_1, gen1);
+        // get_sample(sample_size, sample_1, gen1);
+        gen1->gen_sample(sample_size);
         end = std::chrono::high_resolution_clock::now();
         dur1[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
         start = std::chrono::high_resolution_clock::now();
-        get_sample(sample_size, sample_2, gen2);
+        // get_sample(sample_size, sample_2, gen2);
+        gen2->gen_sample(sample_size);
         end = std::chrono::high_resolution_clock::now();
         dur2[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
         delete d;
