@@ -1,9 +1,6 @@
 #ifndef CHISQ_H
 #define CHISQ_H
 
-
-#include "mysample.h"
-#include "funcs.h"
 #include "probdist.h"
 #include "poisgen.h"
 

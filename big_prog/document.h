@@ -7,7 +7,6 @@
 #include <random>
 #include "poisgen1.h"
 #include "poisgen2.h"
-#include "mysample.h"
 #include "utils.h"
 #include "mod.h"
 #include <QDebug>

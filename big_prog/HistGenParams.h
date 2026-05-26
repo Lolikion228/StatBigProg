@@ -2,7 +2,6 @@
 #define HISTGENPARAMS_H
 
 #include "poisgen.h"
-#include "mysample.h"
 #include "poisgen1.h"
 #include "poisgen2.h"
 #include "utils.h"

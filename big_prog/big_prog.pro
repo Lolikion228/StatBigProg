@@ -21,7 +21,6 @@ SOURCES += \
     chisq.cpp \
     distribution.cpp \
     document.cpp \
-    funcs.cpp \
     main.cpp \
     mainwindow.cpp \
     mod.cpp \
@@ -45,7 +44,6 @@ HEADERS += \
     chisq.h \
     distribution.h \
     document.h \
-    funcs.h \
     mainwindow.h \
     mod.h \
     mysample.h \

@@ -1,10 +1,10 @@
 #ifndef MOD_H
 #define MOD_H
 
-#include "funcs.h"
 #include "poisgen.h"
 #include "probdist.h"
 #include "utils.h"
+#include <iostream>
 #include "chisq.h"
 
 double pval(Distribution *d0, PoisGen* h1_gen, int sample_size);
