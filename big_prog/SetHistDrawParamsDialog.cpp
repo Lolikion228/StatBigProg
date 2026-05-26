@@ -12,11 +12,9 @@ SetHistDrawParamsDialog::SetHistDrawParamsDialog(HistDrawParams hist_draw_params
     _hist_draw_params._bg_clr = hist_draw_params._bg_clr;
     _hist_draw_params._bin_clr = hist_draw_params._bin_clr;
     _hist_draw_params._border_clr = hist_draw_params._border_clr;
-    //_hist_draw_params._n_bins = hist_draw_params._n_bins;
 
     ui->setupUi(this);
 
-    //ui->n_bins_edit->setText(QString::number(_hist_draw_params._n_bins));
     ui->n_bins_edit->setText(QString::number(29));
 
     ui->buttonBox->disconnect();
@@ -82,11 +80,6 @@ void SetHistDrawParamsDialog::on_rect_clr(){
 }
 
 
-
-//int SetHistDrawParamsDialog::get_n_bins() const{
-//    return this->ui->n_bins_edit->text().toInt();
-//};
-
 void SetHistDrawParamsDialog::on_buttonBox_accepted()
 {
     QString text = ui->n_bins_edit->text();
@@ -108,7 +101,6 @@ void SetHistDrawParamsDialog::on_buttonBox_accepted()
         return;
     }
 
-   // _hist_draw_params._n_bins = ui->n_bins_edit->text().toInt();
     accept();
 }
 

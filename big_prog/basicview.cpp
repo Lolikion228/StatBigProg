@@ -182,37 +182,6 @@ void BasicView::draw_hist_event(QPainter& painter){
     ChiSq test = ChiSq(_doc -> hist_gen_params->curr_gen, dist);
     delete dist;
 
-//    qDebug() << "sample:";
-//    qDebug() << "[";
-//    for(int i=0; i < _doc -> hist_gen_params -> sample ->get_sample_size(); ++i){
-//        qDebug() << _doc->hist_gen_params->sample->get_sample()[i];
-//    }
-//    qDebug() << "]";
-//    qDebug() << "\n";
-
-//    qDebug() << "exp_freqs";
-//    qDebug() << "[";
-//    for(int i=0; i < test._n_states; ++i){
-//        qDebug() << test._exp_freqs[i];
-//    }
-//    qDebug() << "]";
-//    qDebug() << "\n";
-
-//    qDebug() << "obs_freqs";
-//    qDebug() << "[";
-//    for(int i=0; i < test._n_states; ++i){
-//        qDebug() << test._obs_freqs[i];
-//    }
-//    qDebug() << "]";
-//    qDebug() << "\n";
-
-   // qDebug() << "df = " << test._df;
-   // qDebug() << "n_states = " << test._n_states;
-   // qDebug() << "pval = " << test._pval;
-   // qDebug() << "statistic = " << test._stat;
-   // qDebug() << "\n";
-
-
     QString title = QString("Гистограмма (sample_size = %1, min = %2, max = %3)\n df=%4,  pval=%5,  statistic=%6")
                     .arg(N)
                     .arg(min_val)
@@ -423,7 +392,7 @@ void BasicView::paintEvent(QPaintEvent *){
         draw_time_event(painter);
     }
 
-};
+}
 
 
 void BasicView::showEvent(QShowEvent *)
@@ -437,7 +406,7 @@ void BasicView::showEvent(QShowEvent *)
 BasicView::~BasicView(){
     delete hist_params;
     delete pdist_draw_params;
-};
+}
 
 
 

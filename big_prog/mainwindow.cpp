@@ -127,9 +127,6 @@ void MainWindow::onSetHistGenParamsDialog(){
                     dialog.get_method_ix());
 
         int N = dialog.get_sample_size();
-        // int* sample = new int[N];
-        // get_sample(N, sample, doc->hist_gen_params->curr_gen);
-        // doc->hist_gen_params->sample->set_sample(sample,N);
         doc->hist_gen_params->curr_gen->gen_sample(N);
 
         basic_view->set_index(1);
@@ -143,7 +140,6 @@ void MainWindow::onDrawHist(){
     SetHistDrawParamsDialog dialog(*(basic_view->hist_params), this);
     int res = dialog.exec();
     if(res == QDialog::Accepted){
-        //basic_view->hist_params->_n_bins = dialog._hist_draw_params._n_bins;
         basic_view->hist_params->_bg_clr = dialog._hist_draw_params._bg_clr;
         basic_view->hist_params->_bin_clr = dialog._hist_draw_params._bin_clr;
         basic_view->hist_params->_border_clr = dialog._hist_draw_params._border_clr;
@@ -162,17 +158,12 @@ void MainWindow::onGenSampleButton(){
         basic_view->set_index(1);
     }
     if(ix == 1){
-        // int N = doc->hist_gen_params->sample->get_sample_size();
-        // int* sample = new int[N];
-        // get_sample(N, sample, doc->hist_gen_params->curr_gen);
-        // doc->hist_gen_params->sample->set_sample(sample,N);
         int N = doc->hist_gen_params->curr_gen->_sample_size;
         doc->hist_gen_params->curr_gen->gen_sample(N);
     }
     if(ix == 2){
         delete[] doc->pdist_gen_params->h0_sample;
         delete[] doc->pdist_gen_params->h1_sample;
-        //qDebug() << "here1";
         doc->pdist_gen_params->N = get_pdist(doc->pdist_gen_params->h0_gen,
                                              doc->pdist_gen_params->h1_gen,
                                              doc->pdist_gen_params->psample_size,
@@ -182,7 +173,6 @@ void MainWindow::onGenSampleButton(){
                                              doc->pdist_gen_params->sgnf_level,
                                              doc->pdist_gen_params->obs_sgnf_level,
                                              doc->pdist_gen_params->obs_power);
-        //qDebug() << "here2";
     }
     if(ix == 3){
         doc->draw_time_params->update_dur();

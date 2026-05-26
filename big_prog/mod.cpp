@@ -6,12 +6,7 @@ const double EPS = 1e-6;
 const double ALMOST_ONE = 1.0 - EPS;
 
 
-double pval(Distribution *d0, PoisGen* h1_gen, int sample_size, int verbose){
-    // int X[sample_size];
-    // get_sample(sample_size, X, h1_gen);
-    // MySample *sample = new MySample(X, sample_size);
-    // ChiSq test(sample, d0);
-
+double pval(Distribution *d0, PoisGen* h1_gen, int sample_size){
     h1_gen->gen_sample(sample_size);
     ChiSq test(h1_gen, d0);
 
@@ -23,7 +18,7 @@ double pval(Distribution *d0, PoisGen* h1_gen, int sample_size, int verbose){
 void psample(Distribution *d0, PoisGen* h1_gen, int psample_size,
              double *X, int main_sample_size){
     for(int i=0; i<psample_size; ++i)
-        X[i] = pval(d0, h1_gen, main_sample_size, 0);
+        X[i] = pval(d0, h1_gen, main_sample_size);
 }
 
 
@@ -80,7 +75,6 @@ void pecdf(PoisGen* h0_gen, PoisGen* h1_gen, double alpha,
 int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
               int psample_size, int main_sample_size,
               double* &F0, double* &F1, double alpha, double &obs_sgnf_lvl, double &obs_pwr){
-    //qDebug() << "here1";
     int N = 1 / GOOD_STEP_SIZE;
     Distribution *d0 = new Distribution(h0_gen->_lambda);
 
@@ -94,7 +88,6 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
     F1 = new double[N]{};
     ecdf(p1, psample_size, GOOD_STEP_SIZE, F1);
 
-//    double alpha=0.15;
     qDebug() << "at alpha = " << alpha;
     int ix = 0;
     if(alpha >= GOOD_STEP_SIZE){
@@ -110,7 +103,6 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
     delete d0;
     delete[] p0;
     delete[] p1;
-    //qDebug() << "here2";
     return N;
 }
 
