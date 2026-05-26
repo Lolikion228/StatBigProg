@@ -40,8 +40,3 @@ int check_int_field(int lb, int ub, QString desc, QString str){
     return 0;
 }
 
-void get_sample(int N, int *X, PoisGen* absgen){
-    for(int i=0; i<N; ++i){
-        X[i] = absgen->gen();
-    }
-}

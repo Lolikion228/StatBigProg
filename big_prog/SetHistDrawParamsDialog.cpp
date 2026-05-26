@@ -15,7 +15,7 @@ SetHistDrawParamsDialog::SetHistDrawParamsDialog(HistDrawParams hist_draw_params
 
     ui->setupUi(this);
 
-    ui->n_bins_edit->setText(QString::number(29));
+    // ui->n_bins_edit->setText(QString::number(29));
 
     ui->buttonBox->disconnect();
     connect(ui->buttonBox, &QDialogButtonBox::accepted,
@@ -82,25 +82,6 @@ void SetHistDrawParamsDialog::on_rect_clr(){
 
 void SetHistDrawParamsDialog::on_buttonBox_accepted()
 {
-    QString text = ui->n_bins_edit->text();
-    int minValue = 2;
-    int maxValue = 50;
-
-    if (text.isEmpty()) {
-        QMessageBox::warning(this, "Ошибка", "Вы ничего не ввели!");
-        return;
-    }
-
-    bool ok;
-    int number = text.toInt(&ok);
-
-    if ( (!ok) || (number < minValue || number > maxValue) ) {
-        QMessageBox::warning(this, "Ошибка",
-                            QString("Нужно ввести целое число от %1 до %2!")
-                            .arg(minValue).arg(maxValue));
-        return;
-    }
-
     accept();
 }
 
