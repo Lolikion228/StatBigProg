@@ -206,11 +206,11 @@ void BasicView::draw_hist_event(QPainter& painter){
 //    qDebug() << "]";
 //    qDebug() << "\n";
 
-//    qDebug() << "df = " << test._df;
-//    qDebug() << "n_states = " << test._n_states;
-//    qDebug() << "pval = " << test._pval;
-//    qDebug() << "statistic = " << test._stat;
-//    qDebug() << "\n";
+   qDebug() << "df = " << test._df;
+   qDebug() << "n_states = " << test._n_states;
+   qDebug() << "pval = " << test._pval;
+   qDebug() << "statistic = " << test._stat;
+   qDebug() << "\n";
 
 
     QString title = QString("Гистограмма (sample_size = %1, min = %2, max = %3)\n df=%4,  pval=%5,  statistic=%6")
