@@ -1,5 +1,5 @@
 #include "chisq.h"
-
+#include <QDebug>
 
 ChiSq::ChiSq(MySample *sample, Distribution *d0):
 _dist(d0),
@@ -30,6 +30,7 @@ void ChiSq::set_sample(MySample *sample, Distribution* d0){
 
     double pval = 1 - pChi(_stat, _df);
     _pval = std::min(pval, 1 - 1e-6);
+
 
     delete[] p;
 }

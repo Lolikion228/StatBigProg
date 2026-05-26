@@ -9,7 +9,9 @@ DrawTimeParams::DrawTimeParams(std::mt19937_64* stdgen):
     dur1(nullptr),
     dur2(nullptr)
 {
+    //qDebug() << "here1";
     update_dur();
+    //qDebug() << "here2";
 }
 
 void DrawTimeParams::update_dur(){
@@ -29,19 +31,21 @@ void DrawTimeParams::update_dur(){
         double lambda = lambda_min + (i / cnt_steps) * (lambda_max - lambda_min);
 
         Distribution *d = new Distribution(lambda);
-        PoisGen1 gen1 = PoisGen1(d, _stdgen);
-        PoisGen2 gen2 = PoisGen2(d, _stdgen);
+        PoisGen1 *gen1 = new PoisGen1(d, _stdgen);
+        PoisGen2 *gen2 = new PoisGen2(d, _stdgen);
 
         start = std::chrono::high_resolution_clock::now();
-        get_sample(sample_size, sample_1, &gen1);
+        get_sample(sample_size, sample_1, gen1);
         end = std::chrono::high_resolution_clock::now();
         dur1[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
         start = std::chrono::high_resolution_clock::now();
-        get_sample(sample_size, sample_2, &gen2);
+        get_sample(sample_size, sample_2, gen2);
         end = std::chrono::high_resolution_clock::now();
         dur2[i] = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
         delete d;
+        delete gen1;
+        delete gen2;
     }
 
     delete[] sample_1;

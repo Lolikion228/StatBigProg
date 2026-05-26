@@ -11,9 +11,11 @@ Distribution::Distribution(double lambda):
     _computed_probs[0]   = exp(-lambda);
 }
 
+
 double Distribution::get_lambda() const{
     return _lambda;
 }
+
 
 void Distribution::update_probs(int compute_up_to){
     if(_n_computed >= compute_up_to){return;}
@@ -41,6 +43,7 @@ void Distribution::update_probs(int compute_up_to){
     _n_computed = compute_up_to;
 }
 
+
 void Distribution::get_probs(int right_lim, double *p){
     if(right_lim > _n_computed){
         update_probs(right_lim);
@@ -60,5 +63,6 @@ const char* Distribution::whoami() const{
 
 
 Distribution::~Distribution(){
-
+    delete _computed_cumsums;
+    delete _computed_probs;
 }
