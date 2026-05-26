@@ -51,19 +51,6 @@ void pecdf(PoisGen* h0_gen, PoisGen* h1_gen, double alpha,
     double* F1 = new double[N]{};
     ecdf(p1, psample_size, GOOD_STEP_SIZE, F1);
 
-    std::cout << "pval     F0     F1\n";
-    for(int i=0; i<N; ++i){
-        printf("%3.2f  %5.3f  %5.3f\n", GOOD_STEP_SIZE*(i+1), F0[i], F1[i]);
-    }
-
-    std::cout << "\n";
-    printf("on alpha = %.3f\n", alpha);
-    int ix = 0;
-    if(alpha >= GOOD_STEP_SIZE){
-        ix = alpha / GOOD_STEP_SIZE - 1 + EPS;
-    }
-    printf("ERR_1 = %.3f   POW = %.3f\n", F0[ix], F1[ix]);
-
     delete d0;
     delete[] p0;
     delete[] p1;
@@ -79,7 +66,7 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
     Distribution *d0 = new Distribution(h0_gen->_lambda);
 
     double* p0 = new double[psample_size];
-    psample(d0, h0_gen, psample_size, p0, main_sample_size);//bad
+    psample(d0, h0_gen, psample_size, p0, main_sample_size);
     F0 = new double[N]{};
     ecdf(p0, psample_size, GOOD_STEP_SIZE, F0);
 
@@ -88,14 +75,10 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
     F1 = new double[N]{};
     ecdf(p1, psample_size, GOOD_STEP_SIZE, F1);
 
-    qDebug() << "at alpha = " << alpha;
     int ix = 0;
     if(alpha >= GOOD_STEP_SIZE){
         ix = alpha / GOOD_STEP_SIZE - 1 + EPS;
     }
-    qDebug() << "err_1 = " << F0[ix];
-    qDebug() << "pow = " << F1[ix];
-    qDebug() << "\n";
 
     obs_sgnf_lvl = F0[ix];
     obs_pwr = F1[ix];
@@ -103,6 +86,7 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
     delete d0;
     delete[] p0;
     delete[] p1;
+
     return N;
 }
 
