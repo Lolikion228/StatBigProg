@@ -12,7 +12,7 @@ class ChiSq
 {
 private:
     double compute_chisq_stat();
-    int get_lim(int sample_size) const;
+    int get_lim(int sample_size);
     void compute_freqs(double *p, MySample *sample);
 public:
     Distribution *_dist;

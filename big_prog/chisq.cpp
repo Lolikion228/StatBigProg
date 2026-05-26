@@ -34,20 +34,16 @@ void ChiSq::set_sample(MySample *sample, Distribution* d0){
     delete[] p;
 }
 
-
-int ChiSq::get_lim(int sample_size) const{
-    double lambda = _dist->get_lambda();
-    double cum_exp_freq = 0;
-    double p = exp(-lambda);
+int ChiSq::get_lim(int sample_size){
     int i=0;
-    while(cum_exp_freq + sample_size * p < sample_size - CUM_EXP_FREQ_THRESH){
-        cum_exp_freq += sample_size * p;
+    while(sample_size * _dist->_computed_cumsums[i] < sample_size - CUM_EXP_FREQ_THRESH){
         ++i;
-        p *= lambda / i;
+        if(i>=_dist->_n_computed){
+            _dist->update_probs(2 * i + 2);
+        }
     }
     return i+1;
 }
-
 
 void ChiSq::compute_freqs(double *p, MySample *sample){
     int sample_size = sample->get_sample_size();

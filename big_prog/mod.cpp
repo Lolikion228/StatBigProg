@@ -78,7 +78,7 @@ void pecdf(PoisGen* h0_gen, PoisGen* h1_gen, double alpha,
 int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
               int psample_size, int main_sample_size,
               double* &F0, double* &F1, double alpha, double &obs_sgnf_lvl, double &obs_pwr){
-
+    //qDebug() << "here1";
     int N = 1 / GOOD_STEP_SIZE;
     Distribution *d0 = new Distribution(h0_gen->_lambda);
 
@@ -108,6 +108,7 @@ int get_pdist(PoisGen* h0_gen, PoisGen* h1_gen,
     delete d0;
     delete[] p0;
     delete[] p1;
+    //qDebug() << "here2";
     return N;
 }
 

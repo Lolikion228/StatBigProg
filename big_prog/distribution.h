@@ -8,9 +8,15 @@ class Distribution
 private:
     double _lambda;
 public:
+    double *_computed_probs;
+    double *_computed_cumsums;
+    int _n_computed;
+    int _capacity;
+
     Distribution(double lambda);
     double get_lambda() const;
-    void get_probs(int right_lim, double *p) const;
+    void update_probs(int compute_up_to);
+    void get_probs(int right_lim, double *p);
     const char* whoami() const;
     ~Distribution();
 };

@@ -164,12 +164,16 @@ void MainWindow::onGenSampleButton(){
     if(ix == 1){
         int N = doc->hist_gen_params->sample->get_sample_size();
         int* sample = new int[N];
+
         get_sample(N, sample, doc->hist_gen_params->curr_gen);
+
         doc->hist_gen_params->sample->set_sample(sample,N);
+
     }
     if(ix == 2){
         delete[] doc->pdist_gen_params->h0_sample;
         delete[] doc->pdist_gen_params->h1_sample;
+        //qDebug() << "here1";
         doc->pdist_gen_params->N = get_pdist(doc->pdist_gen_params->h0_gen,
                                              doc->pdist_gen_params->h1_gen,
                                              doc->pdist_gen_params->psample_size,
@@ -179,6 +183,7 @@ void MainWindow::onGenSampleButton(){
                                              doc->pdist_gen_params->sgnf_level,
                                              doc->pdist_gen_params->obs_sgnf_level,
                                              doc->pdist_gen_params->obs_power);
+        //qDebug() << "here2";
     }
     if(ix == 3){
         doc->draw_time_params->update_dur();
@@ -186,7 +191,7 @@ void MainWindow::onGenSampleButton(){
 
     basic_view->update();
     basic_view->show();
-};
+}
 
 
 void MainWindow::resizeEvent(QResizeEvent *event){

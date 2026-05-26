@@ -10,7 +10,7 @@
 class HistGenParams{
    private:
     Distribution *_dist;
-       std::mt19937_64* _stdgen;
+    std::mt19937_64* _stdgen;
    public:
     double h1_lambda;
     int _method_ix;
