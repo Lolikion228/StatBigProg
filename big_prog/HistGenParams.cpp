@@ -11,11 +11,7 @@ HistGenParams::HistGenParams(std::mt19937_64* stdgen):
     _stdgen(stdgen)
 {
     set_params(INIT_LAMBDA, _method_ix);
-
-    int* _sample = new int[INIT_SAMPLE_SIZE];
-    get_sample(INIT_SAMPLE_SIZE, _sample, curr_gen);
-    sample = new MySample(_sample, INIT_SAMPLE_SIZE);
-
+    curr_gen->gen_sample(INIT_SAMPLE_SIZE);
 }
 
 void HistGenParams::set_params(double lambda, int method_ix){
@@ -35,7 +31,6 @@ void HistGenParams::set_params(double lambda, int method_ix){
 }
 
 HistGenParams::~HistGenParams(){
-    delete sample;
     delete curr_gen;
     delete _dist;
 }

@@ -15,7 +15,6 @@ class HistGenParams{
     double h1_lambda;
     int _method_ix;
     PoisGen* curr_gen;
-    MySample* sample;
 
     HistGenParams(std::mt19937_64* stdgen);
     void set_params(double lambda, int method_ix);

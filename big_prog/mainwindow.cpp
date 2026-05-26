@@ -127,10 +127,10 @@ void MainWindow::onSetHistGenParamsDialog(){
                     dialog.get_method_ix());
 
         int N = dialog.get_sample_size();
-
-        int* sample = new int[N];
-        get_sample(N, sample, doc->hist_gen_params->curr_gen);
-        doc->hist_gen_params->sample->set_sample(sample,N);
+        // int* sample = new int[N];
+        // get_sample(N, sample, doc->hist_gen_params->curr_gen);
+        // doc->hist_gen_params->sample->set_sample(sample,N);
+        doc->hist_gen_params->curr_gen->gen_sample(N);
 
         basic_view->set_index(1);
         basic_view->update();
@@ -162,13 +162,12 @@ void MainWindow::onGenSampleButton(){
         basic_view->set_index(1);
     }
     if(ix == 1){
-        int N = doc->hist_gen_params->sample->get_sample_size();
-        int* sample = new int[N];
-
-        get_sample(N, sample, doc->hist_gen_params->curr_gen);
-
-        doc->hist_gen_params->sample->set_sample(sample,N);
-
+        // int N = doc->hist_gen_params->sample->get_sample_size();
+        // int* sample = new int[N];
+        // get_sample(N, sample, doc->hist_gen_params->curr_gen);
+        // doc->hist_gen_params->sample->set_sample(sample,N);
+        int N = doc->hist_gen_params->curr_gen->_sample_size;
+        doc->hist_gen_params->curr_gen->gen_sample(N);
     }
     if(ix == 2){
         delete[] doc->pdist_gen_params->h0_sample;

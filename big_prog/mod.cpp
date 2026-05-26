@@ -7,11 +7,13 @@ const double ALMOST_ONE = 1.0 - EPS;
 
 
 double pval(Distribution *d0, PoisGen* h1_gen, int sample_size, int verbose){
-    int X[sample_size];
-    get_sample(sample_size, X, h1_gen);
+    // int X[sample_size];
+    // get_sample(sample_size, X, h1_gen);
+    // MySample *sample = new MySample(X, sample_size);
+    // ChiSq test(sample, d0);
 
-    MySample *sample = new MySample(X, sample_size);
-    ChiSq test(sample, d0);
+    h1_gen->gen_sample(sample_size);
+    ChiSq test(h1_gen, d0);
 
     double res1 = 1 - pChi(test._stat, test._df);
 

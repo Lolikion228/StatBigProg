@@ -1,7 +1,7 @@
 #include "chisq.h"
 #include <QDebug>
 
-ChiSq::ChiSq(MySample *sample, Distribution *d0):
+ChiSq::ChiSq(PoisGen *gen, Distribution *d0):
 _dist(d0),
 _df(0),
 _pval(0),
@@ -10,13 +10,13 @@ _n_states(0),
 _exp_freqs(nullptr),
 _obs_freqs(nullptr)
 {
-    set_sample(sample, d0);
+    set_sample(gen, d0);
 }
 
 
-void ChiSq::set_sample(MySample *sample, Distribution* d0){
+void ChiSq::set_sample(PoisGen *gen, Distribution* d0){
     _dist = d0;
-    _n_states = this->get_lim(sample->get_sample_size());
+    _n_states = this->get_lim(gen->_sample_size);
     double* p = new double[_n_states]{};
     _dist->get_probs(_n_states, p);
 
@@ -24,7 +24,7 @@ void ChiSq::set_sample(MySample *sample, Distribution* d0){
     delete[] _obs_freqs;
     _obs_freqs = new double[_n_states]{};
     _exp_freqs = new double[_n_states]{};
-    this->compute_freqs(p, sample);
+    this->compute_freqs(p, gen);
 
     _stat = this->compute_chisq_stat();
 
@@ -46,9 +46,10 @@ int ChiSq::get_lim(int sample_size){
     return i+1;
 }
 
-void ChiSq::compute_freqs(double *p, MySample *sample){
-    int sample_size = sample->get_sample_size();
-    int *X = sample->get_sample();
+
+void ChiSq::compute_freqs(double *p, PoisGen *gen){
+    int sample_size = gen -> _sample_size;
+    int *X = gen -> _sample;
 
     for(int i=0; i<sample_size; ++i){
         if( X[i] >= (_n_states - 1) ) {

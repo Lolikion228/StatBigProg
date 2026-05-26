@@ -172,15 +172,14 @@ void BasicView::draw_hist_event(QPainter& painter){
     int w = this->size().width();
     int h = this->size().height();
 
-    int N = _doc -> hist_gen_params -> sample -> get_sample_size();
-    int min_val = _doc -> hist_gen_params -> sample -> get_min_val();
-    int max_val = _doc -> hist_gen_params -> sample -> get_max_val();
+    int N = _doc -> hist_gen_params -> curr_gen -> _sample_size;
+    int min_val = _doc -> hist_gen_params -> curr_gen -> _min_val;
+    int max_val = _doc -> hist_gen_params -> curr_gen -> _max_val;
 
     int margin = h/10;
 
     Distribution *dist = new Distribution( _doc -> hist_gen_params ->h1_lambda);
-    ChiSq test = ChiSq(_doc -> hist_gen_params -> sample,
-                       dist);
+    ChiSq test = ChiSq(_doc -> hist_gen_params->curr_gen, dist);
     delete dist;
 
 //    qDebug() << "sample:";

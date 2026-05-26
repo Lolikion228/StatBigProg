@@ -10,7 +10,7 @@ SetHistGenParamsDialog::SetHistGenParamsDialog(Document *doc, QWidget *parent) :
 
     // init
     ui->h1_lambda_edit->setText(QString::number(doc->hist_gen_params->h1_lambda));
-    ui->sample_size_edit->setText(QString::number(doc->hist_gen_params->sample->get_sample_size()));
+    ui->sample_size_edit->setText(QString::number(doc->hist_gen_params->curr_gen->_sample_size));
     int m_ix = doc->hist_gen_params->_method_ix;
     ui->method1_button->setChecked(m_ix == 1);
     ui->method2_button->setChecked(m_ix == 2);
