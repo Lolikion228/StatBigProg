@@ -18,7 +18,7 @@ public:
     PoisGen(Distribution* dist, std::mt19937_64* stdgen);
     void gen_sample(int n);
     virtual int gen() = 0;
-    virtual ~PoisGen();
+    ~PoisGen();
 };
 
 #endif // POISGEN_H

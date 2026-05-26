@@ -11,64 +11,53 @@ int main(int argc, char *argv[])
 }
 
 
-//#include "chisq.h"
-//#include <random>
-//#include "utils.h"
-//#include "poisgen.h"
-//#include "poisgen1.h"
-//#include "DrawTimeParams.h"
-//#include "poisgen2.h"
-//#include "mysample.h"
-//#include "distribution.h"
-//#include "mod.h"
-//#include <algorithm>
+// #include "chisq.h"
+// #include <random>
+// #include "utils.h"
+// #include "poisgen.h"
+// #include "poisgen1.h"
+// #include "DrawTimeParams.h"
+// #include "poisgen2.h"
+// #include "distribution.h"
+// #include "mod.h"
+// #include <algorithm>
 
-//const double GOOD_STEP_SIZE = 0.05;
-//const double EPS = 1e-6;
-//auto stdgen = new std::mt19937_64(2007);
+// const double GOOD_STEP_SIZE = 0.05;
+// const double EPS = 1e-6;
+// auto stdgen = new std::mt19937_64(2007);
 
-//template <typename T>
-//void print_arr(T *arr, int N){
+// template <typename T>
+// void print_arr(T *arr, int N){
 //    std::cout << "[";
 //    for(int i=0; i<N; ++i){
 //        std::cout << arr[i] << " ";
 //    }
 //    std::cout << "]\n";
-//}
+// }
 
-//int compareInts(const void* a, const void* b) {
+// int compareInts(const void* a, const void* b) {
 //    int int_a = *((int*)a);
 //    int int_b = *((int*)b);
 
 //    if (int_a < int_b) return -1;
 //    if (int_a > int_b) return 1;
 //    return 0;
-//}
+// }
 
-///*
-//1) mysample 2 posigen
-//2)  генерация выборки внутри poisgen
-//2) заменить лямбду на dist в poisgen
-//3) use probs from distribution in posigen
-//4) не считать с нуля вероятность p_k+1
-//5) () 2 set_smpl
-//*/
-//void test_chisq(){
+// void test_chisq(){
 //    int N=50;
 //    double lambda=10.3;
-//    PoisGen *curr_gen = new PoisGen1(lambda, stdgen);
+//    Distribution *d0 = new Distribution(lambda);
+//    PoisGen *curr_gen = new PoisGen1(d0, stdgen);
 
-//    int *X = new int[N];
-//    get_sample(N, X, curr_gen);
-//    qsort(X, N, sizeof(int), compareInts);
-//    MySample *sample = new MySample();
-//    sample -> set_sample(X, N);
+//    curr_gen->gen_sample(N);
+//    qsort(curr_gen->_sample, N, sizeof(int), compareInts);
 //    std::cout << "sample: ";
-//    print_arr(sample->get_sample(), N);
+//    print_arr(curr_gen->_sample, N);
 //    std::cout << "\n";
 
-//    Distribution d0(lambda);
-//    ChiSq test(sample, d0);
+
+//    ChiSq test(curr_gen, d0);
 //    std::cout << "df = " << test._df << "\n";
 //    std::cout << "pval = " << test._pval << "\n";
 //    std::cout << "statistic = " << test._stat << "\n";
@@ -77,20 +66,22 @@ int main(int argc, char *argv[])
 //        printf("%2d    %6.3f  %10.3f\n", i, test._exp_freqs[i], test._obs_freqs[i]);
 //    }
 
+//    delete d0;
 //    delete curr_gen;
-//    delete sample;
-//}
+// }
 
 
-//void test_pecdf(){
+// void test_pecdf(){
 //    int main_sample_size = 100;
 //    int psample_size = 10000;
 //    double lambda_h0 = 10;
 //    double lambda_h1 = 10.9;
+//    Distribution *d0 = new Distribution(lambda_h0);
+//    Distribution *d1 = new Distribution(lambda_h1);
 //    double alpha = 0.35;
 
-//    PoisGen *h0_gen = new PoisGen1(lambda_h0, stdgen);
-//    PoisGen *h1_gen = new PoisGen1(lambda_h1, stdgen);
+//    PoisGen *h0_gen = new PoisGen1(d0, stdgen);
+//    PoisGen *h1_gen = new PoisGen1(d1, stdgen);
 
 //    double *F0;
 //    double *F1;
@@ -108,12 +99,15 @@ int main(int argc, char *argv[])
 //    printf("at alpha = %.3f\n", alpha);
 //    printf("ERR_1 = %.3f   POW = %.3f\n", obs_sgnf_lvl, obs_pwr);
 
-//}
+//    delete d0;
+//    delete d1;
+
+// }
 
 
 
-//int main(int argc, char *argv[])
-//{
+// int main(int argc, char *argv[])
+// {
 
 //    test_chisq();
 
@@ -125,7 +119,7 @@ int main(int argc, char *argv[])
 
 //    test_pecdf();
 
-//}
+// }
 
 
 
