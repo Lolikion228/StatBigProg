@@ -10,10 +10,9 @@ class ChiSq
 {
 private:
     double compute_chisq_stat();
-    int get_lim(int sample_size);
+    int get_lim(int sample_size, Distribution *dist);
     void compute_freqs(double *p, PoisGen *gen);
 public:
-    Distribution *_dist;
     double _pval;
     double _stat;
     int _df;

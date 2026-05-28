@@ -2,7 +2,6 @@
 #include <QDebug>
 
 ChiSq::ChiSq(PoisGen *gen, Distribution *d0):
-_dist(d0),
 _df(0),
 _pval(0),
 _stat(0),
@@ -15,10 +14,9 @@ _obs_freqs(nullptr)
 
 
 void ChiSq::set_sample(PoisGen *gen, Distribution* d0){
-    _dist = d0;
-    _n_states = this->get_lim(gen->_sample_size);
+    _n_states = this->get_lim(gen->_sample_size, d0);
     double* p = new double[_n_states]{};
-    _dist->get_probs(_n_states, p);
+    d0->get_probs(_n_states, p);
 
     delete[] _exp_freqs;
     delete[] _obs_freqs;
@@ -35,12 +33,12 @@ void ChiSq::set_sample(PoisGen *gen, Distribution* d0){
     delete[] p;
 }
 
-int ChiSq::get_lim(int sample_size){
+int ChiSq::get_lim(int sample_size, Distribution* dist){
     int i=0;
-    while(sample_size * _dist->_computed_cumsums[i] < sample_size - CUM_EXP_FREQ_THRESH){
+    while(sample_size * dist->_computed_cumsums[i] < sample_size - CUM_EXP_FREQ_THRESH){
         ++i;
-        if(i>=_dist->_n_computed){
-            _dist->update_probs(2 * i + 2);
+        if(i>=dist->_n_computed){
+            dist->update_probs(2 * i + 2);
         }
     }
     return i+1;
