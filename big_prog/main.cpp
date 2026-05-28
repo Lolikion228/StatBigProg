@@ -56,8 +56,8 @@ int main(int argc, char *argv[])
 //    print_arr(curr_gen->_sample, N);
 //    std::cout << "\n";
 
-
 //    ChiSq test(curr_gen, d0);
+
 //    std::cout << "df = " << test._df << "\n";
 //    std::cout << "pval = " << test._pval << "\n";
 //    std::cout << "statistic = " << test._stat << "\n";
@@ -76,10 +76,9 @@ int main(int argc, char *argv[])
 //    int psample_size = 10000;
 //    double lambda_h0 = 10;
 //    double lambda_h1 = 10.9;
+//    double alpha = 0.35;
 //    Distribution *d0 = new Distribution(lambda_h0);
 //    Distribution *d1 = new Distribution(lambda_h1);
-//    double alpha = 0.35;
-
 //    PoisGen *h0_gen = new PoisGen1(d0, stdgen);
 //    PoisGen *h1_gen = new PoisGen1(d1, stdgen);
 

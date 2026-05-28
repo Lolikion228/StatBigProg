@@ -8,10 +8,6 @@
 const int SUPER_SEED = 2027;
 
 
-/*
- 0) классы классы классы
-*/
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
