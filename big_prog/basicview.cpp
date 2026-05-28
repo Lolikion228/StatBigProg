@@ -175,17 +175,18 @@ void BasicView::draw_hist_event(QPainter& painter){
     int N = _doc -> hist_gen_params -> curr_gen -> _sample_size;
     int min_val = _doc -> hist_gen_params -> curr_gen -> _min_val;
     int max_val = _doc -> hist_gen_params -> curr_gen -> _max_val;
-
+    int mthd = _doc->hist_gen_params->_method_ix;
     int margin = h/10;
 
     Distribution *dist = new Distribution( _doc -> hist_gen_params ->h1_lambda);
     ChiSq test = ChiSq(_doc -> hist_gen_params->curr_gen, dist);
     delete dist;
 
-    QString title = QString("Гистограмма (sample_size = %1, min = %2, max = %3)\n df=%4,  pval=%5,  statistic=%6")
+    QString title = QString("Гистограмма (sample_size = %1, min = %2, max = %3, mthd=%4)\n df=%5,  pval=%6,  statistic=%7")
                     .arg(N)
                     .arg(min_val)
                     .arg(max_val)
+                    .arg(mthd)
                     .arg(test._df)
                     .arg(QString::number(test._pval, 'f', 2))
                     .arg(QString::number(test._stat, 'f', 2));
