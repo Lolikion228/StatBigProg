@@ -192,6 +192,19 @@ void BasicView::draw_hist_event(QPainter& painter){
                     .arg(QString::number(test._stat, 'f', 2));
     draw_frame_and_axes(painter, title, w, h, margin, hist_params->_bg_clr, QPen(Qt::black, 2));
 
+    painter.setFont(QFont("Arial", margin / 5, QFont::Bold));
+
+    // legend v2
+    int text_y = margin;
+    int center_x = w / 2;
+    QString text_exp = "■ Теоретические частоты";
+    painter.setPen(hist_params->_bin_clr);
+    painter.drawText(center_x - 420, text_y, 400, margin / 2, Qt::AlignRight, text_exp);
+    QString text_obs = "■ Эмпирические частоты";
+    QColor obs_color(180, 170, 215, 255);
+    painter.setPen(obs_color);
+    painter.drawText(center_x + 20, text_y, 400, margin / 2, Qt::AlignLeft, text_obs);
+
     // some calculations
     int n_bins = test._n_states;
     int plot_h = h - 2 * margin;
@@ -343,9 +356,20 @@ void BasicView::draw_time_event(QPainter &painter){
     QString title = QString("Время моделирования (млсек) VS lambda [n=%1]").arg(_doc->draw_time_params->sample_size);
     draw_frame_and_axes(painter, title, w, h, margin, QColor(245, 235, 240, 140), QPen(Qt::black, 2));
 
+    painter.setFont(QFont("Arial", margin / 5, QFont::Bold));
+
+    // legend v2
+    int text_y = margin;
+    int center_x = w / 2;
+    QString text_dur1 = "▬ Метод 1";
+    painter.setPen(Qt::red);
+    painter.drawText(center_x - 220, text_y, 200, margin / 2, Qt::AlignRight, text_dur1);
+    QString text_dur2 = "▬ Метод 2";
+    painter.setPen(Qt::blue);
+    painter.drawText(center_x + 20, text_y, 200, margin / 2, Qt::AlignLeft, text_dur2);
+
     draw_line_plot(painter, F0, N, Qt::red, 4, w, h, margin, step);
     draw_line_plot(painter, F1, N, Qt::blue, 4, w, h, margin, step);
-
 
     // X-ticks
     double *vals = new double[N]{};
