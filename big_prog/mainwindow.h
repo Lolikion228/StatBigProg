@@ -44,7 +44,6 @@ public slots:
 
     void onGenSampleButton();
 
-
     void onDrawTime();
     void onResetTimeParams();
 

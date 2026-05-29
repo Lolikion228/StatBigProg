@@ -346,6 +346,7 @@ void BasicView::draw_time_event(QPainter &painter){
     draw_line_plot(painter, F0, N, Qt::red, 4, w, h, margin, step);
     draw_line_plot(painter, F1, N, Qt::blue, 4, w, h, margin, step);
 
+
     // X-ticks
     double *vals = new double[N]{};
     for(int i=0; i<N; ++i){

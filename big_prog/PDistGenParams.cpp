@@ -7,7 +7,7 @@ const double INIT_H1_LAMBDA = 20.5;
 
 PDistGenParams::PDistGenParams(std::mt19937_64* stdgen):
     _stdgen(stdgen),
-    psample_size(1000),
+    psample_size(9999),
     main_sample_size(100),
     sgnf_level(0.15),
     obs_sgnf_level(0),
