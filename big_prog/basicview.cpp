@@ -5,13 +5,13 @@
 
 
 BasicView::BasicView(QWidget *parent, Document* doc)
-    : QWidget{parent}, index(0),  _doc(doc),
+    : QWidget{parent}, what2draw(DrawObj::None),  _doc(doc),
       hist_params(new HistDrawParams), pdist_draw_params(new PDistDrawParams)
 {}
 
 
-void BasicView::set_index(int i){
-    index = i;
+void BasicView::set_what2draw(DrawObj obj_name){
+    what2draw = obj_name;
 }
 
 
@@ -370,30 +370,36 @@ void BasicView::draw_time_event(QPainter &painter){
 
 
 
-int BasicView::get_index() const{
-    return index;
+DrawObj BasicView::get_what2draw() const{
+    return what2draw;
 }
 
 
 void BasicView::paintEvent(QPaintEvent *){
     QPainter painter(this);
 
-    if(index==0){
+    switch(what2draw){
+        case DrawObj::None:{
+            break;
+        }
 
+        case DrawObj::Hist: {
+            draw_hist_event(painter);
+            break;
+        }
+
+        case DrawObj::PvalDist: {
+            draw_pval_dist_event(painter);
+            break;
+        }
+
+        case DrawObj::TimeDep: {
+            draw_time_event(painter);
+            break;
+        }
+
+        default: {}
     }
-
-    if(index==1){
-        draw_hist_event(painter);
-    }
-
-    if(index==2){
-        draw_pval_dist_event(painter);
-    }
-
-    if(index==3){
-        draw_time_event(painter);
-    }
-
 }
 
 

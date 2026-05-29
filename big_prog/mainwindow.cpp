@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     doc = new Document(stdgen);
 
     basic_view = new BasicView(this, doc);
-    basic_view->set_index(1);
+    basic_view->set_what2draw(DrawObj::Hist);
     basic_view->update();
     basic_view->show();
 
@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionResetTimeParams, &QAction::triggered, this, &MainWindow::onResetTimeParams);
 
     connect(ui->actionClearAll, &QAction::triggered, this,  [this](){
-        basic_view->set_index(0);
+        basic_view->set_what2draw(DrawObj::None);
         basic_view->hide();
     });
 }
@@ -68,7 +68,7 @@ void MainWindow::onSetPDistGenParamsDialog(){
                                                  doc->pdist_gen_params -> obs_sgnf_level,
                                                  doc->pdist_gen_params -> obs_power);
 
-        basic_view->set_index(2);
+        basic_view->set_what2draw(DrawObj::PvalDist);
         basic_view->update();
         basic_view->show();
     }
@@ -81,7 +81,7 @@ void MainWindow::onResetPDistParams(){
     doc->pdist_gen_params = new PDistGenParams(stdgen);
     basic_view->pdist_draw_params = new PDistDrawParams;
 
-    basic_view->set_index(2);
+    basic_view->set_what2draw(DrawObj::PvalDist);
     basic_view->update();
     basic_view->show();
 }
@@ -93,7 +93,7 @@ void MainWindow::onDrawPDist(){
         basic_view->pdist_draw_params->_h0_clr = dialog._pdist_draw_params._h0_clr;
         basic_view->pdist_draw_params->_h1_clr = dialog._pdist_draw_params._h1_clr;
         basic_view->pdist_draw_params->_uni_clr = dialog._pdist_draw_params._uni_clr;
-        basic_view->set_index(2);
+        basic_view->set_what2draw(DrawObj::PvalDist);
         basic_view->update();
         basic_view->show();
     }
@@ -107,7 +107,7 @@ void MainWindow::onResetHistParams(){
     doc->hist_gen_params = new HistGenParams(stdgen);
     basic_view->hist_params = new HistDrawParams;
 
-    basic_view->set_index(1);
+    basic_view->set_what2draw(DrawObj::Hist);
     basic_view->update();
     basic_view->show();
 }
@@ -125,7 +125,7 @@ void MainWindow::onSetHistGenParamsDialog(){
         int N = dialog.get_sample_size();
         doc->hist_gen_params->curr_gen->gen_sample(N);
 
-        basic_view->set_index(1);
+        basic_view->set_what2draw(DrawObj::Hist);
         basic_view->update();
         basic_view->show();
     }
@@ -139,7 +139,7 @@ void MainWindow::onDrawHist(){
         basic_view->hist_params->_bg_clr = dialog._hist_draw_params._bg_clr;
         basic_view->hist_params->_bin_clr = dialog._hist_draw_params._bin_clr;
         basic_view->hist_params->_border_clr = dialog._hist_draw_params._border_clr;
-        basic_view->set_index(1);
+        basic_view->set_what2draw(DrawObj::Hist);
         basic_view->update();
         basic_view->show();
     }
@@ -148,30 +148,40 @@ void MainWindow::onDrawHist(){
 
 void MainWindow::onGenSampleButton(){
 
-    int ix = basic_view->get_index();
+    switch(basic_view->get_what2draw()){
 
-    if(ix == 0){
-        basic_view->set_index(1);
-    }
-    if(ix == 1){
-        int N = doc->hist_gen_params->curr_gen->_sample_size;
-        doc->hist_gen_params->curr_gen->gen_sample(N);
-    }
-    if(ix == 2){
-        delete[] doc->pdist_gen_params->h0_sample;
-        delete[] doc->pdist_gen_params->h1_sample;
-        doc->pdist_gen_params->N = get_pdist(doc->pdist_gen_params->h0_gen,
-                                             doc->pdist_gen_params->h1_gen,
-                                             doc->pdist_gen_params->psample_size,
-                                             doc->pdist_gen_params->main_sample_size,
-                                             doc->pdist_gen_params->h0_sample,
-                                             doc->pdist_gen_params->h1_sample,
-                                             doc->pdist_gen_params->sgnf_level,
-                                             doc->pdist_gen_params->obs_sgnf_level,
-                                             doc->pdist_gen_params->obs_power);
-    }
-    if(ix == 3){
-        doc->draw_time_params->update_dur();
+        case DrawObj::None: {
+            basic_view->set_what2draw(DrawObj::Hist);
+            break;
+        }
+
+        case DrawObj::Hist: {
+            int N = doc->hist_gen_params->curr_gen->_sample_size;
+            doc->hist_gen_params->curr_gen->gen_sample(N);
+            break;
+        }
+
+        case DrawObj::PvalDist: {
+            delete[] doc->pdist_gen_params->h0_sample;
+            delete[] doc->pdist_gen_params->h1_sample;
+            doc->pdist_gen_params->N = get_pdist(doc->pdist_gen_params->h0_gen,
+                                                 doc->pdist_gen_params->h1_gen,
+                                                 doc->pdist_gen_params->psample_size,
+                                                 doc->pdist_gen_params->main_sample_size,
+                                                 doc->pdist_gen_params->h0_sample,
+                                                 doc->pdist_gen_params->h1_sample,
+                                                 doc->pdist_gen_params->sgnf_level,
+                                                 doc->pdist_gen_params->obs_sgnf_level,
+                                                 doc->pdist_gen_params->obs_power);
+            break;
+        }
+
+        case DrawObj::TimeDep: {
+            doc->draw_time_params->update_dur();
+            break;
+        }
+
+        default: {}
     }
 
     basic_view->update();
@@ -199,7 +209,7 @@ void MainWindow::onDrawTime(){
         doc->draw_time_params->sample_size = dialog.get_sample_size();
         doc->draw_time_params->update_dur();
 
-        basic_view->set_index(3);
+        basic_view->set_what2draw(DrawObj::TimeDep);
         basic_view->update();
         basic_view->show();
     }
@@ -210,7 +220,7 @@ void MainWindow::onResetTimeParams(){
     delete doc->draw_time_params;
     doc->draw_time_params = new DrawTimeParams(stdgen);
 
-    basic_view->set_index(3);
+    basic_view->set_what2draw(DrawObj::TimeDep);
     basic_view->update();
     basic_view->show();
 }

@@ -17,7 +17,6 @@ struct LegendItem {
 };
 
 struct HistDrawParams{
-//    int _n_bins = 18;
     QColor _bg_clr = QColor(245, 235, 240, 140);
     QColor _bin_clr = QColor(210, 170, 185, 200);
     QColor _border_clr = QColor(180, 140, 155, 255);
@@ -29,14 +28,19 @@ struct PDistDrawParams{
     QColor _uni_clr = Qt::green;
 };
 
-
+enum class DrawObj{
+    Hist,
+    PvalDist,
+    TimeDep,
+    None
+};
 
 class BasicView : public QWidget
 {
     Q_OBJECT
 
 protected:
-    int index;
+    DrawObj what2draw;
     Document* _doc;
 
 public:
@@ -45,8 +49,8 @@ public:
 
     explicit BasicView(QWidget *parent = nullptr, Document *doc=nullptr);
     ~BasicView();
-    void set_index(int ix);
-    int get_index() const;
+    void set_what2draw(DrawObj obj_name);
+    DrawObj get_what2draw() const;
     void set_doc(Document* doc);
 
     void paintEvent(QPaintEvent *) override;
