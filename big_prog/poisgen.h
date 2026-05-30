@@ -15,10 +15,16 @@ public:
     int _max_val;
     int _sample_size;
     int* _sample;
+
     PoisGen(Distribution* dist, std::mt19937_64* stdgen);
+    PoisGen(const PoisGen& other);
+    PoisGen(PoisGen&& other);
+    PoisGen& operator=(const PoisGen& other);
+    virtual ~PoisGen();
+
     void gen_sample(int n);
     virtual int gen() = 0;
-    ~PoisGen();
+
 };
 
 #endif // POISGEN_H

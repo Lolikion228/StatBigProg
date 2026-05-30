@@ -1,5 +1,5 @@
 #include "HistGenParams.h"
-#include <QDebug>;
+#include <QDebug>
 
 const int INIT_SAMPLE_SIZE = 50;
 const double INIT_LAMBDA = 10.0;
