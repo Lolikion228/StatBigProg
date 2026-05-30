@@ -83,7 +83,7 @@ void draw_yticks(QPainter& painter, int x, double y0, int n_ticks, double *vals,
 }
 
 
-void draw_line_plot(QPainter& painter, const double* data, int N, const QColor& color, int line_width, int w, int h, int margin, double step) {
+void draw_line_plot(QPainter& painter, const double* data, int N, const QColor& color, int line_width, int h, int margin, double step) {
     if (N <= 1 || !data) return;
 
     int plot_h = h - 2 * margin;
@@ -285,21 +285,21 @@ void BasicView::draw_pval_dist_event(QPainter& painter){
     for(int i=1; i<N+1; ++i){
         vals[i] = F0[i-1];
     }
-    draw_line_plot(painter, vals, N+1, h0_clr, h0_lw, w, h, margin, step);
+    draw_line_plot(painter, vals, N+1, h0_clr, h0_lw, h, margin, step);
 
 
     //draw H1_dist
     for(int i=1; i<N+1; ++i){
         vals[i] = F1[i-1];
     }
-    draw_line_plot(painter, vals, N+1, h1_clr, h1_lw, w, h, margin, step);
+    draw_line_plot(painter, vals, N+1, h1_clr, h1_lw, h, margin, step);
 
 
     // draw uni_dist
     for(int i=1; i<N+1; ++i){
         vals[i] = i*1.0/N;
     }
-    draw_line_plot(painter, vals, N+1, uni_clr, uni_lw, w, h, margin, step);
+    draw_line_plot(painter, vals, N+1, uni_clr, uni_lw, h, margin, step);
 
 
     // legend
@@ -368,8 +368,8 @@ void BasicView::draw_time_event(QPainter &painter){
     painter.setPen(Qt::blue);
     painter.drawText(center_x + 20, text_y, 200, margin / 2, Qt::AlignLeft, text_dur2);
 
-    draw_line_plot(painter, F0, N, Qt::red, 4, w, h, margin, step);
-    draw_line_plot(painter, F1, N, Qt::blue, 4, w, h, margin, step);
+    draw_line_plot(painter, F0, N, Qt::red, 4, h, margin, step);
+    draw_line_plot(painter, F1, N, Qt::blue, 4, h, margin, step);
 
     // X-ticks
     double *vals = new double[N]{};
