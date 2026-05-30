@@ -1,0 +1,36 @@
+\doxysection{Set\+Hist\+Draw\+Params\+Dialog.\+h}
+\hypertarget{SetHistDrawParamsDialog_8h_source}{}\label{SetHistDrawParamsDialog_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SETHISTDRAWPARAMSDIALOG\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SETHISTDRAWPARAMSDIALOG\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}basicview.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSetHistDrawParamsDialog}{SetHistDrawParamsDialog}};}
+\DoxyCodeLine{00010\ \}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSetHistDrawParamsDialog}{SetHistDrawParamsDialog}}\ :\ \textcolor{keyword}{public}\ QDialog}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00015\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{structHistDrawParams}{HistDrawParams}}\ \_hist\_draw\_params;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classSetHistDrawParamsDialog}{SetHistDrawParamsDialog}}(\mbox{\hyperlink{structHistDrawParams}{HistDrawParams}}\ hist\_draw\_params,\ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ paintEvent(QPaintEvent\ *)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_buttonBox\_accepted();}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_buttonBox\_rejected();}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_bg\_clr();}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_rect\_clr();}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_border\_clr();}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classSetHistDrawParamsDialog}{\string~SetHistDrawParamsDialog}}();}
+\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ \ \ \ \ Ui::SetHistDrawParamsDialog\ *ui;}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SETHISTDRAWPARAMSDIALOG\_H}}
+
+\end{DoxyCode}

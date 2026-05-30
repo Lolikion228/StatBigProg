@@ -1,0 +1,36 @@
+\doxysection{Draw\+Time\+Dialog.\+h}
+\hypertarget{DrawTimeDialog_8h_source}{}\label{DrawTimeDialog_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DRAWTIMEDIALOG\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DRAWTIMEDIALOG\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}DrawTimeParams.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}utils.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDrawTimeDialog}{DrawTimeDialog}};}
+\DoxyCodeLine{00010\ \}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDrawTimeDialog}{DrawTimeDialog}}\ :\ \textcolor{keyword}{public}\ QDialog}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classDrawTimeDialog}{DrawTimeDialog}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr},\ \mbox{\hyperlink{classDrawTimeParams}{DrawTimeParams}}*\ draw\_time\_params=\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{double}\ get\_lambda\_min()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{double}\ get\_lambda\_max()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ get\_sample\_size()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}\ get\_cnt\_steps()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_buttonBox\_accepted();}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_buttonBox\_rejected();}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classDrawTimeDialog}{\string~DrawTimeDialog}}();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ \ \ \ \ Ui::DrawTimeDialog\ *ui;}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DRAWTIMEDIALOG\_H}}
+
+\end{DoxyCode}
