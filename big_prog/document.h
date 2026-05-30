@@ -26,6 +26,9 @@ public:
     DrawTimeParams* draw_time_params;
 
     Document(std::mt19937_64* stdgen);
+    Document(const Document& other);
+    Document(Document&& other);
+    Document& operator=(const Document& other);
     ~Document();
 };
 
