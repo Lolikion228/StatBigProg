@@ -30,10 +30,15 @@ public:
     double* h1_sample;
 
     PDistGenParams(std::mt19937_64* stdgen);
+    PDistGenParams(const PDistGenParams& other);
+    PDistGenParams(PDistGenParams&& other);
+    PDistGenParams& operator=(const PDistGenParams& other);
+    ~PDistGenParams();
+
     void set_params(int method_ix,
                     double h0_lambda,
                     double h1_lambda);
-    ~PDistGenParams();
+
 };
 
 #endif // PDISTGENPARAMS_H
