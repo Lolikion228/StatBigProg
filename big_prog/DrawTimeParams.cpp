@@ -50,6 +50,80 @@ void DrawTimeParams::update_dur(){
     delete[] sample_2;
 }
 
+
+DrawTimeParams::DrawTimeParams(const DrawTimeParams& other) :
+    _stdgen(other._stdgen),
+    lambda_min(other.lambda_min),
+    lambda_max(other.lambda_max),
+    cnt_steps(other.cnt_steps),
+    sample_size(other.sample_size),
+    dur1(nullptr),
+    dur2(nullptr)
+{
+    int N = static_cast<int>(cnt_steps) + 1;
+
+    if (other.dur1) {
+        dur1 = new std::chrono::milliseconds[N];
+        for (int i = 0; i < N; ++i) dur1[i] = other.dur1[i];
+    }
+    if (other.dur2) {
+        dur2 = new std::chrono::milliseconds[N];
+        for (int i = 0; i < N; ++i) dur2[i] = other.dur2[i];
+    }
+}
+
+
+DrawTimeParams::DrawTimeParams(DrawTimeParams&& other):
+    _stdgen(other._stdgen),
+    lambda_min(other.lambda_min),
+    lambda_max(other.lambda_max),
+    cnt_steps(other.cnt_steps),
+    sample_size(other.sample_size),
+    dur1(other.dur1),
+    dur2(other.dur2)
+{
+    other.dur1 = nullptr;
+    other.dur2 = nullptr;
+    other.cnt_steps = 0;
+}
+
+
+DrawTimeParams& DrawTimeParams::operator=(const DrawTimeParams& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    delete[] dur1;
+    delete[] dur2;
+
+    _stdgen = other._stdgen;
+    lambda_min = other.lambda_min;
+    lambda_max = other.lambda_max;
+    cnt_steps = other.cnt_steps;
+    sample_size = other.sample_size;
+
+    int N = static_cast<int>(cnt_steps) + 1;
+
+    if (other.dur1) {
+        dur1 = new std::chrono::milliseconds[N];
+        for (int i = 0; i < N; ++i) dur1[i] = other.dur1[i];
+    } else {
+        dur1 = nullptr;
+    }
+
+    if (other.dur2) {
+        dur2 = new std::chrono::milliseconds[N];
+        for (int i = 0; i < N; ++i) dur2[i] = other.dur2[i];
+    } else {
+        dur2 = nullptr;
+    }
+
+    return *this;
+}
+
+
+
+
 DrawTimeParams::~DrawTimeParams(){
     delete[] dur1;
     delete[] dur2;

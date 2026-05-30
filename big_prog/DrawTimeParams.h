@@ -23,6 +23,9 @@ public:
 
     void update_dur();
     DrawTimeParams(std::mt19937_64* stdgen);
+    DrawTimeParams(const DrawTimeParams& other);
+    DrawTimeParams(DrawTimeParams&& other);
+    DrawTimeParams& operator=(const DrawTimeParams& other);
     ~DrawTimeParams();
 };
 
