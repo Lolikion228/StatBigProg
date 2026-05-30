@@ -1,0 +1,145 @@
+\doxysection{Pois\+Gen Class Reference}
+\hypertarget{classPoisGen}{}\label{classPoisGen}\index{PoisGen@{PoisGen}}
+
+
+Абстрактный базовый класс для генераторов случайных величин, распределенных по Пуассону.  
+
+
+
+
+{\ttfamily \#include $<$poisgen.\+h$>$}
+
+
+
+Inheritance diagram for Pois\+Gen\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{classPoisGen__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Pois\+Gen\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=146pt]{classPoisGen__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPoisGen_a5b8f9bc27cec99392f346efbd1a1eabd}{Pois\+Gen}} (\mbox{\hyperlink{classDistribution}{Distribution}} \texorpdfstring{$\ast$}{*}dist, std\+::mt19937\+\_\+64 \texorpdfstring{$\ast$}{*}stdgen)
+\begin{DoxyCompactList}\small\item\em Конструктор базового генератора. \end{DoxyCompactList}\item 
+\Hypertarget{classPoisGen_a9a8ba2040d2ccb40125795f91d836c3c}\label{classPoisGen_a9a8ba2040d2ccb40125795f91d836c3c} 
+{\bfseries Pois\+Gen} (const \mbox{\hyperlink{classPoisGen}{Pois\+Gen}} \&other)
+\item 
+\Hypertarget{classPoisGen_a9748bca1ebc9ffa98e6de4c5b1242d4a}\label{classPoisGen_a9748bca1ebc9ffa98e6de4c5b1242d4a} 
+{\bfseries Pois\+Gen} (\mbox{\hyperlink{classPoisGen}{Pois\+Gen}} \&\&other)
+\item 
+\Hypertarget{classPoisGen_ad10d93603b5d7ac804acc1686cd52bcd}\label{classPoisGen_ad10d93603b5d7ac804acc1686cd52bcd} 
+\mbox{\hyperlink{classPoisGen}{Pois\+Gen}} \& {\bfseries operator=} (const \mbox{\hyperlink{classPoisGen}{Pois\+Gen}} \&other)
+\item 
+\Hypertarget{classPoisGen_af08c1bbac545358ac2b0ee03cdb0fdc1}\label{classPoisGen_af08c1bbac545358ac2b0ee03cdb0fdc1} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Pois\+Gen} ()
+\begin{DoxyCompactList}\small\item\em Виртуальный деструктор. Гарантирует безопасную очистку памяти массива {\ttfamily \+\_\+sample} при уничтожении объектов через указатель на базовый класс. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPoisGen_abf3816dc00aab6af3d91e0b6fbdadc39}{gen\+\_\+sample}} (int n)
+\begin{DoxyCompactList}\small\item\em Сгенерировать и сохранить выборку случайных величин заданного размера. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classPoisGen_ac4a7fd7af6f38c3ceb0c6305c32bded4}{gen}} ()=0
+\begin{DoxyCompactList}\small\item\em Чистая виртуальная функция для генерации одного случайного значения. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classPoisGen_ac73f2573b8072c7cde4eafeadbbfb08a}\label{classPoisGen_ac73f2573b8072c7cde4eafeadbbfb08a} 
+double {\bfseries \+\_\+lambda}
+\begin{DoxyCompactList}\small\item\em Скопированное значение интенсивности распределения (для быстрого доступа). \end{DoxyCompactList}\item 
+\Hypertarget{classPoisGen_a9b138a2a41477137b7d275df7f77d17e}\label{classPoisGen_a9b138a2a41477137b7d275df7f77d17e} 
+int {\bfseries \+\_\+min\+\_\+val}
+\begin{DoxyCompactList}\small\item\em Минимальное значение, зафиксированное в сгенерированной выборке. \end{DoxyCompactList}\item 
+\Hypertarget{classPoisGen_a68926a3e6efab783263f6165d45b1f9b}\label{classPoisGen_a68926a3e6efab783263f6165d45b1f9b} 
+int {\bfseries \+\_\+max\+\_\+val}
+\begin{DoxyCompactList}\small\item\em Максимальное значение, зафиксированное в сгенерированной выборке. \end{DoxyCompactList}\item 
+\Hypertarget{classPoisGen_a342bc72ba404b3cb1fa01f04cc5310c8}\label{classPoisGen_a342bc72ba404b3cb1fa01f04cc5310c8} 
+int {\bfseries \+\_\+sample\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Текущий размер сгенерированной выборки. \end{DoxyCompactList}\item 
+\Hypertarget{classPoisGen_aa607ed38091f25516e446a18d2c82a90}\label{classPoisGen_aa607ed38091f25516e446a18d2c82a90} 
+int \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+sample}
+\begin{DoxyCompactList}\small\item\em Динамический массив, хранящий элементы сгенерированной выборки. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classPoisGen_a46b563ce7fdca58396fa7633187cf776}\label{classPoisGen_a46b563ce7fdca58396fa7633187cf776} 
+\mbox{\hyperlink{classDistribution}{Distribution}} \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+dist}
+\begin{DoxyCompactList}\small\item\em Указатель на объект распределения с параметрами. \end{DoxyCompactList}\item 
+\Hypertarget{classPoisGen_ae17b8e5ab4be10236bed05705b65ac92}\label{classPoisGen_ae17b8e5ab4be10236bed05705b65ac92} 
+std\+::mt19937\+\_\+64 \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+stdgen}
+\begin{DoxyCompactList}\small\item\em Указатель на базовый внешний движок генерации псевдослучайных чисел (Mersenne Twister). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Абстрактный базовый класс для генераторов случайных величин, распределенных по Пуассону. 
+
+Определяет общий интерфейс генерации единичных значений и накопления массивов выборок. Объекты {\ttfamily \+\_\+dist} и {\ttfamily \+\_\+stdgen} являются внешними ресурсами и не уничтожаются данным классом. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classPoisGen_a5b8f9bc27cec99392f346efbd1a1eabd}\label{classPoisGen_a5b8f9bc27cec99392f346efbd1a1eabd} 
+\index{PoisGen@{PoisGen}!PoisGen@{PoisGen}}
+\index{PoisGen@{PoisGen}!PoisGen@{PoisGen}}
+\doxysubsubsection{\texorpdfstring{PoisGen()}{PoisGen()}}
+{\footnotesize\ttfamily Pois\+Gen\+::\+Pois\+Gen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDistribution}{Distribution}} \texorpdfstring{$\ast$}{*}}]{dist,  }\item[{std\+::mt19937\+\_\+64 \texorpdfstring{$\ast$}{*}}]{stdgen }\end{DoxyParamCaption})}
+
+
+
+Конструктор базового генератора. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dist} & Внешний объект распределения. \\
+\hline
+{\em stdgen} & Внешний генератор базовых случайных чисел. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classPoisGen_ac4a7fd7af6f38c3ceb0c6305c32bded4}\label{classPoisGen_ac4a7fd7af6f38c3ceb0c6305c32bded4} 
+\index{PoisGen@{PoisGen}!gen@{gen}}
+\index{gen@{gen}!PoisGen@{PoisGen}}
+\doxysubsubsection{\texorpdfstring{gen()}{gen()}}
+{\footnotesize\ttfamily virtual int Pois\+Gen\+::gen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Чистая виртуальная функция для генерации одного случайного значения. 
+
+Должна быть переопределена в конкретных классах-\/наследниках (например, \doxylink{classPoisGen1}{Pois\+Gen1}, \doxylink{classPoisGen2}{Pois\+Gen2}) с реализацией конкретного алгоритма моделирования (метод трансформации, метод обратных функций и т.\+д.). \begin{DoxyReturn}{Returns}
+int Сгенерированное случайное число. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classPoisGen1_a506f1612bc44e827f475a7897e69a5f5}{Pois\+Gen1}}, and \mbox{\hyperlink{classPoisGen2_abfa98a9611a0d5b6e9f98b5de63e1e8c}{Pois\+Gen2}}.
+
+\Hypertarget{classPoisGen_abf3816dc00aab6af3d91e0b6fbdadc39}\label{classPoisGen_abf3816dc00aab6af3d91e0b6fbdadc39} 
+\index{PoisGen@{PoisGen}!gen\_sample@{gen\_sample}}
+\index{gen\_sample@{gen\_sample}!PoisGen@{PoisGen}}
+\doxysubsubsection{\texorpdfstring{gen\_sample()}{gen\_sample()}}
+{\footnotesize\ttfamily void Pois\+Gen\+::gen\+\_\+sample (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Сгенерировать и сохранить выборку случайных величин заданного размера. 
+
+Метод автоматически очищает старую выборку, выделяет новую память, заполняет её с помощью вызовов виртуальной функции \doxylink{classPoisGen_ac4a7fd7af6f38c3ceb0c6305c32bded4}{gen()} и фиксирует минимумы/максимумы. 
+\begin{DoxyParams}{Parameters}
+{\em n} & Требуемый размер выборки. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+poisgen.\+h\item 
+poisgen.\+cpp\end{DoxyCompactItemize}

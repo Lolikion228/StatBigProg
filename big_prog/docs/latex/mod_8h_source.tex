@@ -1,0 +1,34 @@
+\doxysection{mod.\+h}
+\hypertarget{mod_8h_source}{}\label{mod_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MOD\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MOD\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}poisgen.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}probdist.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}utils.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}chisq.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keywordtype}{double}\ pval(\mbox{\hyperlink{classDistribution}{Distribution}}\ *d0,\ \mbox{\hyperlink{classPoisGen}{PoisGen}}*\ h1\_gen,\ \textcolor{keywordtype}{int}\ sample\_size);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keywordtype}{void}\ psample(\mbox{\hyperlink{classDistribution}{Distribution}}\ *d0,\ \mbox{\hyperlink{classPoisGen}{PoisGen}}*\ h1\_gen,\ \textcolor{keywordtype}{int}\ psample\_size,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *X,\ \textcolor{keywordtype}{int}\ main\_sample\_size);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ pecdf(\mbox{\hyperlink{classPoisGen}{PoisGen}}*\ h0\_gen,\ \mbox{\hyperlink{classPoisGen}{PoisGen}}*\ h1\_gen,\ \textcolor{keywordtype}{double}\ alpha,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ psample\_size,\ \textcolor{keywordtype}{int}\ main\_sample\_size);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{void}\ ecdf(\textcolor{keywordtype}{double}\ *X,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{double}\ step\_size,\ \textcolor{keywordtype}{double}\ *F);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{int}\ get\_pdist(\mbox{\hyperlink{classPoisGen}{PoisGen}}*\ h0\_gen,\ \mbox{\hyperlink{classPoisGen}{PoisGen}}*\ h1\_gen,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ psample\_size,\ \textcolor{keywordtype}{int}\ main\_sample\_size,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ \&F0,\ \textcolor{keywordtype}{double}*\ \&F1,\ \textcolor{keywordtype}{double}\ alpha,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \&obs\_sgnf\_lvl,\ \textcolor{keywordtype}{double}\ \&obs\_pwr);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MOD\_H}}
+
+\end{DoxyCode}

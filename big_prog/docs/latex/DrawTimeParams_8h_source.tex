@@ -1,0 +1,37 @@
+\doxysection{Draw\+Time\+Params.\+h}
+\hypertarget{DrawTimeParams_8h_source}{}\label{DrawTimeParams_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DRAWTIMEPARAMS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DRAWTIMEPARAMS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}poisgen1.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}poisgen2.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}utils.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QDebug>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}distribution.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDrawTimeParams}{DrawTimeParams}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ std::mt19937\_64*\ \_stdgen;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{double}\ lambda\_min;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ lambda\_max;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{double}\ cnt\_steps;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{int}\ sample\_size;}
+\DoxyCodeLine{00020\ \ \ \ \ std::chrono::milliseconds*\ dur1;}
+\DoxyCodeLine{00021\ \ \ \ \ std::chrono::milliseconds*\ dur2;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ update\_dur();}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classDrawTimeParams}{DrawTimeParams}}(std::mt19937\_64*\ stdgen);}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classDrawTimeParams}{DrawTimeParams}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classDrawTimeParams}{DrawTimeParams}}\&\ other);}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classDrawTimeParams}{DrawTimeParams}}(\mbox{\hyperlink{classDrawTimeParams}{DrawTimeParams}}\&\&\ other);}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classDrawTimeParams}{DrawTimeParams}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classDrawTimeParams}{DrawTimeParams}}\&\ other);}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classDrawTimeParams}{\string~DrawTimeParams}}();}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DRAWTIMEPARAMS\_H}}
+
+\end{DoxyCode}
