@@ -21,6 +21,10 @@ public:
     double *_obs_freqs;
 
     ChiSq(PoisGen *gen, Distribution *d0);
+    ChiSq(const ChiSq& other);
+    ChiSq(ChiSq&& other);
+    ChiSq& operator=(const ChiSq& other);
+
     void set_sample(PoisGen *gen, Distribution *d0);
 
     ~ChiSq();

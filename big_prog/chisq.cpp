@@ -98,6 +98,70 @@ double ChiSq::compute_chisq_stat(){
 }
 
 
+
+ChiSq::ChiSq(const ChiSq& other) :
+    _pval(other._pval),
+    _stat(other._stat),
+    _df(other._df),
+    _n_states(other._n_states),
+    _exp_freqs(nullptr),
+    _obs_freqs(nullptr)
+{
+    if (other._exp_freqs && _n_states > 0) {
+        _exp_freqs = new double[_n_states];
+        _obs_freqs = new double[_n_states];
+        for (int i = 0; i < _n_states; ++i) {
+            _exp_freqs[i] = other._exp_freqs[i];
+            _obs_freqs[i] = other._obs_freqs[i];
+        }
+    }
+}
+
+
+ChiSq::ChiSq(ChiSq&& other) :
+    _pval(other._pval),
+    _stat(other._stat),
+    _df(other._df),
+    _n_states(other._n_states),
+    _exp_freqs(other._exp_freqs),
+    _obs_freqs(other._obs_freqs)
+{
+    other._exp_freqs = nullptr;
+    other._obs_freqs = nullptr;
+    other._n_states = 0;
+}
+
+
+ChiSq& ChiSq::operator=(const ChiSq& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    delete[] _exp_freqs;
+    delete[] _obs_freqs;
+
+    _pval = other._pval;
+    _stat = other._stat;
+    _df = other._df;
+    _n_states = other._n_states;
+
+    if (other._exp_freqs && _n_states > 0) {
+        _exp_freqs = new double[_n_states];
+        _obs_freqs = new double[_n_states];
+        for (int i = 0; i < _n_states; ++i) {
+            _exp_freqs[i] = other._exp_freqs[i];
+            _obs_freqs[i] = other._obs_freqs[i];
+        }
+    } else {
+        _exp_freqs = nullptr;
+        _obs_freqs = nullptr;
+    }
+
+    return *this;
+}
+
+
+
 ChiSq::~ChiSq(){
     delete[] _obs_freqs;
     delete[] _exp_freqs;
