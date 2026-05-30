@@ -24,7 +24,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mod.cpp \
-    mysample.cpp \
     poisgen.cpp \
     poisgen1.cpp \
     poisgen2.cpp \
@@ -46,7 +45,6 @@ HEADERS += \
     document.h \
     mainwindow.h \
     mod.h \
-    mysample.h \
     poisgen.h \
     poisgen1.h \
     poisgen2.h \
