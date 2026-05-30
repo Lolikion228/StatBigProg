@@ -16,6 +16,10 @@ class HistGenParams{
     PoisGen* curr_gen;
 
     HistGenParams(std::mt19937_64* stdgen);
+    HistGenParams(const HistGenParams& other);
+    HistGenParams(HistGenParams&& other);
+    HistGenParams& operator=(const HistGenParams& other);
+
     void set_params(double lambda, int method_ix);
     ~HistGenParams();
 };

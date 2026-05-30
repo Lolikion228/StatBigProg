@@ -30,6 +30,71 @@ void HistGenParams::set_params(double lambda, int method_ix){
     }
 }
 
+
+
+HistGenParams::HistGenParams(const HistGenParams& other) :
+    _dist(nullptr),
+    _stdgen(other._stdgen),
+    h1_lambda(other.h1_lambda),
+    _method_ix(other._method_ix),
+    curr_gen(nullptr)
+{
+    if (other._dist) {
+        _dist = new Distribution(*other._dist);
+    }
+
+    if (other.curr_gen) {
+        if (_method_ix == 1) {
+            curr_gen = new PoisGen1(*static_cast<PoisGen1*>(other.curr_gen));
+        } else if (_method_ix == 2) {
+            curr_gen = new PoisGen2(*static_cast<PoisGen2*>(other.curr_gen));
+        }
+    }
+}
+
+
+HistGenParams::HistGenParams(HistGenParams&& other):
+    _dist(other._dist),
+    _stdgen(other._stdgen),
+    h1_lambda(other.h1_lambda),
+    _method_ix(other._method_ix),
+    curr_gen(other.curr_gen)
+{
+    other._dist = nullptr;
+    other.curr_gen = nullptr;
+}
+
+
+HistGenParams& HistGenParams::operator=(const HistGenParams& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    delete curr_gen;
+    delete _dist;
+
+    _stdgen = other._stdgen;
+    h1_lambda = other.h1_lambda;
+    _method_ix = other._method_ix;
+
+    _dist = other._dist ? new Distribution(*other._dist) : nullptr;
+
+    if (other.curr_gen) {
+        if (_method_ix == 1) {
+            curr_gen = new PoisGen1(*static_cast<PoisGen1*>(other.curr_gen));
+        } else if (_method_ix == 2) {
+            curr_gen = new PoisGen2(*static_cast<PoisGen2*>(other.curr_gen));
+        }
+    } else {
+        curr_gen = nullptr;
+    }
+
+    return *this;
+}
+
+
+
+
 HistGenParams::~HistGenParams(){
     delete curr_gen;
     delete _dist;
