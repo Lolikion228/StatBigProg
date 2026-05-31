@@ -1,8 +1,0 @@
-<map id="PDistGenParams" name="PDistGenParams">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,200,128,225"/>
-<area shape="rect" id="Node000002" href="$classDistribution.html" title="Класс для расчета и хранения теоретических вероятностей распределения Пуассона." alt="" coords="23,5,111,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,44,60,93,61,153,67,200,62,200,56,154,55,93,60,44"/>
-<area shape="rect" id="Node000003" href="$classPoisGen.html" title="Абстрактный базовый класс для генераторов случайных величин, распределенных по Пуассону." alt="" coords="88,95,160,121"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="84,40,119,94,114,96,79,43"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="113,134,75,201,71,198,109,131"/>
-</map>

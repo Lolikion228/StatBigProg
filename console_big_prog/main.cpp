@@ -17,29 +17,19 @@
  * В данном примере создается теоретическое распределение Пуассона, генерируется выборка
  * с помощью инверсного метода (`PoisGenInvFunc`) и вычисляются частоты вместе со значением p-value.
  *
- * @snippet main.cpp Chisq_Example
+ * @snippet ./console_big_prog/main.cpp Chisq_Example
  *
  * ## 2. Моделирование распределений p-value (Критерий H0 vs H1)
  * Пример демонстрирует применение функции `get_pdist` для генерации векторов эмпирических функций
  * распределения статистик под воздействием верной нулевой и альтернативной гипотез.
  *
- * @snippet main.cpp Pecdf_Example
+ * @snippet ./console_big_prog/main.cpp Pecdf_Example
  *
  * ## 3. Управление кэшем распределения и генератор Кнута (PoisGenKnuth)
  * Показывает, как работает динамический дорасчет табличных вероятностей в классе `Distribution`,
  * а также прямое извлечение случайных чисел через переопределенный метод Кнута.
  *
- * @snippet main.cpp Knuth_Cache_Example
- *
- * ## 4. Проведение нагрузочных тестов времени выполнения
- * Использование класса `DrawTimeParams` для автоматического замера скорости генерации больших объемов
- * данных при изменении параметра интенсивности \f$\lambda\f$.
- *
- * @snippet main.cpp Performance_Example
- *
- *
- * Графический интерфейс разработан на базе фреймворка Qt и предоставляет пользователю
- * мощные инструменты для визуализации результатов.
+ * @snippet ./console_big_prog/main.cpp Knuth_Cache_Example
  *
  * ---
  *
@@ -125,7 +115,7 @@ int compareInts(const void* a, const void* b) {
 }
 
 void test_chisq(){
-    //! [Chisq_Example]
+    // ![Chisq_Example]
     int N=50;
     double lambda=10.3;
 
@@ -158,12 +148,12 @@ void test_chisq(){
 
     delete d0;
     delete curr_gen;
-    //! [Chisq_Example]
+    // ![Chisq_Example]
 }
 
 
 void test_pecdf(){
-    //! [Pecdf_Example]
+    // ![Pecdf_Example]
     int main_sample_size = 100;
     int psample_size = 10000;
     double lambda_h0 = 10;
@@ -199,11 +189,11 @@ void test_pecdf(){
     delete h1_gen;
     delete F0;
     delete F1;
-    //! [Pecdf_Example]
+    // ![Pecdf_Example]
 }
 
 void test_distribution_and_knuth(){
-    //! [Knuth_Cache_Example]
+    // ![Knuth_Cache_Example]
     double lambda = 4.0;
     Distribution dist(lambda);
 
@@ -236,7 +226,7 @@ void test_distribution_and_knuth(){
     print_arr(knuth_gen._sample,10);
     std::cout << "Sample statistics -> Min: " << knuth_gen._min_val
               << ", Max: " << knuth_gen._max_val << "\n";
-    //! [Knuth_Cache_Example]
+    // ![Knuth_Cache_Example]
 }
 
 
