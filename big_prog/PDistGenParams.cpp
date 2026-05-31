@@ -12,19 +12,20 @@ PDistGenParams::PDistGenParams(std::mt19937_64* stdgen):
     sgnf_level(0.15),
     obs_sgnf_level(0),
     obs_power(0),
+    N(1 / 0.05),
 
     d0(nullptr),
     d1(nullptr),
     h0_gen(nullptr),
     h1_gen(nullptr),
-    h0_sample(nullptr),
-    h1_sample(nullptr)
+    h0_sample(new double[N]{}),
+    h1_sample(new double[N]{})
 {
     set_params(INIT_METHOD_IX,
                INIT_H0_LAMBDA,
                INIT_H1_LAMBDA);
 
-    N = get_pdist(h0_sample, h1_sample, h0_gen, h1_gen,
+    get_pdist(h0_sample, h1_sample, h0_gen, h1_gen,
                   psample_size, main_sample_size,
                   sgnf_level, obs_sgnf_level, obs_power);
 

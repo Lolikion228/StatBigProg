@@ -68,12 +68,12 @@ int get_pdist(double* &F0, double* &F1,
 
     double* p0 = new double[psample_size];
     psample(d0, h0_gen, psample_size, p0, main_sample_size);
-    F0 = new double[N]{};
+    // F0 = new double[N]{};
     ecdf(p0, psample_size, GOOD_STEP_SIZE, F0);
 
     double* p1 = new double[psample_size];
     psample(d0, h1_gen, psample_size, p1, main_sample_size);
-    F1 = new double[N]{};
+    // F1 = new double[N]{};
     ecdf(p1, psample_size, GOOD_STEP_SIZE, F1);
 
     int ix = 0;

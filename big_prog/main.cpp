@@ -186,9 +186,9 @@ int main(int argc, char *argv[])
 //    Distribution *d1 = new Distribution(lambda_h1);
 //    PoisGen *h0_gen = new PoisGenInvFunc(d0, stdgen);
 //    PoisGen *h1_gen = new PoisGenInvFunc(d1, stdgen);
-
-//    double *F0 = nullptr;
-//    double *F1 = nullptr;
+//    int N = 1 / 0.05;
+//    double *F0 = new double[N]{};
+//    double *F1 = new double[N]{};
 //    double obs_sgnf_lvl;
 //    double obs_pwr;
 

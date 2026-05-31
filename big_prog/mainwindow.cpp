@@ -57,7 +57,9 @@ void MainWindow::onSetPDistGenParamsDialog(){
 
         delete[] doc->pdist_gen_params->h0_sample;
         delete[] doc->pdist_gen_params->h1_sample;
-
+        int N = doc->pdist_gen_params->N;
+        doc->pdist_gen_params->h0_sample = new double[N]{};
+        doc->pdist_gen_params->h1_sample = new double[N]{};
         doc -> pdist_gen_params -> N = get_pdist(doc->pdist_gen_params -> h0_sample,
                                                  doc->pdist_gen_params -> h1_sample,
                                                  doc->pdist_gen_params -> h0_gen,
@@ -164,6 +166,9 @@ void MainWindow::onGenSampleButton(){
         case DrawObj::PvalDist: {
             delete[] doc->pdist_gen_params->h0_sample;
             delete[] doc->pdist_gen_params->h1_sample;
+            int N = doc->pdist_gen_params->N;
+            doc->pdist_gen_params->h0_sample = new double[N]{};
+            doc->pdist_gen_params->h1_sample = new double[N]{};
             doc->pdist_gen_params->N = get_pdist(doc->pdist_gen_params->h0_sample,
                                                  doc->pdist_gen_params->h1_sample,
                                                  doc->pdist_gen_params->h0_gen,
