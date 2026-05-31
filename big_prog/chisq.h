@@ -57,6 +57,7 @@ public:
     ChiSq(const ChiSq& other);
     ChiSq(ChiSq&& other);
     ChiSq& operator=(const ChiSq& other);
+    ChiSq& operator=(ChiSq&& other);
 
     /**
      * @brief Пересчитать критерий Хи-квадрат для новой выборки или нового распределения.

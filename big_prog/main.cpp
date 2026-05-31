@@ -93,213 +93,223 @@
  */
 
 
-// #include "mainwindow.h"
-// #include <QApplication>
-// int main(int argc, char *argv[])
-// {
-//     QApplication a(argc, argv);
-//     MainWindow w;
-//     w.show();
-//     return a.exec();
+#include "mainwindow.h"
+#include <QApplication>
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    return a.exec();
+}
+
+
+// #include "chisq.h"
+// #include <random>
+// // #include "utils.h"
+// #include "poisgen.h"
+// #include "poisgen1.h"
+// #include "DrawTimeParams.h"
+// #include "poisgen2.h"
+// #include "distribution.h"
+// #include "mod.h"
+// #include <algorithm>
+
+// const double GOOD_STEP_SIZE = 0.05;
+// const double EPS = 1e-6;
+// auto stdgen = new std::mt19937_64(2007);
+
+// template <typename T>
+// void print_arr(T *arr, int N){
+//    std::cout << "[";
+//    for(int i=0; i<N; ++i){
+//        std::cout << arr[i] << " ";
+//    }
+//    std::cout << "]\n";
+// }
+
+// int compareInts(const void* a, const void* b) {
+//    int int_a = *((int*)a);
+//    int int_b = *((int*)b);
+
+//    if (int_a < int_b) return -1;
+//    if (int_a > int_b) return 1;
+//    return 0;
+// }
+
+// void test_chisq(){
+//     //! [Chisq_Example]
+//     int N=50;
+//     double lambda=10.3;
+
+//     // 1. Создаем теоретическое распределение Пуассона
+//     Distribution *d0 = new Distribution(lambda);
+
+//     // 2. Инициализируем генератор с методом обратной ф-ии
+//     PoisGen *curr_gen = new PoisGen1(d0, stdgen);
+
+//     // 3. Моделируем случайную выборку объема N
+//    curr_gen->gen_sample(N);
+
+//     // Сортируем для наглядности
+//    qsort(curr_gen->_sample, N, sizeof(int), compareInts);
+//    std::cout << "sample: ";
+//    print_arr(curr_gen->_sample, N);
+//    std::cout << "\n";
+
+//    // 4. Проводим анализ критерием Хи-квадрат Пирсона
+//    ChiSq test(curr_gen, d0);
+
+//    // 5. Выводим результаты
+//    std::cout << "df = " << test._df << "\n";
+//    std::cout << "pval = " << test._pval << "\n";
+//    std::cout << "statistic = " << test._stat << "\n";
+//    std::cout << "i  | exp_freqs | obs_freqs\n";
+//    for(int i=0; i<test._n_states; ++i){
+//        printf("%2d    %6.3f  %10.3f\n", i, test._exp_freqs[i], test._obs_freqs[i]);
+//    }
+
+//    delete d0;
+//    delete curr_gen;
+//    //! [Chisq_Example]
 // }
 
 
-#include "chisq.h"
-#include <random>
-// #include "utils.h"
-#include "poisgen.h"
-#include "poisgen1.h"
-#include "DrawTimeParams.h"
-#include "poisgen2.h"
-#include "distribution.h"
-#include "mod.h"
-#include <algorithm>
+// void test_pecdf(){
+//     //! [Pecdf_Example]
+//    int main_sample_size = 100;
+//    int psample_size = 10000;
+//    double lambda_h0 = 10;
+//    double lambda_h1 = 10.9;
+//    double alpha = 0.35;
 
-const double GOOD_STEP_SIZE = 0.05;
-const double EPS = 1e-6;
-auto stdgen = new std::mt19937_64(2007);
+//    Distribution *d0 = new Distribution(lambda_h0);
+//    Distribution *d1 = new Distribution(lambda_h1);
+//    PoisGen *h0_gen = new PoisGen1(d0, stdgen);
+//    PoisGen *h1_gen = new PoisGen1(d1, stdgen);
 
-template <typename T>
-void print_arr(T *arr, int N){
-   std::cout << "[";
-   for(int i=0; i<N; ++i){
-       std::cout << arr[i] << " ";
-   }
-   std::cout << "]\n";
-}
-
-int compareInts(const void* a, const void* b) {
-   int int_a = *((int*)a);
-   int int_b = *((int*)b);
-
-   if (int_a < int_b) return -1;
-   if (int_a > int_b) return 1;
-   return 0;
-}
-
-void test_chisq(){
-    //! [Chisq_Example]
-    int N=50;
-    double lambda=10.3;
-
-    // 1. Создаем теоретическое распределение Пуассона
-    Distribution *d0 = new Distribution(lambda);
-
-    // 2. Инициализируем генератор с методом обратной ф-ии
-    PoisGen *curr_gen = new PoisGen1(d0, stdgen);
-
-    // 3. Моделируем случайную выборку объема N
-   curr_gen->gen_sample(N);
-
-    // Сортируем для наглядности
-   qsort(curr_gen->_sample, N, sizeof(int), compareInts);
-   std::cout << "sample: ";
-   print_arr(curr_gen->_sample, N);
-   std::cout << "\n";
-
-   // 4. Проводим анализ критерием Хи-квадрат Пирсона
-   ChiSq test(curr_gen, d0);
-
-   // 5. Выводим результаты
-   std::cout << "df = " << test._df << "\n";
-   std::cout << "pval = " << test._pval << "\n";
-   std::cout << "statistic = " << test._stat << "\n";
-   std::cout << "i  | exp_freqs | obs_freqs\n";
-   for(int i=0; i<test._n_states; ++i){
-       printf("%2d    %6.3f  %10.3f\n", i, test._exp_freqs[i], test._obs_freqs[i]);
-   }
-
-   delete d0;
-   delete curr_gen;
-   //! [Chisq_Example]
-}
+//    double *F0 = nullptr;
+//    double *F1 = nullptr;
+//    double obs_sgnf_lvl;
+//    double obs_pwr;
+//
+/*
+1) move operator
+2) rename poisgen_k
+*/
 
 
-void test_pecdf(){
-    //! [Pecdf_Example]
-   int main_sample_size = 100;
-   int psample_size = 10000;
-   double lambda_h0 = 10;
-   double lambda_h1 = 10.9;
-   double alpha = 0.35;
+//
+//    // Функция расчета эмпирической функции распределения p-value при H0 и H1
+ //  TODO   // поменять местами арги
+      // вынести выделение памяти из ф-ии
+//    get_pdist(h0_gen, h1_gen, psample_size, main_sample_size, F0, F1, alpha, obs_sgnf_lvl, obs_pwr);
 
-   Distribution *d0 = new Distribution(lambda_h0);
-   Distribution *d1 = new Distribution(lambda_h1);
-   PoisGen *h0_gen = new PoisGen1(d0, stdgen);
-   PoisGen *h1_gen = new PoisGen1(d1, stdgen);
+//    int N = 1 / GOOD_STEP_SIZE;
+//    std::cout << "val     F0     F1\n";
+//    for(int i=0; i<N; ++i){
+//        printf("%3.2f  %5.3f  %5.3f\n", GOOD_STEP_SIZE*(i+1), F0[i], F1[i]);
+//    }
 
-   double *F0;
-   double *F1;
-   double obs_sgnf_lvl;
-   double obs_pwr;
+//    std::cout << "\n";
+//    printf("at alpha = %.3f\n", alpha);
+//    printf("ERR_1 = %.3f   POW = %.3f\n", obs_sgnf_lvl, obs_pwr);
 
-   // Функция расчета эмпирической функции распределения p-value при H0 и H1
-   get_pdist(h0_gen, h1_gen, psample_size, main_sample_size, F0, F1, alpha, obs_sgnf_lvl, obs_pwr);
+//    delete d0;
+//    delete d1;
 
-   int N = 1 / GOOD_STEP_SIZE;
-   std::cout << "val     F0     F1\n";
-   for(int i=0; i<N; ++i){
-       printf("%3.2f  %5.3f  %5.3f\n", GOOD_STEP_SIZE*(i+1), F0[i], F1[i]);
-   }
+//    //! [Pecdf_Example]
+// }
 
-   std::cout << "\n";
-   printf("at alpha = %.3f\n", alpha);
-   printf("ERR_1 = %.3f   POW = %.3f\n", obs_sgnf_lvl, obs_pwr);
+// void test_distribution_and_knuth(){
+//     //! [Knuth_Cache_Example]
+//     double lambda = 4.0;
+//     Distribution dist(lambda);
 
-   delete d0;
-   delete d1;
-   //! [Pecdf_Example]
-}
+//     // Демонстрация работы с кэшем вероятностей класса Distribution
+//     std::cout << "Initial capacity: " << dist._capacity << "\n";
+//     std::cout << "Initial computed elements: " << dist._n_computed << "\n";
 
-void test_distribution_and_knuth(){
-    //! [Knuth_Cache_Example]
-    double lambda = 4.0;
-    Distribution dist(lambda);
+//     // Запрашиваем расчет вероятностей до 20-го состояния
+//     dist.update_probs(20);
+//     std::cout << "Capacity after update: " << dist._capacity << "\n";
+//     std::cout << "Computed elements after update: " << dist._n_computed << "\n";
 
-    // Демонстрация работы с кэшем вероятностей класса Distribution
-    std::cout << "Initial capacity: " << dist._capacity << "\n";
-    std::cout << "Initial computed elements: " << dist._n_computed << "\n";
+//     // Выведем первые несколько теоретических вероятностей P(X = k)
+//     std::cout << "Theoretical PMF: ";
+//     print_arr(dist._computed_probs, 5);
 
-    // Запрашиваем расчет вероятностей до 20-го состояния
-    dist.update_probs(20);
-    std::cout << "Capacity after update: " << dist._capacity << "\n";
-    std::cout << "Computed elements after update: " << dist._n_computed << "\n";
+//     // Инициализируем второй генератор (Алгоритм Кнута)
+//     PoisGen2 knuth_gen(&dist, stdgen);
 
-    // Выведем первые несколько теоретических вероятностей P(X = k)
-    std::cout << "Theoretical PMF: ";
-    print_arr(dist._computed_probs, 5);
+//     // Генерируем 10 единичных значений методом gen() напрямую
+//     std::cout << "Direct gen() calls (Knuth): ";
+//     for(int i = 0; i < 10; ++i) {
+//         std::cout << knuth_gen.gen() << " ";
+//     }
+//     std::cout << "\n";
 
-    // Инициализируем второй генератор (Алгоритм Кнута)
-    PoisGen2 knuth_gen(&dist, stdgen);
-
-    // Генерируем 10 единичных значений методом gen() напрямую
-    std::cout << "Direct gen() calls (Knuth): ";
-    for(int i = 0; i < 10; ++i) {
-        std::cout << knuth_gen.gen() << " ";
-    }
-    std::cout << "\n";
-
-    // Генерируем выборку и смотрим зафиксированные экстремумы
-    std::cout << "generating the whole sample: ";
-    knuth_gen.gen_sample(10);
-    print_arr(knuth_gen._sample,10);
-    std::cout << "Sample statistics -> Min: " << knuth_gen._min_val
-              << ", Max: " << knuth_gen._max_val << "\n";
-    //! [Knuth_Cache_Example]
-}
+//     // Генерируем выборку и смотрим зафиксированные экстремумы
+//     std::cout << "generating the whole sample: ";
+//     knuth_gen.gen_sample(10);
+//     print_arr(knuth_gen._sample,10);
+//     std::cout << "Sample statistics -> Min: " << knuth_gen._min_val
+//               << ", Max: " << knuth_gen._max_val << "\n";
+//     //! [Knuth_Cache_Example]
+// }
 
 
-void test_performance_params(){
-    //! [Performance_Example]
-    // Создаем объект параметров замера времени от лямбда
-    DrawTimeParams time_params(stdgen);
+// void test_performance_params(){
+//     //! [Performance_Example]
+//     // Создаем объект параметров замера времени от лямбда
+//     DrawTimeParams time_params(stdgen);
 
-    time_params.lambda_min = 1.0;
-    time_params.lambda_max = 20.0;
-    time_params.cnt_steps = 5; // Сделаем 5 шагов по лямбде
-    time_params.sample_size = 50000; // Объем выборки на каждом шаге
+//     time_params.lambda_min = 1.0;
+//     time_params.lambda_max = 20.0;
+//     time_params.cnt_steps = 5; // Сделаем 5 шагов по лямбде
+//     time_params.sample_size = 50000; // Объем выборки на каждом шаге
 
-    std::cout << "Running performance test for PoisGen1 and PoisGen2...\n";
-    // Функция выполняет внутренний цикл замеров времени
-    time_params.update_dur();
+//     std::cout << "Running performance test for PoisGen1 and PoisGen2...\n";
+//     // Функция выполняет внутренний цикл замеров времени
+//     time_params.update_dur();
 
-    int steps = static_cast<int>(time_params.cnt_steps) + 1;
-    std::cout << "Steps | Lambda | PoisGen1 (ms) | PoisGen2 (ms)\n";
-    for(int i = 0; i < steps; ++i) {
-        double current_lambda = time_params.lambda_min +
-                                (double(i) / time_params.cnt_steps) * (time_params.lambda_max - time_params.lambda_min);
+//     int steps = static_cast<int>(time_params.cnt_steps) + 1;
+//     std::cout << "Steps | Lambda | PoisGen1 (ms) | PoisGen2 (ms)\n";
+//     for(int i = 0; i < steps; ++i) {
+//         double current_lambda = time_params.lambda_min +
+//                                 (double(i) / time_params.cnt_steps) * (time_params.lambda_max - time_params.lambda_min);
 
-        printf("%5d | %6.2f | %13lld | %13lld\n",
-               i, current_lambda,
-               time_params.dur1[i].count(),
-               time_params.dur2[i].count());
-    }
-    //! [Performance_Example]
-}
+//         printf("%5d | %6.2f | %13lld | %13lld\n",
+//                i, current_lambda,
+//                time_params.dur1[i].count(),
+//                time_params.dur2[i].count());
+//     }
+//     //! [Performance_Example]
+// }
 
-int main(int argc, char *argv[])
-{
-    std::cout << "--- TEST CHISQ ---\n";
-    test_chisq();
+// int main(int argc, char *argv[])
+// {
+//     std::cout << "--- TEST CHISQ ---\n";
+//     test_chisq();
 
-    std::cout << "\n" << std::string(40, '#') << "\n\n";
+//     std::cout << "\n" << std::string(40, '#') << "\n\n";
 
-    std::cout << "--- TEST PECDF ---\n";
-    test_pecdf();
+//     std::cout << "--- TEST PECDF ---\n";
+//     test_pecdf();
 
-    std::cout << "\n" << std::string(40, '#') << "\n\n";
+//     std::cout << "\n" << std::string(40, '#') << "\n\n";
 
-    std::cout << "--- TEST KNUTH & CACHE ---\n";
-    test_distribution_and_knuth();
+//     std::cout << "--- TEST KNUTH & CACHE ---\n";
+//     test_distribution_and_knuth();
 
-    std::cout << "\n" << std::string(40, '#') << "\n\n";
+//     std::cout << "\n" << std::string(40, '#') << "\n\n";
 
-    std::cout << "--- TEST PERFORMANCE PARAMS ---\n";
-    test_performance_params();
+//     std::cout << "--- TEST PERFORMANCE PARAMS ---\n";
+//     test_performance_params();
 
-    delete stdgen;
-    return 0;
-}
+//     delete stdgen;
+//     return 0;
+// }
 
 
 

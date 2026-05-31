@@ -26,6 +26,7 @@ public:
 
     Distribution(const Distribution& other);
     Distribution(Distribution&& other);
+    Distribution& operator=(Distribution&& other);
     Distribution& operator=(const Distribution& other);
 
     /**

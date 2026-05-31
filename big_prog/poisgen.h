@@ -31,6 +31,7 @@ public:
     PoisGen(const PoisGen& other);
     PoisGen(PoisGen&& other);
     PoisGen& operator=(const PoisGen& other);
+    PoisGen& operator=(PoisGen&& other);
 
     /**
      * @brief Виртуальный деструктор. Гарантирует безопасную очистку памяти массива `_sample`

@@ -88,6 +88,26 @@ PoisGen& PoisGen::operator=(const PoisGen& other) {
     return *this;
 }
 
+PoisGen& PoisGen::operator=(PoisGen&& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    delete[] _sample;
+
+    _dist = other._dist;
+    _stdgen = other._stdgen;
+    _lambda = other._lambda;
+    _min_val = other._min_val;
+    _max_val = other._max_val;
+    _sample_size = other._sample_size;
+    _sample = other._sample;
+
+    other._sample = nullptr;
+    other._sample_size = 0;
+
+    return *this;
+}
 
 PoisGen::~PoisGen(){
     delete[] _sample;

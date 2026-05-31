@@ -160,6 +160,27 @@ ChiSq& ChiSq::operator=(const ChiSq& other) {
     return *this;
 }
 
+ChiSq& ChiSq::operator=(ChiSq&& other) noexcept {
+    if (this == &other) {
+        return *this;
+    }
+
+    delete[] _exp_freqs;
+    delete[] _obs_freqs;
+
+    _pval = other._pval;
+    _stat = other._stat;
+    _df = other._df;
+    _n_states = other._n_states;
+    _exp_freqs = other._exp_freqs;
+    _obs_freqs = other._obs_freqs;
+
+    other._exp_freqs = nullptr;
+    other._obs_freqs = nullptr;
+    other._n_states = 0;
+
+    return *this;
+}
 
 
 ChiSq::~ChiSq(){

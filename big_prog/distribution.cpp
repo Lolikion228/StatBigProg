@@ -123,6 +123,29 @@ Distribution& Distribution::operator=(const Distribution& other) {
 }
 
 
+Distribution& Distribution::operator=(Distribution&& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    delete[] _computed_probs;
+    delete[] _computed_cumsums;
+
+    _lambda = other._lambda;
+    _capacity = other._capacity;
+    _n_computed = other._n_computed;
+    _computed_probs = other._computed_probs;
+    _computed_cumsums = other._computed_cumsums;
+
+    other._computed_probs = nullptr;
+    other._computed_cumsums = nullptr;
+    other._capacity = 0;
+    other._n_computed = 0;
+
+    return *this;
+}
+
+
 Distribution::~Distribution(){
     delete[] _computed_cumsums;
     delete[] _computed_probs;
