@@ -58,12 +58,12 @@ void MainWindow::onSetPDistGenParamsDialog(){
         delete[] doc->pdist_gen_params->h0_sample;
         delete[] doc->pdist_gen_params->h1_sample;
 
-        doc -> pdist_gen_params -> N = get_pdist(doc->pdist_gen_params -> h0_gen,
+        doc -> pdist_gen_params -> N = get_pdist(doc->pdist_gen_params -> h0_sample,
+                                                 doc->pdist_gen_params -> h1_sample,
+                                                 doc->pdist_gen_params -> h0_gen,
                                                  doc->pdist_gen_params -> h1_gen,
                                                  doc->pdist_gen_params -> psample_size,
                                                  doc->pdist_gen_params -> main_sample_size,
-                                                 doc->pdist_gen_params -> h0_sample,
-                                                 doc->pdist_gen_params -> h1_sample,
                                                  doc->pdist_gen_params -> sgnf_level,
                                                  doc->pdist_gen_params -> obs_sgnf_level,
                                                  doc->pdist_gen_params -> obs_power);
@@ -164,12 +164,12 @@ void MainWindow::onGenSampleButton(){
         case DrawObj::PvalDist: {
             delete[] doc->pdist_gen_params->h0_sample;
             delete[] doc->pdist_gen_params->h1_sample;
-            doc->pdist_gen_params->N = get_pdist(doc->pdist_gen_params->h0_gen,
+            doc->pdist_gen_params->N = get_pdist(doc->pdist_gen_params->h0_sample,
+                                                 doc->pdist_gen_params->h1_sample,
+                                                 doc->pdist_gen_params->h0_gen,
                                                  doc->pdist_gen_params->h1_gen,
                                                  doc->pdist_gen_params->psample_size,
                                                  doc->pdist_gen_params->main_sample_size,
-                                                 doc->pdist_gen_params->h0_sample,
-                                                 doc->pdist_gen_params->h1_sample,
                                                  doc->pdist_gen_params->sgnf_level,
                                                  doc->pdist_gen_params->obs_sgnf_level,
                                                  doc->pdist_gen_params->obs_power);

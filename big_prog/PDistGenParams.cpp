@@ -24,9 +24,9 @@ PDistGenParams::PDistGenParams(std::mt19937_64* stdgen):
                INIT_H0_LAMBDA,
                INIT_H1_LAMBDA);
 
-    N = get_pdist(h0_gen, h1_gen,
-              psample_size, main_sample_size,
-              h0_sample, h1_sample, sgnf_level, obs_sgnf_level, obs_power);
+    N = get_pdist(h0_sample, h1_sample, h0_gen, h1_gen,
+                  psample_size, main_sample_size,
+                  sgnf_level, obs_sgnf_level, obs_power);
 
 }
 
