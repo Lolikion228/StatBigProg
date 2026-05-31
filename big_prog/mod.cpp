@@ -1,5 +1,5 @@
 #include "mod.h"
-#include "QDebug"
+//#include "QDebug"
 const double GOOD_STEP_SIZE = 0.05;
 const double GOOD_CUM_EXP_FREQ_THRESH = 5.0;
 const double EPS = 1e-6;

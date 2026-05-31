@@ -1,5 +1,5 @@
 #include "chisq.h"
-#include <QDebug>
+//#include <QDebug>
 
 ChiSq::ChiSq(PoisGen *gen, Distribution *d0):
 _df(0),
