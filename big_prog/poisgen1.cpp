@@ -1,7 +1,7 @@
 #include "poisgen1.h"
 
 
-int PoisGen1::gen(){
+int PoisGenInvFunc::gen(){
     int k = 0;
 
     double alpha = _stdgen->operator()() / (double)std::numeric_limits<uint64_t>::max();

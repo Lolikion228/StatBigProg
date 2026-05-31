@@ -23,10 +23,10 @@ void HistGenParams::set_params(double lambda, int method_ix){
     _dist = new Distribution(h1_lambda);
 
     if (_method_ix==1){
-        curr_gen = new PoisGen1(_dist, _stdgen);
+        curr_gen = new PoisGenInvFunc(_dist, _stdgen);
     }
     if (_method_ix==2){
-        curr_gen = new PoisGen2(_dist, _stdgen);
+        curr_gen = new PoisGenKnuth(_dist, _stdgen);
     }
 }
 
@@ -45,9 +45,9 @@ HistGenParams::HistGenParams(const HistGenParams& other) :
 
     if (other.curr_gen) {
         if (_method_ix == 1) {
-            curr_gen = new PoisGen1(*static_cast<PoisGen1*>(other.curr_gen));
+            curr_gen = new PoisGenInvFunc(*static_cast<PoisGenInvFunc*>(other.curr_gen));
         } else if (_method_ix == 2) {
-            curr_gen = new PoisGen2(*static_cast<PoisGen2*>(other.curr_gen));
+            curr_gen = new PoisGenKnuth(*static_cast<PoisGenKnuth*>(other.curr_gen));
         }
     }
 }
@@ -81,9 +81,9 @@ HistGenParams& HistGenParams::operator=(const HistGenParams& other) {
 
     if (other.curr_gen) {
         if (_method_ix == 1) {
-            curr_gen = new PoisGen1(*static_cast<PoisGen1*>(other.curr_gen));
+            curr_gen = new PoisGenInvFunc(*static_cast<PoisGenInvFunc*>(other.curr_gen));
         } else if (_method_ix == 2) {
-            curr_gen = new PoisGen2(*static_cast<PoisGen2*>(other.curr_gen));
+            curr_gen = new PoisGenKnuth(*static_cast<PoisGenKnuth*>(other.curr_gen));
         }
     } else {
         curr_gen = nullptr;

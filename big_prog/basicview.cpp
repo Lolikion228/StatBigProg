@@ -361,10 +361,10 @@ void BasicView::draw_time_event(QPainter &painter){
     // legend v2
     int text_y = margin;
     int center_x = w / 2;
-    QString text_dur1 = "▬ Метод 1";
+    QString text_dur1 = "▬ InvFunc";
     painter.setPen(Qt::red);
     painter.drawText(center_x - 220, text_y, 200, margin / 2, Qt::AlignRight, text_dur1);
-    QString text_dur2 = "▬ Метод 2";
+    QString text_dur2 = "▬ KnuthMthd";
     painter.setPen(Qt::blue);
     painter.drawText(center_x + 20, text_y, 200, margin / 2, Qt::AlignLeft, text_dur2);
 

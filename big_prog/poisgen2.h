@@ -14,16 +14,16 @@
  * \f$\lambda\f$ (обычно \f$\lambda > 30\f$) возникает проблема машинного недозаряда (underflow), так как \f$e^{-\lambda}\f$
  * становится критически близко к нулю. Также для больших \f$\lambda\f$ метод становится медленным из-за большого числа умножений.
  */
-class PoisGen2 : public PoisGen
+class PoisGenKnuth : public PoisGen
 {
 public:
     /**
-     * @brief Конструктор генератора PoisGen2.
+     * @brief Конструктор генератора PoisGenKnuth.
      * @details Перенаправляет параметры в конструктор базового класса PoisGen.
      * @param dist Указатель на объект теоретического распределения с параметрами.
      * @param stdgen Указатель на внешний движок генерации псевдослучайных чисел.
      */
-    PoisGen2(Distribution *dist, std::mt19937_64* stdgen):
+    PoisGenKnuth(Distribution *dist, std::mt19937_64* stdgen):
         PoisGen(dist, stdgen){}
 
     /**

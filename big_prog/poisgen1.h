@@ -13,17 +13,17 @@
  * * @note Этот метод эффективен при небольших значениях лямбда (\f$\lambda\f$), однако при росте интенсивности
  * среднее число итераций цикла увеличивается линейно (\f$M[k] = \lambda\f$), что может снижать производительность.
  */
-class PoisGen1 : public PoisGen
+class PoisGenInvFunc : public PoisGen
 {
 public:
 
     /**
-     * @brief Конструктор генератора PoisGen1.
+     * @brief Конструктор генератора PoisGenInvFunc.
      * @details Перенаправляет параметры в конструктор базового класса PoisGen.
      * @param dist Указатель на объект теоретического распределения с параметрами.
      * @param stdgen Указатель на внешний движок генерации псевдослучайных чисел.
      */
-    PoisGen1(Distribution *dist, std::mt19937_64* stdgen):
+    PoisGenInvFunc(Distribution *dist, std::mt19937_64* stdgen):
         PoisGen(dist, stdgen){}
 
     /**

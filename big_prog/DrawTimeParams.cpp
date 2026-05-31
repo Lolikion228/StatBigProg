@@ -29,8 +29,8 @@ void DrawTimeParams::update_dur(){
         double lambda = lambda_min + (i / cnt_steps) * (lambda_max - lambda_min);
 
         Distribution *d = new Distribution(lambda);
-        PoisGen1 *gen1 = new PoisGen1(d, _stdgen);
-        PoisGen2 *gen2 = new PoisGen2(d, _stdgen);
+        PoisGenInvFunc *gen1 = new PoisGenInvFunc(d, _stdgen);
+        PoisGenKnuth *gen2 = new PoisGenKnuth(d, _stdgen);
 
         start = std::chrono::high_resolution_clock::now();
         gen1->gen_sample(sample_size);

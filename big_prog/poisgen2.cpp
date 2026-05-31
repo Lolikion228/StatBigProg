@@ -1,6 +1,6 @@
 #include "poisgen2.h"
 
-int PoisGen2::gen(){
+int PoisGenKnuth::gen(){
     double t = 1;
     double c = exp(-_lambda);
     int n = 0;

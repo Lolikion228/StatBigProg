@@ -46,12 +46,12 @@ void PDistGenParams::set_params(int method_ix,
     d1 = new Distribution(h1_lambda);
 
     if (method_ix==1){
-        h0_gen = new PoisGen1(d0, _stdgen);
-        h1_gen = new PoisGen1(d1, _stdgen);
+        h0_gen = new PoisGenInvFunc(d0, _stdgen);
+        h1_gen = new PoisGenInvFunc(d1, _stdgen);
     }
     if (method_ix==2){
-        h0_gen = new PoisGen2(d0, _stdgen);
-        h1_gen = new PoisGen2(d1, _stdgen);
+        h0_gen = new PoisGenKnuth(d0, _stdgen);
+        h1_gen = new PoisGenKnuth(d1, _stdgen);
     }
 }
 
@@ -75,12 +75,12 @@ PDistGenParams::PDistGenParams(const PDistGenParams& other) :
     if (other.d1) d1 = new Distribution(*other.d1);
 
     if (other.h0_gen) {
-        if (_method_ix == 1) h0_gen = new PoisGen1(*static_cast<PoisGen1*>(other.h0_gen));
-        else if (_method_ix == 2) h0_gen = new PoisGen2(*static_cast<PoisGen2*>(other.h0_gen));
+        if (_method_ix == 1) h0_gen = new PoisGenInvFunc(*static_cast<PoisGenInvFunc*>(other.h0_gen));
+        else if (_method_ix == 2) h0_gen = new PoisGenKnuth(*static_cast<PoisGenKnuth*>(other.h0_gen));
     }
     if (other.h1_gen) {
-        if (_method_ix == 1) h1_gen = new PoisGen1(*static_cast<PoisGen1*>(other.h1_gen));
-        else if (_method_ix == 2) h1_gen = new PoisGen2(*static_cast<PoisGen2*>(other.h1_gen));
+        if (_method_ix == 1) h1_gen = new PoisGenInvFunc(*static_cast<PoisGenInvFunc*>(other.h1_gen));
+        else if (_method_ix == 2) h1_gen = new PoisGenKnuth(*static_cast<PoisGenKnuth*>(other.h1_gen));
     }
 
     if (other.h0_sample && N > 0) {
@@ -147,13 +147,13 @@ PDistGenParams& PDistGenParams::operator=(const PDistGenParams& other) {
     d1 = other.d1 ? new Distribution(*other.d1) : nullptr;
 
     if (other.h0_gen) {
-        if (_method_ix == 1) h0_gen = new PoisGen1(*static_cast<PoisGen1*>(other.h0_gen));
-        else if (_method_ix == 2) h0_gen = new PoisGen2(*static_cast<PoisGen2*>(other.h0_gen));
+        if (_method_ix == 1) h0_gen = new PoisGenInvFunc(*static_cast<PoisGenInvFunc*>(other.h0_gen));
+        else if (_method_ix == 2) h0_gen = new PoisGenKnuth(*static_cast<PoisGenKnuth*>(other.h0_gen));
     } else h0_gen = nullptr;
 
     if (other.h1_gen) {
-        if (_method_ix == 1) h1_gen = new PoisGen1(*static_cast<PoisGen1*>(other.h1_gen));
-        else if (_method_ix == 2) h1_gen = new PoisGen2(*static_cast<PoisGen2*>(other.h1_gen));
+        if (_method_ix == 1) h1_gen = new PoisGenInvFunc(*static_cast<PoisGenInvFunc*>(other.h1_gen));
+        else if (_method_ix == 2) h1_gen = new PoisGenKnuth(*static_cast<PoisGenKnuth*>(other.h1_gen));
     } else h1_gen = nullptr;
 
     if (other.h0_sample && N > 0) {
