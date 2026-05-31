@@ -160,7 +160,7 @@ ChiSq& ChiSq::operator=(const ChiSq& other) {
     return *this;
 }
 
-ChiSq& ChiSq::operator=(ChiSq&& other) noexcept {
+ChiSq& ChiSq::operator=(ChiSq&& other) {
     if (this == &other) {
         return *this;
     }
