@@ -1,0 +1,41 @@
+\doxysection{document.\+h}
+\hypertarget{document_8h_source}{}\label{document_8h_source}\index{big\_prog/document.h@{big\_prog/document.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DOCUMENT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DOCUMENT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QColor>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}poisgen1.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}poisgen2.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}utils.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}mod.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QDebug>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}HistGenParams.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}PDistGenParams.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}DrawTimeParams.h"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDocument}{Document}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ std::mt19937\_64*\ \_stdgen;}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classHistGenParams}{HistGenParams}}*\ hist\_gen\_params;}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classPDistGenParams}{PDistGenParams}}*\ pdist\_gen\_params;}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classDrawTimeParams}{DrawTimeParams}}*\ draw\_time\_params;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classDocument}{Document}}(std::mt19937\_64*\ stdgen);}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classDocument}{Document}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classDocument}{Document}}\&\ other);}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classDocument}{Document}}(\mbox{\hyperlink{classDocument}{Document}}\&\&\ other);}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classDocument}{Document}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classDocument}{Document}}\&\ other);}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classDocument}{\string~Document}}();}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DOCUMENT\_H}}
+
+\end{DoxyCode}

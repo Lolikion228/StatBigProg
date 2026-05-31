@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['_5fcapacity_0',['_capacity',['../classDistribution.html#a357b95d42ef0fcceb26f4abb2e96eeae',1,'Distribution']]],
+  ['_5fcomputed_5fcumsums_1',['_computed_cumsums',['../classDistribution.html#a961fcfea7a7380c8af10f4fa6622579a',1,'Distribution']]],
+  ['_5fcomputed_5fprobs_2',['_computed_probs',['../classDistribution.html#a022f63a837b5341e1b6c10a224a26f34',1,'Distribution']]],
+  ['_5fdf_3',['_df',['../classChiSq.html#a8e1863bc4c4cc6a510a759f069528a31',1,'ChiSq']]],
+  ['_5fdist_4',['_dist',['../classPoisGen.html#a46b563ce7fdca58396fa7633187cf776',1,'PoisGen']]],
+  ['_5fexp_5ffreqs_5',['_exp_freqs',['../classChiSq.html#ac7cd7dee99c198eabbd8c143aeb5855d',1,'ChiSq']]],
+  ['_5flambda_6',['_lambda',['../classPoisGen.html#ac73f2573b8072c7cde4eafeadbbfb08a',1,'PoisGen']]],
+  ['_5fmax_5fval_7',['_max_val',['../classPoisGen.html#a68926a3e6efab783263f6165d45b1f9b',1,'PoisGen']]],
+  ['_5fmin_5fval_8',['_min_val',['../classPoisGen.html#a9b138a2a41477137b7d275df7f77d17e',1,'PoisGen']]],
+  ['_5fn_5fcomputed_9',['_n_computed',['../classDistribution.html#a9eefa16785a3a3a95cd8dceeb8811c86',1,'Distribution']]],
+  ['_5fn_5fstates_10',['_n_states',['../classChiSq.html#a17ae015f522bd7525e5ceaa9cfbc15ce',1,'ChiSq']]],
+  ['_5fobs_5ffreqs_11',['_obs_freqs',['../classChiSq.html#a6102c42d18fb8e6394ee62894e91ede7',1,'ChiSq']]],
+  ['_5fpval_12',['_pval',['../classChiSq.html#a51d3acdddcaa6cc1d0f109f6de07bb18',1,'ChiSq']]],
+  ['_5fsample_13',['_sample',['../classPoisGen.html#aa607ed38091f25516e446a18d2c82a90',1,'PoisGen']]],
+  ['_5fsample_5fsize_14',['_sample_size',['../classPoisGen.html#a342bc72ba404b3cb1fa01f04cc5310c8',1,'PoisGen']]],
+  ['_5fstat_15',['_stat',['../classChiSq.html#a4039b4e0eb847764fc4bb53319c0491c',1,'ChiSq']]],
+  ['_5fstdgen_16',['_stdgen',['../classPoisGen.html#ae17b8e5ab4be10236bed05705b65ac92',1,'PoisGen']]]
+];

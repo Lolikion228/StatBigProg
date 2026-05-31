@@ -1,0 +1,28 @@
+<map id="MainWindow" name="MainWindow">
+<area shape="rect" id="Node000001" title=" " alt="" coords="244,464,341,489"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="119,376,226,401"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,407,278,462,275,466,199,412"/>
+<area shape="rect" id="Node000003" href="$classDocument.html" title=" " alt="" coords="429,288,511,313"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="477,328,473,353,460,375,444,394,406,426,365,450,328,466,326,461,362,445,403,422,440,390,456,372,467,351,471,327"/>
+<area shape="rect" id="Node000009" href="$classBasicView.html" title=" " alt="" coords="251,376,335,401"/>
+<area shape="poly" id="edge12_Node000009_Node000003" title=" " alt="" coords="451,325,413,354,374,371,336,382,334,377,372,366,410,350,448,321"/>
+<area shape="rect" id="Node000004" href="$classHistGenParams.html" title=" " alt="" coords="270,200,385,225"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="341,236,362,262,395,280,429,290,428,295,393,285,359,266,337,239"/>
+<area shape="rect" id="Node000005" href="$classPoisGen.html" title="Абстрактный базовый класс для генераторов случайных величин, распределенных по Пуассону." alt="" coords="359,95,431,121"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="350,129,331,148,326,161,324,174,327,200,322,200,319,174,321,159,326,145,347,125"/>
+<area shape="rect" id="Node000007" href="$classPDistGenParams.html" title=" " alt="" coords="409,200,531,225"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="401,134,406,155,416,174,429,187,445,198,442,202,426,192,412,178,401,157,395,135"/>
+<area shape="rect" id="Node000006" href="$classDistribution.html" title="Класс для расчета и хранения теоретических вероятностей распределения Пуассона." alt="" coords="394,5,482,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="429,44,403,96,399,94,424,42"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="456,42,461,54,470,95,474,137,473,200,468,200,468,137,464,96,455,55,451,44"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="473,239,473,287,467,287,467,239"/>
+<area shape="rect" id="Node000008" href="$classDrawTimeParams.html" title=" " alt="" coords="556,200,683,225"/>
+<area shape="poly" id="edge9_Node000003_Node000008" title=" " alt="" coords="610,239,588,266,551,286,513,296,511,291,549,281,584,262,606,236"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="295,415,295,463,290,463,290,415"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="5,288,79,313"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="90,315,260,373,258,378,88,321"/>
+<area shape="rect" id="Node000011" href="$structHistDrawParams.html" title=" " alt="" coords="103,288,226,313"/>
+<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="184,322,213,350,259,374,257,378,210,354,180,326"/>
+<area shape="rect" id="Node000012" href="$structPDistDrawParams.html" title=" " alt="" coords="250,288,381,313"/>
+<area shape="poly" id="edge14_Node000009_Node000012" title=" " alt="" coords="302,326,297,338,294,358,294,376,289,376,288,357,291,337,297,324"/>
+</map>

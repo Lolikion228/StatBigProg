@@ -1,0 +1,7 @@
+<map id="PoisGen" name="PoisGen">
+<area shape="rect" id="Node000001" title="Абстрактный базовый класс для генераторов случайных величин, распределенных по Пуассону." alt="" coords="97,5,169,31"/>
+<area shape="rect" id="Node000002" href="$classPoisGenInvFunc.html" title="Класс&#45;генератор пуассоновских случайных величин методом обратных функций." alt="" coords="5,79,124,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,42,78,80,74,77,110,39"/>
+<area shape="rect" id="Node000003" href="$classPoisGenKnuth.html" title="Класс&#45;генератор пуассоновских случайных величин на основе связи с экспоненциальным распределением." alt="" coords="149,79,255,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,39,193,77,189,80,152,43"/>
+</map>

@@ -1,0 +1,105 @@
+\doxysection{Chi\+Sq Class Reference}
+\hypertarget{classChiSq}{}\label{classChiSq}\index{ChiSq@{ChiSq}}
+
+
+Класс для проведения статистического анализа соответствия критерию Хи-\/квадрат Пирсона.  
+
+
+
+
+{\ttfamily \#include $<$chisq.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classChiSq_a27318d9365c413c7dbeda072c535c167}{Chi\+Sq}} (\mbox{\hyperlink{classPoisGen}{Pois\+Gen}} \texorpdfstring{$\ast$}{*}gen, \mbox{\hyperlink{classDistribution}{Distribution}} \texorpdfstring{$\ast$}{*}d0)
+\begin{DoxyCompactList}\small\item\em Конструктор, запускающий полный цикл анализа Хи-\/квадрат для генератора. \end{DoxyCompactList}\item 
+\Hypertarget{classChiSq_a0cb184c61d0a5fbf60fb3ef6e24057fa}\label{classChiSq_a0cb184c61d0a5fbf60fb3ef6e24057fa} 
+{\bfseries Chi\+Sq} (const \mbox{\hyperlink{classChiSq}{Chi\+Sq}} \&other)
+\item 
+\Hypertarget{classChiSq_a8a7f7204763586e7b5fdf00735007bd9}\label{classChiSq_a8a7f7204763586e7b5fdf00735007bd9} 
+{\bfseries Chi\+Sq} (\mbox{\hyperlink{classChiSq}{Chi\+Sq}} \&\&other)
+\item 
+\Hypertarget{classChiSq_a4ecf53f4d8a3c6fcb28d91b26bd55ad1}\label{classChiSq_a4ecf53f4d8a3c6fcb28d91b26bd55ad1} 
+\mbox{\hyperlink{classChiSq}{Chi\+Sq}} \& {\bfseries operator=} (const \mbox{\hyperlink{classChiSq}{Chi\+Sq}} \&other)
+\item 
+\Hypertarget{classChiSq_a50cf59479fae7988d6204da0fb6b3e19}\label{classChiSq_a50cf59479fae7988d6204da0fb6b3e19} 
+\mbox{\hyperlink{classChiSq}{Chi\+Sq}} \& {\bfseries operator=} (\mbox{\hyperlink{classChiSq}{Chi\+Sq}} \&\&other)
+\item 
+void \mbox{\hyperlink{classChiSq_acabf0e9ed592c563326b3377420042a0}{set\+\_\+sample}} (\mbox{\hyperlink{classPoisGen}{Pois\+Gen}} \texorpdfstring{$\ast$}{*}gen, \mbox{\hyperlink{classDistribution}{Distribution}} \texorpdfstring{$\ast$}{*}d0)
+\begin{DoxyCompactList}\small\item\em Пересчитать критерий Хи-\/квадрат для новой выборки или нового распределения. \end{DoxyCompactList}\item 
+\Hypertarget{classChiSq_a43b95a805b94190df4829c3f020de600}\label{classChiSq_a43b95a805b94190df4829c3f020de600} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Chi\+Sq} ()
+\begin{DoxyCompactList}\small\item\em Деструктор класса. Освобождает массивы частот \+\_\+exp\+\_\+freqs и \+\_\+obs\+\_\+freqs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classChiSq_a51d3acdddcaa6cc1d0f109f6de07bb18}\label{classChiSq_a51d3acdddcaa6cc1d0f109f6de07bb18} 
+double {\bfseries \+\_\+pval}
+\begin{DoxyCompactList}\small\item\em Вычисленное значение p-\/value для полученной статистики. \end{DoxyCompactList}\item 
+\Hypertarget{classChiSq_a4039b4e0eb847764fc4bb53319c0491c}\label{classChiSq_a4039b4e0eb847764fc4bb53319c0491c} 
+double {\bfseries \+\_\+stat}
+\begin{DoxyCompactList}\small\item\em Итоговое эмпирическое значение статистики Хи-\/квадрат. \end{DoxyCompactList}\item 
+\Hypertarget{classChiSq_a8e1863bc4c4cc6a510a759f069528a31}\label{classChiSq_a8e1863bc4c4cc6a510a759f069528a31} 
+int {\bfseries \+\_\+df}
+\begin{DoxyCompactList}\small\item\em Число степеней свободы (degrees of freedom) для распределения критерия. \end{DoxyCompactList}\item 
+\Hypertarget{classChiSq_a17ae015f522bd7525e5ceaa9cfbc15ce}\label{classChiSq_a17ae015f522bd7525e5ceaa9cfbc15ce} 
+int {\bfseries \+\_\+n\+\_\+states}
+\begin{DoxyCompactList}\small\item\em Исходное количество анализируемых состояний (интервалов) до объединения. \end{DoxyCompactList}\item 
+\Hypertarget{classChiSq_ac7cd7dee99c198eabbd8c143aeb5855d}\label{classChiSq_ac7cd7dee99c198eabbd8c143aeb5855d} 
+double \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+exp\+\_\+freqs}
+\begin{DoxyCompactList}\small\item\em Массив теоретических (ожидаемых) частот для каждого состояния. \end{DoxyCompactList}\item 
+\Hypertarget{classChiSq_a6102c42d18fb8e6394ee62894e91ede7}\label{classChiSq_a6102c42d18fb8e6394ee62894e91ede7} 
+double \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+obs\+\_\+freqs}
+\begin{DoxyCompactList}\small\item\em Массив эмпирических (фактически наблюдавшихся) частот по выборке. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Класс для проведения статистического анализа соответствия критерию Хи-\/квадрат Пирсона. 
+
+Рассчитывает эмпирические и теоретические частоты на основе выборки генератора и проверяет нулевую гипотезу о соответствии пуассоновскому распределению. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classChiSq_a27318d9365c413c7dbeda072c535c167}\label{classChiSq_a27318d9365c413c7dbeda072c535c167} 
+\index{ChiSq@{ChiSq}!ChiSq@{ChiSq}}
+\index{ChiSq@{ChiSq}!ChiSq@{ChiSq}}
+\doxysubsubsection{\texorpdfstring{ChiSq()}{ChiSq()}}
+{\footnotesize\ttfamily Chi\+Sq\+::\+Chi\+Sq (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPoisGen}{Pois\+Gen}} \texorpdfstring{$\ast$}{*}}]{gen,  }\item[{\mbox{\hyperlink{classDistribution}{Distribution}} \texorpdfstring{$\ast$}{*}}]{d0 }\end{DoxyParamCaption})}
+
+
+
+Конструктор, запускающий полный цикл анализа Хи-\/квадрат для генератора. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gen} & Указатель на генератор случайных величин с готовой выборкой. \\
+\hline
+{\em d0} & Указатель на гипотетическое (теоретическое) распределение. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classChiSq_acabf0e9ed592c563326b3377420042a0}\label{classChiSq_acabf0e9ed592c563326b3377420042a0} 
+\index{ChiSq@{ChiSq}!set\_sample@{set\_sample}}
+\index{set\_sample@{set\_sample}!ChiSq@{ChiSq}}
+\doxysubsubsection{\texorpdfstring{set\_sample()}{set\_sample()}}
+{\footnotesize\ttfamily void Chi\+Sq\+::set\+\_\+sample (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPoisGen}{Pois\+Gen}} \texorpdfstring{$\ast$}{*}}]{gen,  }\item[{\mbox{\hyperlink{classDistribution}{Distribution}} \texorpdfstring{$\ast$}{*}}]{d0 }\end{DoxyParamCaption})}
+
+
+
+Пересчитать критерий Хи-\/квадрат для новой выборки или нового распределения. 
+
+Перевыделяет внутреннюю память под частоты и перезапускает вычисления. 
+\begin{DoxyParams}{Parameters}
+{\em gen} & Указатель на генератор с новой выборкой. \\
+\hline
+{\em d0} & Указатель на теоретическое распределение. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+big\+\_\+prog/chisq.\+h\item 
+big\+\_\+prog/chisq.\+cpp\end{DoxyCompactItemize}

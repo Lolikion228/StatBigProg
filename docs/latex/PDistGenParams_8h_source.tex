@@ -1,0 +1,50 @@
+\doxysection{PDist\+Gen\+Params.\+h}
+\hypertarget{PDistGenParams_8h_source}{}\label{PDistGenParams_8h_source}\index{big\_prog/PDistGenParams.h@{big\_prog/PDistGenParams.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PDISTGENPARAMS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PDISTGENPARAMS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}poisgen.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}poisgen1.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}poisgen2.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}distribution.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}mod.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPDistGenParams}{PDistGenParams}}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ std::mt19937\_64*\ \_stdgen;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{int}\ \_method\_ix;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{int}\ psample\_size;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ main\_sample\_size;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ \_h0\_lambda;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{double}\ \_h1\_lambda;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{double}\ sgnf\_level;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{double}\ obs\_sgnf\_level;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{double}\ obs\_power;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classDistribution}{Distribution}}\ *d0;}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classDistribution}{Distribution}}\ *d1;}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classPoisGen}{PoisGen}}*\ h0\_gen;}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classPoisGen}{PoisGen}}*\ h1\_gen;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ N;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{double}*\ h0\_sample;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{double}*\ h1\_sample;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classPDistGenParams}{PDistGenParams}}(std::mt19937\_64*\ stdgen);}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classPDistGenParams}{PDistGenParams}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPDistGenParams}{PDistGenParams}}\&\ other);}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classPDistGenParams}{PDistGenParams}}(\mbox{\hyperlink{classPDistGenParams}{PDistGenParams}}\&\&\ other);}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classPDistGenParams}{PDistGenParams}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPDistGenParams}{PDistGenParams}}\&\ other);}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classPDistGenParams}{\string~PDistGenParams}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_params(\textcolor{keywordtype}{int}\ method\_ix,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ h0\_lambda,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ h1\_lambda);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PDISTGENPARAMS\_H}}
+
+\end{DoxyCode}
