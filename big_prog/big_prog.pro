@@ -6,7 +6,7 @@ CONFIG += c++11
 
 QMAKE_CXXFLAGS += -Wno-reorder -Wno-unused-parameter
 
-INCLUDEPATH += $$PWD/hdrs
+INCLUDEPATH += $$PWD/headers
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
