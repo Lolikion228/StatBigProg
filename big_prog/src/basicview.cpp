@@ -10,6 +10,7 @@ BasicView::BasicView(QWidget *parent, Document* doc)
 {}
 
 
+
 void BasicView::set_what2draw(DrawObj obj_name){
     what2draw = obj_name;
 }
@@ -18,7 +19,6 @@ void BasicView::set_what2draw(DrawObj obj_name){
 void BasicView::set_doc(Document* doc){
     _doc = doc;
 }
-
 
 
 void draw_frame_and_axes(QPainter& painter, const QString& title, int w, int h, int margin,
